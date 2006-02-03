@@ -6,7 +6,7 @@
  * File:    PropertyNotSetException.java
  * Project: jlib.core
  * 
- * Copyright (c) 2006 by Igor Akkerman
+ * Copyright (c) 2006 Igor Akkerman
  * 
  * jlib is distributed under the
  *
