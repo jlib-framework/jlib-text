@@ -1,3 +1,20 @@
+/*
+ * jlib - The Free Java Library
+ * 
+ *    http://www.jlib.org
+ *    
+ * File:    PropertyNotSetException.java
+ * Project: jlib.core
+ * 
+ * Copyright (c) 2006 by Igor Akkerman
+ * 
+ * jlib is distributed under the
+ *
+ *    COMMON PUBLIC LICENSE VERSION 1.0
+ *
+ *    http://www.eclipse.org/legal/cpl-v10.html
+ */
+
 package org.jlib.core.system;
 
 /**
@@ -35,6 +52,7 @@ extends RuntimeException {
     }
 
     // @see java.lang.Throwable#toString()
+    @Override
     public String toString() {
         return getClass().getName() + "[" + propertyName + "]";
     }

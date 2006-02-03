@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- jlib Javadoc Ant file -->
-<!-- by Igor Akkerman -->
+<!--
+   jlib - The Free Java Library
+   
+      http://www.jlib.org
+      
+   File:    Javadoc.xml
+   Project: jlib.core
+   
+   Copyright (c) 2006 by Igor Akkerman
+   
+   jlib is distributed under the
+  
+      COMMON PUBLIC LICENSE VERSION 1.0
+  
+      http://www.eclipse.org/legal/cpl-v10.html
+-->
+
 <project default="javadoc2">
     <target name="javadoc2">
         <javadoc sourcepath="src"
@@ -31,6 +46,9 @@
             <footer>
                 <![CDATA[<b>&copy; 2006 by Igor Akkerman</b>]]>
             </footer>
+            <bottom>
+                <![CDATA[This API is distributed under the <a href="http://www.eclipse.org/legal/cpl-v10.html">Common Public License V1.0</a>.]]>
+            </bottom>
             <link href="http://java.sun.com/j2se/1.5.0/docs/api"
                   offline="true"
                   packagelistLoc="C:\Programme\J2SE Development Kit 5.0 Update 6\docs\api"
