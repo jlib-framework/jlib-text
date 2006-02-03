@@ -228,8 +228,8 @@ implements Collection<Element> {
     }
 
     /**
-     * Returns an Iterator of the Elements of this Matrix traversing it vertically. That is, the traversal algorithm is
-     * as follows:
+     * Returns an Iterator of the Elements of this Matrix traversing it horizontally. That is, the traversal algorithm
+     * is as follows:
      * 
      * <pre>{@literal
      * for each row
