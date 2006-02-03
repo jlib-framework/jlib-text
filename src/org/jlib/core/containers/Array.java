@@ -1,3 +1,20 @@
+/*
+ * jlib - The Free Java Library
+ * 
+ *    http://www.jlib.org
+ *    
+ * File:    Array.java
+ * Project: jlib.core
+ * 
+ * Copyright (c) 2006 by Igor Akkerman
+ * 
+ * jlib is distributed under the
+ *
+ *    COMMON PUBLIC LICENSE VERSION 1.0
+ *
+ *    http://www.eclipse.org/legal/cpl-v10.html
+ */
+
 package org.jlib.core.containers;
 
 import java.util.ArrayList;
@@ -391,6 +408,7 @@ implements List<Element>, RandomAccess, Cloneable {
     }
 
     // @see java.lang.Object#clone()
+    @Override
     public Object clone() {
         return new Array<Element>(minIndex, this);
     }
@@ -625,6 +643,7 @@ implements List<Element>, RandomAccess, Cloneable {
     }
 
     // @see java.lang.Object#equals(java.lang.Object)
+    @Override
     public boolean equals(Object object) {
         if (object == null || !(object instanceof Array<?>))
             return false;
@@ -635,6 +654,7 @@ implements List<Element>, RandomAccess, Cloneable {
     }
 
     // @see java.lang.Object#toString()
+    @Override
     public String toString() {
         return arrayList.toString();
     }

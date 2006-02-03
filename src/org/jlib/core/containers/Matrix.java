@@ -1,3 +1,20 @@
+/*
+ * jlib - The Free Java Library
+ * 
+ *    http://www.jlib.org
+ *    
+ * File:    Matrix.java
+ * Project: jlib.core
+ * 
+ * Copyright (c) 2006 by Igor Akkerman
+ * 
+ * jlib is distributed under the
+ *
+ *    COMMON PUBLIC LICENSE VERSION 1.0
+ *
+ *    http://www.eclipse.org/legal/cpl-v10.html
+ */
+
 package org.jlib.core.containers;
 
 import java.util.Collection;
@@ -6,7 +23,7 @@ import java.util.Iterator;
 import static java.lang.reflect.Array.newInstance;
 
 /**
- * Fixed sized 2D matrix.
+ * Fixed sized matrix.
  * 
  * @param <Element>
  *        type of the elements held in the Matrix
