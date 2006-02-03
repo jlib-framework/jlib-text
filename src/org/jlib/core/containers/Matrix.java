@@ -302,7 +302,7 @@ implements Collection<Element> {
     }
 
     /**
-     * Returns the number of fields in this Matrix. The number of fields is equal to {@code getWidth() * getHeight()}.
+     * Returns the number of fields in this Matrix. The size is equal to {@code getWidth() * getHeight()}.
      * 
      * @return integer specifying the number of fields
      */
