@@ -24,7 +24,7 @@ package org.jlib.core.containers;
  *        type of elements stored in the Matrix
  * @author Igor Akkerman
  */
-public class MatrixRowIterator<Element>
+class MatrixRowIterator<Element>
 extends MatrixIterator<Element> {
 
     /** no default constructor */

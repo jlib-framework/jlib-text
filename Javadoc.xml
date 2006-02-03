@@ -38,10 +38,10 @@
                  source="1.5"
         >
             <doctitle>
-                <![CDATA[jlib - The Free Java Library]]>
+                <![CDATA[jlib Core API 1.0<br /><small>jlib - The Free Java Library</small>]]>
             </doctitle>
             <header>
-                <![CDATA[<b>jlib - The Free Java Library</b>]]>
+                <![CDATA[<b>jlib.core 1.0</b><br /><small><b>jlib - The Free Java Library</b></small>]]>
             </header>
             <footer>
                 <![CDATA[<b>&copy; 2006 by Igor Akkerman</b>]]>
