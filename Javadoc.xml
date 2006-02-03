@@ -7,7 +7,7 @@
    File:    Javadoc.xml
    Project: jlib.core
    
-   Copyright (c) 2006 by Igor Akkerman
+   Copyright (c) 2006 Igor Akkerman
    
    jlib is distributed under the
   
@@ -44,7 +44,7 @@
                 <![CDATA[<b>jlib.core 1.0</b><br /><small><b>jlib - The Free Java Library</b></small>]]>
             </header>
             <footer>
-                <![CDATA[<b>&copy; 2006 by Igor Akkerman</b>]]>
+                <![CDATA[<b>&copy; 2006 Igor Akkerman</b>]]>
             </footer>
             <bottom>
                 <![CDATA[This API is distributed under the <a href="http://www.eclipse.org/legal/cpl-v10.html">Common Public License V1.0</a>.]]>
