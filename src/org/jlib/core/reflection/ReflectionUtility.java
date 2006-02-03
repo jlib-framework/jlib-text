@@ -18,6 +18,7 @@
 package org.jlib.core.reflection;
 
 import org.jlib.core.system.PropertyNotSetException;
+import org.jlib.core.system.SystemUtility;
 
 /**
  * <p>
@@ -140,6 +141,9 @@ public class ReflectionUtility {
      * @param propertyName
      *        String specifying the name of the system property in which the class name is defined
      * @return a new instance of the specified class
+     * @throws SecurityException
+     *         if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the
+     *         specified system property
      * @throws NullPointerException
      *         if {@code propertyName == null}
      * @throws IllegalArgumentException
@@ -156,11 +160,8 @@ public class ReflectionUtility {
      *         </ul>
      */
     public static <Type> Type newInstanceByProperty(String propertyName)
-    throws PropertyNotSetException, ClassInstantiationException {
-        String className = System.getProperty(propertyName);
-        if (className == null)
-            throw new PropertyNotSetException(propertyName);
-
+    throws SecurityException, NullPointerException, PropertyNotSetException, ClassInstantiationException {
+        String className = SystemUtility.getProperty(propertyName);
         return newInstanceOf(className);
     }
 }
