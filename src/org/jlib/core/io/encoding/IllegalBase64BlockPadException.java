@@ -1,0 +1,63 @@
+/*
+ * jlib - The Free Java Library
+ * 
+ *    http://www.jlib.org
+ *    
+ * File:    IllegalBase64BlockPadException.java
+ * Project: jlib.core
+ * 
+ * Copyright (c) 2006 Igor Akkerman
+ * 
+ * jlib is distributed under the
+ *
+ *    COMMON PUBLIC LICENSE VERSION 1.0
+ *
+ *    http://www.eclipse.org/legal/cpl-v10.html
+ */
+
+package org.jlib.core.io.encoding;
+
+/**
+ * Exception thrown if a base64 block contains more than two padding characters or a padding
+ * character at a position other than at the end of the block.
+ * 
+ * @author Igor Akkerman
+ */
+
+public class IllegalBase64BlockPadException
+extends InvalidBase64StreamException {
+
+    /** base64 block containing a wrong padding character */
+    private int[] base64Block;
+
+    /** no default constructor */
+    private IllegalBase64BlockPadException() {}
+
+    /**
+     * Creates a new IllegalBase64BlockPadException for the specified base64 block.
+     * 
+     * @param base64Block
+     *        array of four integers containing the bad base64 block that contains a wrong padding
+     *        character
+     */
+    public IllegalBase64BlockPadException(int[] base64Block) {
+        super();
+        this.base64Block = base64Block;
+    }
+
+    /**
+     * Returns the bad base64 block that contains a wrong padding character.
+     * 
+     * @return array of four integers containing the bad base64 block that contains a wrong padding
+     *         character
+     */
+    public int[] getBase64Block() {
+        return base64Block;
+    }
+
+    // documented in super class
+    public String toString() {
+        return super.toString() + "[" + base64Block[0] + "," + base64Block[1] + "," + base64Block[2] + ","
+               + base64Block[3] + "]";
+    }
+}
