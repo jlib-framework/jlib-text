@@ -17,6 +17,12 @@
 
 package org.jlib.core.io.encoding;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 /**
  * Utility class for base64 encoding operations.
  * 
@@ -32,14 +38,65 @@ public abstract class Base64Utility {
 
     /** no constructor */
     private Base64Utility() {}
-    
+
+    /**
+     * Encodes the specified byte array using base64 encoding.
+     * 
+     * @param inputBytes
+     *        array of bytes containing the bytes to encode
+     * @return String containing the base64 encoded output of {@code inputBytes}
+     * @throws IOException
+     *         if an i/o exception occurs
+     */
+    public static String encodeBase64(byte[] inputBytes)
+    throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        OutputStream base64OutputStream = new Base64OutputStream(outputStream);
+
+        base64OutputStream.write(inputBytes);
+        base64OutputStream.flush();
+        base64OutputStream.close();
+
+        return outputStream.toString();
+    }
+
+    /**
+     * Decodes the specified String using base64 decoding.
+     * 
+     * @param base64String
+     *        base64 encoded String
+     * @return array of decoded bytes from {@code base64String} 
+     * @throws IOException
+     *         if an i/o exception occurs
+     */
+    public static byte[] decodeBase64(String base64String)
+    throws IOException {
+        InputStream inputStream = new ByteArrayInputStream(base64String.getBytes());
+        InputStream base64InputStream = new Base64InputStream(inputStream);
+
+        byte[] readBytes = new byte[1024];
+
+        int len = base64InputStream.read(readBytes);
+        if (len == -1) {
+            len = 0;
+        }
+        base64InputStream.close();
+
+        byte[] outputBytes = new byte[len];
+        for (int i = 0; i < len; i ++) {
+            outputBytes[i] = readBytes[i];
+        }
+
+        return (byte[]) outputBytes;
+    }
+
     /**
      * Returns the value represented by the specified base64 character.
      * 
      * @param base64Character
      *        integer specifying the base64 character
-     * @return integer value represented by {@code base64Char}; -1 if {@code base64Char} is the padding
-     *         character
+     * @return integer value represented by {@code base64Char}; -1 if {@code base64Char} is the
+     *         padding character
      * @throws IllegalBase64CharacterException
      *         if the specified character does not belong to the base64 alphabet
      */
