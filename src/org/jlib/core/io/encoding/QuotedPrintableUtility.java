@@ -17,10 +17,16 @@
 
 package org.jlib.core.io.encoding;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import org.jlib.core.util.number.NumberUtility;
 
 /**
- * Utility class for quoted printable encoding operations.
+ * Utility class for quoted-printable encoding operations.
  * 
  * @author Igor Akkerman
  */
@@ -28,6 +34,57 @@ public abstract class QuotedPrintableUtility {
 
     /** no constructor */
     private QuotedPrintableUtility() {}
+
+    /**
+     * Encodes the specified byte array using quoted printable encoding.
+     *
+     * @param inputBytes
+     *        array of bytes containing the bytes to encode
+     * @return String containing the quoted-printable encoded output of {@code inputBytes}
+     * @throws IOException
+     *         if an i/o exception occurs
+     */
+    public static String encodeQuotedPrintable(byte[] inputBytes)
+    throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        OutputStream qpOutputStream = new QuotedPrintableOutputStream(outputStream);
+
+        qpOutputStream.write(inputBytes);
+        qpOutputStream.flush();
+        qpOutputStream.close();
+
+        return outputStream.toString();
+    }
+
+    /**
+     * Decodes the specified String using quoted-printable decoding.
+     * 
+     * @param qpString
+     *        quoted-printable encoded String
+     * @return array of decoded bytes from {@code qpString} 
+     * @throws IOException
+     *         if an i/o exception occurs
+     */
+    public static byte[] decodeQuotedPrintable(String qpString)
+    throws IOException {
+        InputStream inputStream = new ByteArrayInputStream(qpString.getBytes());
+        InputStream qpInputStream = new QuotedPrintableInputStream(inputStream);
+
+        byte[] readBytes = new byte[1024];
+
+        int length = qpInputStream.read(readBytes);
+        if (length == -1) {
+            length = 0;
+        }
+        qpInputStream.close();
+
+        byte[] outputBytes = new byte[length];
+        for (int i = 0; i < length; i++) {
+            outputBytes[i] = readBytes[i];
+        }
+
+        return outputBytes;
+    }
 
     /**
      * Creates an octet for the specified value.
