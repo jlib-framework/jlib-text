@@ -174,18 +174,18 @@ extends FilterInputStream {
      */
     private int getNumPaddingCharacters()
     throws IllegalBase64BlockPadException {
-        if (inputBuffer[0] != PAD && inputBuffer[1] != PAD && inputBuffer[2] != PAD && inputBuffer[3] != PAD) {
+        boolean[] pad = new boolean[4];
+        for (int i = 0; i <= 3; i ++)
+            pad[i] = (inputBuffer[i] == PAD);
+        
+        if (!pad[0] && !pad[1] && !pad[2] && !pad[3])
             return 0;
-        }
-        else if (inputBuffer[0] != PAD && inputBuffer[1] != PAD && inputBuffer[2] != PAD && inputBuffer[3] == PAD && (inputBuffer[2] & 0x03) == 0) {
+        else if (!pad[0] && !pad[1] && !pad[2] && pad[3] && (inputBuffer[2] & 0x03) == 0)
             return 1;
-        }
-        else if (inputBuffer[0] != PAD && inputBuffer[1] != PAD && inputBuffer[2] == PAD && inputBuffer[3] == PAD && (inputBuffer[1] & 0x0F) == 0) {
+        else if (!pad[0] && !pad[1] && pad[2] && pad[3] && (inputBuffer[1] & 0x0F) == 0)
             return 2;
-        }
-        else {
+        else
             throw new IllegalBase64BlockPadException(inputBuffer);
-        }
     }
 
     /**
