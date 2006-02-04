@@ -46,7 +46,9 @@ import java.util.RandomAccess;
  * Special features:
  * </p>
  * <ul>
- * <li> Minimum and maximum index:<br/> On instantiation, you can specify the minimum and the maximum index of the
+ * <li>
+ * Minimum and maximum index: <br/>
+ * On instantiation, you can specify the minimum and the maximum index of the
  * Array. Thus, no offset is necessary for Arrays starting at other indexes than 0. The following example illustrates
  * how an Array is filled with numbers from 1 to 10:
  * 
@@ -59,15 +61,22 @@ import java.util.RandomAccess;
  * </pre>
  * 
  * </li>
- * <li> Conformance to the Java Collections framework<br/> The class implements the {@code java.util.List} interface
- * and thus behaves like all Java collections. </li>
- * <li> Full support for generics:<br/> The Java arrays do not support generic classes. For example, you cannot create
- * an array of String lists:
+ * <li>
+ * Conformance to the Java Collections framework <br/>
+ * The class implements the {@code java.util.List} interface and thus behaves like all Java Collections.
+ * </li>
+ * <br />
+ * <li>
+ * Full support for generics:<br/>
+ * The Java arrays do not support generic classes. For example, you cannot create an array of String lists:
  * 
  * <pre>
  * {@literal
- * // FORBIDDEN!                                           // ALLOWED!
- * List<String>[] stringListArray = new List<String>[10];  Array<List<String>> stringListArray = new Array<List<String>>(10);}
+ * // FORBIDDEN!
+ * List<String>[] stringListArray = new List<String>[10];
+ * 
+ * // PERMITTED!
+ * Array<List<String>> stringListArray = new Array<List<String>>(10);}
  * </pre>
  * 
  * </li>
