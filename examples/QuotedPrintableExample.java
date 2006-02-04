@@ -1,5 +1,3 @@
-package org.jlib.core;
-
 import static org.jlib.core.io.encoding.QuotedPrintableUtility.decodeQuotedPrintable;
 import static org.jlib.core.io.encoding.QuotedPrintableUtility.encodeQuotedPrintable;
 
