@@ -23,7 +23,63 @@ import java.util.Iterator;
 import static java.lang.reflect.Array.newInstance;
 
 /**
- * Fixed sized matrix.
+ * <p>
+ * Fixed sized matrix. Replacement for two-dimensional arrays with special features.
+ * </p>
+ * <p>
+ * The only syntactical difference to two-dimensinal arrays lies in the syntax of setting and getting objects:
+ * </p>
+ * 
+ * <pre>
+ * {@literal
+ * // good(?) old two-dimensional array           // cool(!) new jlib Matrix class 
+ * String[][] stringMatrix = new String[10][5];   Matrix<String> stringMatrix = new Matrix<String>(10, 5);
+ * stringMatrix[2][3] = "Too old!";               stringMatrix.set(2, 3, "Brandnew!");
+ * String s = stringMatrix[2][3];                 String s = stringMatrix.get(2, 3); }
+ * </pre>
+ * 
+ * <p>
+ * Special features:
+ * </p>
+ * <ul>
+ * <li>
+ * Minimum and maximum width and height:<br/> On instantiation, you can specify the minimum and the maximum width and
+ * height of the Matrix. Thus, no offset is necessary for matrices starting at other indexes than 0. The following
+ * example illustrates how a (4x2)-Matrix with indexes starting at 1, in which every entry is the product of the column
+ * and row number:
+ * 
+ * <pre>
+ * {@literal
+ * // good(?) old two-dimensional array             // cool(!) new jlib Matrix class 
+ * Integer[][] integerMatrix = new Integer[4][2];   Matrix<Integer> integerMatrix = new Matrix<Integer>(4, 2);
+ * for (int row = 1; row <= 2; row ++)              for (int row = 1; row <= 2; row ++)
+ *   for (int col = 1; col <= 4; col ++)                for (int col = 1; col <= 4; col ++)
+ *     integerMatrix[col - 1][row - 1] = col * row;         integerMatrix.set(col, row, col * row); }
+ * </pre>
+ * </li>
+ * 
+ * <li>
+ * Conformance to the Java Collections framework <br/>
+ * The class implements the {@code java.util.Collection} interface and thus behaves like all Java Collections.
+ * </li>
+ * <br />
+ * <li>
+ * Full support for generics:<br/>
+ * The Java arrays do not support generic classes. For example, you cannot create an array of String Lists:
+ * <pre>
+ * {@literal
+ * // FORBIDDEN!
+ * Set<String>[][] stringSetMatrix = new Set<String>[4][2];
+ * 
+ * // PERMITTED!
+ * Matrix<Set<String>> stringSetMatrix = new Matrix<Set<String>>(4, 2);}
+ * </pre>
+ * </li>
+ * </ul>
+ * <p>
+ * A Matrix has a fixed size, thus no Elements can be added to or removed from it. The corresponding methods for adding
+ * and removing Elements all throw an {@link UnsupportedOperationException}.
+ * </p>
  * 
  * @param <Element>
  *        type of the elements held in the Matrix
