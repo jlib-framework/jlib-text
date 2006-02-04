@@ -17,7 +17,6 @@
 
 package org.jlib.core.io.encoding;
 
-import static org.jlib.core.io.encoding.Base64Utility.PAD;
 import static org.jlib.core.io.encoding.Base64Utility.mapBase64Character;
 
 import java.io.FilterInputStream;
@@ -33,6 +32,9 @@ import java.io.InputStream;
 public class Base64InputStream
 extends FilterInputStream {
 
+    /** padding byte */
+    private static final byte PAD = -1;
+    
     /** input buffer */
     private int[] inputBuffer = new int[4];
 
