@@ -1,5 +1,3 @@
-package org.jlib.examples.encoding;
-
 import static org.jlib.core.io.encoding.Base64Utility.decodeBase64;
 import static org.jlib.core.io.encoding.Base64Utility.encodeBase64;
 
