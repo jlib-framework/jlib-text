@@ -17,6 +17,8 @@
 
 package org.jlib.core.io.encoding;
 
+import static org.jlib.core.util.number.NumberUtility.parseHexNumberToByte;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,7 +39,7 @@ public abstract class QuotedPrintableUtility {
 
     /**
      * Encodes the specified byte array using quoted printable encoding.
-     *
+     * 
      * @param inputBytes
      *        array of bytes containing the bytes to encode
      * @return String containing the quoted-printable encoded output of {@code inputBytes}
@@ -61,7 +63,7 @@ public abstract class QuotedPrintableUtility {
      * 
      * @param qpString
      *        quoted-printable encoded String
-     * @return array of decoded bytes from {@code qpString} 
+     * @return array of decoded bytes from {@code qpString}
      * @throws IOException
      *         if an i/o exception occurs
      */
@@ -79,7 +81,7 @@ public abstract class QuotedPrintableUtility {
         qpInputStream.close();
 
         byte[] outputBytes = new byte[length];
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i ++) {
             outputBytes[i] = readBytes[i];
         }
 
@@ -90,8 +92,8 @@ public abstract class QuotedPrintableUtility {
      * Creates an octet for the specified value.
      * 
      * @param value
-     *        byte specifying the value of the octet to create
-     * @return byte array containing the octet characters
+     *        byte holding the value of the octet to create
+     * @return array of bytes containing the octet characters
      */
     public static byte[] createOctet(byte value) {
         int intValue = NumberUtility.toUnsignedInt(value);
@@ -103,4 +105,24 @@ public abstract class QuotedPrintableUtility {
 
         return octet;
     }
+
+    /**
+     * Decodes an encoded octet from the specified array of bytes.
+     * 
+     * @param octetBytes
+     *        array of bytes containing an octet
+     * @return byte containing the octet value
+     * @throws IllegalQuotedPrintableOctetException
+     *         if illegal characters follow the encoding prefix
+     */
+    public static byte decodeOctet(byte[] octetBytes)
+    throws IllegalQuotedPrintableOctetException {
+        try {
+            return parseHexNumberToByte(octetBytes, 1, 2);
+        }
+        catch (NumberFormatException nfe) {
+            throw new IllegalQuotedPrintableOctetException(octetBytes[1], octetBytes[2]);
+        }
+    }
+
 }
