@@ -13,7 +13,7 @@
   
       COMMON PUBLIC LICENSE VERSION 1.0
   
-      http://www.eclipse.org/legal/cpl-v10.html
+      http://www.opensource.org/licenses/cpl1.0.php
 -->
 
 <project default="javadoc2">
@@ -47,7 +47,7 @@
                 <![CDATA[<b>&copy; 2006 Igor Akkerman</b>]]>
             </footer>
             <bottom>
-                <![CDATA[This API is distributed under the <a href="http://www.eclipse.org/legal/cpl-v10.html">Common Public License V1.0</a>.]]>
+                <![CDATA[This API is distributed under the <a href="http://www.opensource.org/licenses/cpl1.0.php" target="_blank">Common Public License V1.0</a>.]]>
             </bottom>
             <link href="http://java.sun.com/j2se/1.5.0/docs/api"
                   offline="true"
