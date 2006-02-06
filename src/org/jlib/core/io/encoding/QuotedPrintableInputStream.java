@@ -17,11 +17,13 @@
 
 package org.jlib.core.io.encoding;
 
+import static org.jlib.core.util.number.NumberUtility.parseHexNumberToByte;
+import static org.jlib.core.util.number.NumberUtility.toSignedByte;
+import static org.jlib.core.util.number.NumberUtility.toUnsignedInt;
+
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.jlib.core.util.number.NumberUtility;
 
 /**
  * FilterInputStream performing a quoted-printable decoding of a source InputStream.
@@ -66,7 +68,7 @@ extends FilterInputStream {
     public int read()
     throws IOException {
         try {
-            return NumberUtility.toUnsignedInt(getNextByte());
+            return toUnsignedInt(getNextByte());
         }
         catch (EndOfQuotedPrintableStreamException eoqpse) {
             return -1;
@@ -156,7 +158,7 @@ extends FilterInputStream {
     private byte decodeOctet()
     throws IllegalQuotedPrintableOctetException {
         try {
-            return NumberUtility.parseHexNumberToByte(inputBuffer, 1, 2);
+            return parseHexNumberToByte(inputBuffer, 1, 2);
         }
         catch (NumberFormatException nfe) {
             throw new IllegalQuotedPrintableOctetException(inputBuffer[1], inputBuffer[2]);
@@ -175,7 +177,7 @@ extends FilterInputStream {
             inputBuffer[j] = inputBuffer[i];
         }
         for (int i = inputBufferSize; i <= 2; i ++) {
-            inputBuffer[i] = NumberUtility.toSignedByte(in.read());
+            inputBuffer[i] = toSignedByte(in.read());
         }
     }
 }

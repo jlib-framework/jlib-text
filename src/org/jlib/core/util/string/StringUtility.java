@@ -33,14 +33,14 @@ public class StringUtility {
         back,
 
         /**
-         * equal front and back padding. If the number of characters to pad is odd, the front will be padded with one
-         * character more than the back
+         * equal front and back padding. If the number of characters to pad is odd, the front will
+         * be padded with one character more than the back
          */
         frontback,
 
         /**
-         * equal front and back padding. If the number of characters to pad is odd, the back will be padded with one
-         * character more than the front
+         * equal front and back padding. If the number of characters to pad is odd, the back will be
+         * padded with one character more than the front
          */
         backfront
     }
@@ -49,7 +49,37 @@ public class StringUtility {
     private StringUtility() {};
 
     /**
-     * Pads the specified String width the specified character to the specified length.
+     * Pads the specified String with the blank character at the back to the specified length.
+     * 
+     * @param string
+     *        String to pad
+     * @param length
+     *        integer specifying the desired length of the String
+     * @return padded String. If {@code string.length() >= length} then {@code string} is returned.
+     */
+    public static String pad(String string, int length) {
+        return pad(string, length, ' ', PaddingType.back);
+    }
+
+    /**
+     * Pads the specified String with the blank character using the specified PaddingType to the
+     * specified length.
+     * 
+     * @param string
+     *        String to pad
+     * @param length
+     *        integer specifying the desired length of the String
+     * @param paddingType
+     *        PaddingType specifying how the string should be padded
+     * @return padded String. If {@code string.length() >= length} then {@code string} is returned.
+     */
+    public static String pad(String string, int length, PaddingType paddingType) {
+        return pad(string, length, ' ', paddingType);
+    }
+
+    /**
+     * Pads the specified String with the specified character using the specified PaddingType to the
+     * specified length.
      * 
      * @param string
      *        String to pad

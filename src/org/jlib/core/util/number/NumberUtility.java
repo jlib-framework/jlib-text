@@ -17,6 +17,9 @@
 
 package org.jlib.core.util.number;
 
+import org.jlib.core.util.string.StringUtility;
+import org.jlib.core.util.string.StringUtility.PaddingType;
+
 /**
  * Utility class providing static methods for Number operations and manipulations.
  *
@@ -57,8 +60,44 @@ public class NumberUtility {
     }
 
     /**
-     * Parses a hexadecimal number out of a signed byte array containing the
+     * Parses a hexadecimal number out of the specified signed byte array containing the
      * hexadecimal digit characters into a signed byte.
+     *
+     * @param hexCharacters
+     *        array of bytes containing the hexadecimal digit characters
+     *
+     * @return byte specifying the parsed value
+     *
+     * @throws NumberFormatException
+     *         if the array contains illegal characters
+     */
+    public static byte parseHexNumberToByte(byte[] hexCharacters)
+    throws NumberFormatException {
+        return parseHexNumberToByte(hexCharacters, hexCharacters.length);
+    }
+
+    /**
+     * Parses a hexadecimal number out of the specified signed byte array containing the
+     * hexadecimal digit characters into a signed byte.
+     *
+     * @param hexCharacters
+     *        array of bytes containing the hexadecimal digit characters
+     * @param length
+     *        integer specifying the number of integers to convert
+     *
+     * @return byte specifying the parsed value
+     *
+     * @throws NumberFormatException
+     *         if the array contains illegal characters
+     */
+    public static byte parseHexNumberToByte(byte[] hexCharacters, int length)
+    throws NumberFormatException {
+        return parseHexNumberToByte(hexCharacters, length);
+    }
+
+    /**
+     * Parses a hexadecimal number out of the specified signed byte array containing the
+     * hexadecimal digit characters starting at the specified offset into a signed byte.
      *
      * @param hexCharacters
      *        array of bytes containing the hexadecimal digit characters
@@ -76,23 +115,45 @@ public class NumberUtility {
     throws NumberFormatException {
         int value = 0;
         int digit;
-        for (int i = offset + length - 1, j = 0; j < length; i--, j++) {
-            digit = hexCharacters[i];
-            if (digit >= '0' && digit <= '9') {
-                digit -= '0';
-            }
-            else if (digit >= 'A' && digit <= 'F') {
-                digit = (digit - 'A') + 10;
-            }
-            else if (digit >= 'a' && digit <= 'f') {
-                digit = (digit - 'a') + 10;
-            }
-            else {
-                throw new NumberFormatException("" + (char) digit);
-            }
-            value |= (digit << (4 * j));
+        for (int hexCharacterIndex = offset + length - 1, j = 0; hexCharacterIndex >= offset; hexCharacterIndex --, j += 4) {
+            digit = parseHexDigit((char) hexCharacters[hexCharacterIndex]);
+            value |= (digit << j);
         }
 
         return toSignedByte(value);
+    }
+
+    /**
+     * Parses a hexadecimal digit of the specified character.
+     * 
+     * @param hexDigitCharacter
+     *        character holding a hexadecimal digit
+     * @return integer holding the value of hexDigitCharacter
+     * @throws NumberFormatException
+     *         if {@code hexDigitCharacter} does not hold a hexadecimal digit 
+     */
+    public static int parseHexDigit(char hexDigitCharacter) {
+        if (hexDigitCharacter >= '0' && hexDigitCharacter <= '9')
+            return hexDigitCharacter - '0';
+        else if (hexDigitCharacter >= 'A' && hexDigitCharacter <= 'F')
+            return hexDigitCharacter - 'A' + 10;
+        else if (hexDigitCharacter >= 'a' && hexDigitCharacter <= 'f')
+            return hexDigitCharacter - 'a' + 10;
+        else
+            throw new NumberFormatException(Character.toString(hexDigitCharacter));
+    }
+    
+    /**
+     * Represents the specified integer to a String padded with the blank character at the front to
+     * the specified length.
+     * 
+     * @param integer
+     *        integer to represent as a padded String
+     * @param length
+     *        integer specifying the desired length of the String
+     * @return padded String. If {@code string.length() >= length} then {@code string} is returned.
+     */
+    public static String toPaddedString(int integer, int length) {
+        return StringUtility.pad(Integer.toString(integer), length, ' ', PaddingType.front);
     }
 }
