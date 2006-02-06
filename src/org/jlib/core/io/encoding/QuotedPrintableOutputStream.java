@@ -16,11 +16,12 @@
  */
 package org.jlib.core.io.encoding;
 
+import static org.jlib.core.util.number.NumberUtility.toSignedByte;
+import static org.jlib.core.util.number.NumberUtility.toUnsignedInt;
+
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
-import org.jlib.core.util.number.NumberUtility;
 
 /**
  * FilterOutputStream performing a quoted-printable encoding for a target OutputStream.
@@ -59,7 +60,7 @@ extends FilterOutputStream {
     @Override
     public void write(int b)
     throws IOException {
-        byte value = NumberUtility.toSignedByte(b);
+        byte value = toSignedByte(b);
 
         // if the character may be represented as a literal
         if (value >= 33 && value <= 60 || value >= 62 && value <= 126 || value == 9 || value == 32) {
@@ -94,7 +95,7 @@ extends FilterOutputStream {
     public void write(byte[] buffer, int offset, int length)
     throws IOException {
         for (int i = offset, j = 0; j < length; i ++, j ++) {
-            write(NumberUtility.toUnsignedInt(buffer[i]));
+            write(toUnsignedInt(buffer[i]));
         }
     }
 
@@ -108,7 +109,7 @@ extends FilterOutputStream {
      */
     private void writeCharacter(byte character)
     throws IOException {
-        out.write(NumberUtility.toUnsignedInt(character));
+        out.write(toUnsignedInt(character));
         lastWrittenCharacter = character;
         outputLineLength ++;
     }
@@ -124,7 +125,7 @@ extends FilterOutputStream {
     private void writeCharacters(byte[] characters)
     throws IOException {
         for (int i = 0; i < characters.length; i ++) {
-            out.write(NumberUtility.toUnsignedInt(characters[i]));
+            out.write(toUnsignedInt(characters[i]));
         }
         lastWrittenCharacter = characters[characters.length - 1];
         outputLineLength += characters.length;
