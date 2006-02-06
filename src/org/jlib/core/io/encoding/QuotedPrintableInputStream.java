@@ -17,7 +17,7 @@
 
 package org.jlib.core.io.encoding;
 
-import static org.jlib.core.util.number.NumberUtility.parseHexNumberToByte;
+import static org.jlib.core.io.encoding.QuotedPrintableUtility.decodeOctet;
 import static org.jlib.core.util.number.NumberUtility.toSignedByte;
 import static org.jlib.core.util.number.NumberUtility.toUnsignedInt;
 
@@ -125,7 +125,7 @@ extends FilterInputStream {
             // if the buffered characters represent an encoded octet, return the (decoded) octet
             else if (inputBuffer[0] == '=') {
                 inputBufferSize = 0;
-                return decodeOctet();
+                return decodeOctet(inputBuffer);
             }
 
             // if the buffered characters represent a hard line break,
@@ -146,23 +146,6 @@ extends FilterInputStream {
         }
         while (true);
 
-    }
-
-    /**
-     * Decodes an encoded octet from the input buffer.
-     * 
-     * @return byte containing the octet value
-     * @throws IllegalQuotedPrintableOctetException
-     *         if illegal characters follow the encoding prefix
-     */
-    private byte decodeOctet()
-    throws IllegalQuotedPrintableOctetException {
-        try {
-            return parseHexNumberToByte(inputBuffer, 1, 2);
-        }
-        catch (NumberFormatException nfe) {
-            throw new IllegalQuotedPrintableOctetException(inputBuffer[1], inputBuffer[2]);
-        }
     }
 
     /**
