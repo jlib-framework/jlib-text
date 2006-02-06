@@ -12,7 +12,7 @@
  *
  *    COMMON PUBLIC LICENSE VERSION 1.0
  *
- *    http://www.eclipse.org/legal/cpl-v10.html
+ *    http://www.opensource.org/licenses/cpl1.0.php
  */
 
 package org.jlib.core.system;
