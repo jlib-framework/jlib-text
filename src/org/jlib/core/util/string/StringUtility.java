@@ -26,23 +26,24 @@ public class StringUtility {
 
     /** String padding options */
     public enum PaddingType {
+        
         /** front padding */
-        front,
+        FRONT,
 
         /** back padding */
-        back,
+        BACK,
 
         /**
          * equal front and back padding. If the number of characters to pad is odd, the front will
          * be padded with one character more than the back
          */
-        frontback,
+        FRONTBACK,
 
         /**
          * equal front and back padding. If the number of characters to pad is odd, the back will be
          * padded with one character more than the front
          */
-        backfront
+        BACKFRONT
     }
 
     /** no default constructor */
@@ -58,7 +59,7 @@ public class StringUtility {
      * @return padded String. If {@code string.length() >= length} then {@code string} is returned.
      */
     public static String pad(String string, int length) {
-        return pad(string, length, ' ', PaddingType.back);
+        return pad(string, length, ' ', PaddingType.BACK);
     }
 
     /**
@@ -102,17 +103,17 @@ public class StringUtility {
         StringBuffer stringBuffer = new StringBuffer(length);
 
         switch (paddingType) {
-            case front:
+            case FRONT:
                 for (; currentLength < length; currentLength ++)
                     stringBuffer.append(character);
                 stringBuffer.append(string);
                 break;
-            case back:
+            case BACK:
                 stringBuffer.append(string);
                 for (; currentLength < length; currentLength ++)
                     stringBuffer.append(character);
                 break;
-            case frontback:
+            case FRONTBACK:
                 halfLength = (int) (currentLength + length + 1) / 2;
                 for (; currentLength < halfLength; currentLength ++)
                     stringBuffer.append(character);
@@ -120,7 +121,7 @@ public class StringUtility {
                 for (; currentLength < length; currentLength ++)
                     stringBuffer.append(character);
                 break;
-            case backfront:
+            case BACKFRONT:
                 halfLength = (int) (currentLength + length) / 2;
                 for (; currentLength < halfLength; currentLength ++)
                     stringBuffer.append(character);
