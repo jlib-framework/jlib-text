@@ -18,8 +18,8 @@
 package org.jlib.core.io.encoding;
 
 import static org.jlib.core.io.encoding.QuotedPrintableUtility.decodeOctet;
-import static org.jlib.core.util.number.NumberUtility.toSignedByte;
-import static org.jlib.core.util.number.NumberUtility.toUnsignedInt;
+import static org.jlib.core.io.IOUtility.toSignedByte;
+import static org.jlib.core.io.IOUtility.toUnsignedInt;
 
 import java.io.FilterInputStream;
 import java.io.IOException;
@@ -105,22 +105,19 @@ extends FilterInputStream {
     throws IllegalQuotedPrintableOctetException, IOException, EndOfQuotedPrintableStreamException {
         do {
             // if there are characters left in the output buffer, return the first one
-            if (outputBufferPosition < outputBuffer.length) {
+            if (outputBufferPosition < outputBuffer.length)
                 return outputBuffer[outputBufferPosition ++];
-            }
 
             // refill the input buffer
             refillInputBuffer();
 
             // if the end of the stream has been reached, throw exception
-            if (inputBuffer[0] == -1) {
+            if (inputBuffer[0] == -1)
                 throw new EndOfQuotedPrintableStreamException();
-            }
 
             // if a soft line break occurs, simply ignore it
-            else if (inputBuffer[0] == '=' && inputBuffer[1] == '\r' && inputBuffer[2] == '\n') {
+            else if (inputBuffer[0] == '=' && inputBuffer[1] == '\r' && inputBuffer[2] == '\n')
                 inputBufferSize = 0;
-            }
 
             // if the buffered characters represent an encoded octet, return the (decoded) octet
             else if (inputBuffer[0] == '=') {

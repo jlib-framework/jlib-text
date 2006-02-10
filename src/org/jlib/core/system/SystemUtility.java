@@ -48,5 +48,4 @@ public class SystemUtility {
             throw new PropertyNotSetException(propertyName);
         return propertyValue;
     }
-
 }

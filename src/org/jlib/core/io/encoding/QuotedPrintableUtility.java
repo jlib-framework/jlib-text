@@ -17,15 +17,15 @@
 
 package org.jlib.core.io.encoding;
 
-import static org.jlib.core.util.number.NumberUtility.parseHexNumberToByte;
+import static org.jlib.core.io.IOUtility.parseHexNumberToByte;
+import static org.jlib.core.io.IOUtility.toUnsignedInt;
+import static org.jlib.core.util.number.NumberUtility.HEXCHARACTERS;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import org.jlib.core.util.number.NumberUtility;
 
 /**
  * Utility class for quoted-printable encoding operations.
@@ -96,12 +96,12 @@ public abstract class QuotedPrintableUtility {
      * @return array of bytes containing the octet characters
      */
     public static byte[] createOctet(byte value) {
-        int intValue = NumberUtility.toUnsignedInt(value);
+        int intValue = toUnsignedInt(value);
 
         byte[] octet = new byte[3];
         octet[0] = '=';
-        octet[1] = NumberUtility.HEXCHARACTERS[(intValue & 0xF0) >> 4];
-        octet[2] = NumberUtility.HEXCHARACTERS[intValue & 0x0F];
+        octet[1] = HEXCHARACTERS[(intValue & 0xF0) >> 4];
+        octet[2] = HEXCHARACTERS[intValue & 0x0F];
 
         return octet;
     }

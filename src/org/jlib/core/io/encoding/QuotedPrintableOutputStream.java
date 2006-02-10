@@ -16,8 +16,8 @@
  */
 package org.jlib.core.io.encoding;
 
-import static org.jlib.core.util.number.NumberUtility.toSignedByte;
-import static org.jlib.core.util.number.NumberUtility.toUnsignedInt;
+import static org.jlib.core.io.IOUtility.toSignedByte;
+import static org.jlib.core.io.IOUtility.toUnsignedInt;
 
 import java.io.FilterOutputStream;
 import java.io.IOException;
