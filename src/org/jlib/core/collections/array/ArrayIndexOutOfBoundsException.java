@@ -15,7 +15,7 @@
  *    http://www.opensource.org/licenses/cpl1.0.php
  */
 
-package org.jlib.core.collections;
+package org.jlib.core.collections.array;
 
 /**
  * Exception thrown when a jlib Array is accessed with an illegal index. The index is either lower than

@@ -14,7 +14,7 @@
  *
  *    http://www.opensource.org/licenses/cpl1.0.php
  */
-package org.jlib.core.io.encoding;
+package org.jlib.core.io.encoding.quotedprintable;
 
 import static org.jlib.core.io.IOUtility.toSignedByte;
 import static org.jlib.core.io.IOUtility.toUnsignedInt;

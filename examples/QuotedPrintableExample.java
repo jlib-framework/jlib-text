@@ -1,5 +1,5 @@
-import static org.jlib.core.io.encoding.QuotedPrintableUtility.decodeQuotedPrintable;
-import static org.jlib.core.io.encoding.QuotedPrintableUtility.encodeQuotedPrintable;
+import static org.jlib.core.io.encoding.quotedprintable.QuotedPrintableUtility.decodeQuotedPrintable;
+import static org.jlib.core.io.encoding.quotedprintable.QuotedPrintableUtility.encodeQuotedPrintable;
 
 /**
  * Example showing how easy and handy it is to encode and decode streams and byte array using the

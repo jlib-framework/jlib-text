@@ -3,7 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    MatrixColumnIterator.java
+ * File:    MatrixRowIterator.java
  * Project: jlib.core
  * 
  * Copyright (c) 2006 Igor Akkerman
@@ -15,40 +15,40 @@
  *    http://www.opensource.org/licenses/cpl1.0.php
  */
 
-package org.jlib.core.collections;
+package org.jlib.core.collections.matrix;
 
 /**
- * Iterator over a single column of a Matrix.
+ * Iterator over a single row of a Matrix.
  * 
  * @param <Element>
  *        type of elements stored in the Matrix
  * @author Igor Akkerman
  */
-class MatrixColumnIterator<Element>
+class MatrixRowIterator<Element>
 extends MatrixIterator<Element> {
 
     /** no default constructor */
-    private MatrixColumnIterator() {
+    private MatrixRowIterator() {
         super(null);
     }
 
     /**
-     * Creates a new MatrixColumnIterator.
+     * Creates a new MatrixRowIterator.
      * 
      * @param matrix
      *        Matrix to traverse
-     * @param columnIndex
-     *        integer specifying the index of the column to traverse
+     * @param rowIndex
+     *        integer specifying the index of the row to traverse
      */
-    protected MatrixColumnIterator(Matrix<Element> matrix, int columnIndex) {
+    protected MatrixRowIterator(Matrix<Element> matrix, int rowIndex) {
         super(matrix);
-        this.columnIndex = columnIndex;
+        this.rowIndex = rowIndex;
     }
 
     // @see org.jlib.core.collections.MatrixIterator#gotoNextElement()
     @Override
     protected void gotoNextElement() {
-        rowIndex ++;
+        columnIndex ++;
     }
 
 }

@@ -15,7 +15,7 @@
  *    http://www.opensource.org/licenses/cpl1.0.php
  */
 
-package org.jlib.core.io.encoding;
+package org.jlib.core.io.encoding.base64;
 
 /**
  * Exception thrown if the end of a base64 coded stream was reached. This Exception does not signal an error.

@@ -36,12 +36,13 @@
                  notree="false"
                  defaultexcludes="yes"
                  source="1.5"
+                 includenosourcepackages="true"
         >
             <doctitle>
-                <![CDATA[jlib.core API 1.0<br /><small>jlib - The Free Java Library</small>]]>
+                <![CDATA[jlib.core API 0.1<br /><small>jlib - The Free Java Library</small>]]>
             </doctitle>
             <header>
-                <![CDATA[<b>jlib.core 1.0</b><br /><small><b>jlib - The Free Java Library</b></small>]]>
+                <![CDATA[<b>jlib.core 0.1</b><br /><small><b>jlib - The Free Java Library</b></small>]]>
             </header>
             <footer>
                 <![CDATA[<b>&copy; 2006 Igor Akkerman</b>]]>
@@ -49,11 +50,8 @@
             <bottom>
                 <![CDATA[This API is distributed under the <a href="http://www.opensource.org/licenses/cpl1.0.php" target="_blank">Common Public License V1.0</a>.]]>
             </bottom>
-            <link href="http://java.sun.com/j2se/1.5.0/docs/api"
-                  offline="true"
-                  packagelistLoc="C:\Programme\J2SE Development Kit 5.0 Update 6\docs\api"
-            />
-</javadoc>
-</target>
+            <link href="http://java.sun.com/j2se/1.5.0/docs/api" />
+        </javadoc>
+    </target>
 </project>
 
