@@ -17,7 +17,7 @@
 
 package org.jlib.core.io.encoding;
 
-import static org.jlib.core.io.IOUtility.parseHexNumberToByte;
+import static org.jlib.core.io.IOUtility.parseHexNumberAsByte;
 import static org.jlib.core.io.IOUtility.toUnsignedInt;
 import static org.jlib.core.util.number.NumberUtility.HEXCHARACTERS;
 
@@ -100,8 +100,8 @@ public abstract class QuotedPrintableUtility {
 
         byte[] octet = new byte[3];
         octet[0] = '=';
-        octet[1] = HEXCHARACTERS[(intValue & 0xF0) >> 4];
-        octet[2] = HEXCHARACTERS[intValue & 0x0F];
+        octet[1] = (byte) HEXCHARACTERS[(intValue & 0xF0) >> 4];
+        octet[2] = (byte) HEXCHARACTERS[intValue & 0x0F];
 
         return octet;
     }
@@ -118,7 +118,7 @@ public abstract class QuotedPrintableUtility {
     public static byte decodeOctet(byte[] octetBytes)
     throws IllegalQuotedPrintableOctetException {
         try {
-            return parseHexNumberToByte(octetBytes, 1, 2);
+            return parseHexNumberAsByte(octetBytes, 1);
         }
         catch (NumberFormatException nfe) {
             throw new IllegalQuotedPrintableOctetException(octetBytes[1], octetBytes[2]);

@@ -31,31 +31,6 @@ public abstract class IOUtility {
 
     /**
      * <p>
-     * Byte order: little-endian (Intel) or big-endian (Network).
-     * </p>
-     * <p>
-     * In the little-endian (Intel) representation, the number starts with the least significant
-     * byte. For example, the hex representation for 0x1A2B3C4D is "4D3C2B1A".
-     * </p>
-     * <p>
-     * In the little-endian (network) representation, the number starts with the most significant
-     * byte. For example, the hex representation for 0x1A2B3C4D is "1A2B3C4D".
-     * </p>
-     * <p>
-     * The order does usually not apply to the order of the bits within a byte, which is always
-     * big-endian.
-     * </p>
-     */
-    public enum ByteOrder {
-        /** little endian */
-        LITTLE_ENDIAN,
-
-        /** big endian */
-        BIG_ENDIAN
-    }
-
-    /**
-     * <p>
      * Converts the specified signed byte value into an unsigned integer value taking in account the
      * sign of the byte.
      * </p>
@@ -98,54 +73,41 @@ public abstract class IOUtility {
     }
 
     /**
-     * Parses a hexadecimal number out of the specified signed byte array containing the hexadecimal
-     * digit characters into a signed byte.
+     * Parses a hexadecimal signed byte value out of the specified array containing the two
+     * hexadecimal digit characters as bytes. The character order is assumed to be big-endian, that
+     * is, {@code hexCharacter[offset]} holds the most significant hexadecimal character.
      * 
      * @param hexCharacters
      *        array of bytes containing the hexadecimal digit characters
      * @return byte specifying the parsed value
-     * @throws IllegalArgumentException
-     *         if {@code hexCharacters.length < 0 || hexCharacters.length > 2}
+     * @throws ArrayIndexOutOfBoundsException
+     *         if {@code hexCharacters.length < 2}
      * @throws NumberFormatException
      *         if the array contains illegal characters
      */
-    public static byte parseHexNumberToByte(byte[] hexCharacters)
+    public static byte parseHexNumberAsByte(byte[] hexCharacters)
     throws NumberFormatException {
-        return parseHexNumberToByte(hexCharacters, 0, hexCharacters.length);
+        return parseHexNumberAsByte(hexCharacters, 0);
     }
 
     /**
-     * Parses a hexadecimal number out of the specified signed byte array containing the hexadecimal
-     * digit characters, starting at the specified offset, into a signed byte. The character order
-     * is assumed to be big-endian, that is, {@code hexCharacter[offset]} holds the most significant
-     * hexadecimal character.
+     * Parses a hexadecimal signed byte value at the specified offst in specified array containing
+     * the two hexadecimal digit characters as bytes. The character order is assumed to be
+     * big-endian, that is, {@code hexCharacter[offset]} holds the most significant hexadecimal
+     * character.
      * 
      * @param hexCharacters
      *        array of bytes containing the hexadecimal digit characters
      * @param offset
      *        integer specifying the offset in the array to start from
-     * @param length
-     *        integer specifying the number of characters to parse
      * @return byte specifying the parsed value
-     * @throws IllegalArgumentException
-     *         if {@code length < 0 || length > 2}
      * @throws ArrayIndexOutOfBoundsException
-     *         if {@code offset + length > hexCharacters.length}
+     *         if {@code offset + 2 > hexCharacters.length}
      * @throws NumberFormatException
      *         if the array contains illegal characters at the parsed indexes
      */
-    public static byte parseHexNumberToByte(byte[] hexCharacters, int offset, int length)
-    throws IllegalArgumentException, NumberFormatException {
-        if (length < 0 || length > 2)
-            throw new IllegalArgumentException("length=" + length);
-
-        int value = 0;
-        int digit;
-        for (int hexCharacterIndex = offset + length - 1, bitOffset = 0; hexCharacterIndex >= offset; hexCharacterIndex --, bitOffset += 4) {
-            digit = parseHexDigit((char) hexCharacters[hexCharacterIndex]);
-            value |= (digit << bitOffset);
-        }
-
-        return toSignedByte(value);
+    public static byte parseHexNumberAsByte(byte[] hexCharacters, int offset)
+    throws NumberFormatException {
+        return (byte) (parseHexDigit((char) hexCharacters[offset]) << 4 | parseHexDigit((char) hexCharacters[offset + 1]));
     }
 }

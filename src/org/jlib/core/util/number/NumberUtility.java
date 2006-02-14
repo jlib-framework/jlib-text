@@ -17,8 +17,9 @@
 
 package org.jlib.core.util.number;
 
-import org.jlib.core.util.string.StringUtility;
 import static org.jlib.core.util.string.StringUtility.PaddingType.FRONT;
+
+import org.jlib.core.util.string.StringUtility;
 
 /**
  * Utility class providing static methods for Number operations and manipulations.
@@ -28,7 +29,7 @@ import static org.jlib.core.util.string.StringUtility.PaddingType.FRONT;
 public class NumberUtility {
 
     /** hexadecimal characters */
-    public static final byte[] HEXCHARACTERS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    public static final char[] HEXCHARACTERS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /** no default constructor */
     private NumberUtility() {}
@@ -38,17 +39,17 @@ public class NumberUtility {
      * 
      * @param hexDigitCharacter
      *        character holding a hexadecimal digit
-     * @return integer holding the value of hexDigitCharacter
+     * @return byte holding the value of hexDigitCharacter
      * @throws NumberFormatException
      *         if {@code hexDigitCharacter} does not hold a hexadecimal digit
      */
-    public static int parseHexDigit(char hexDigitCharacter) {
+    public static byte parseHexDigit(char hexDigitCharacter) {
         if (hexDigitCharacter >= '0' && hexDigitCharacter <= '9')
-            return hexDigitCharacter - '0';
+            return (byte) (hexDigitCharacter - '0');
         else if (hexDigitCharacter >= 'A' && hexDigitCharacter <= 'F')
-            return hexDigitCharacter - 'A' + 10;
+            return (byte) (hexDigitCharacter - 'A' + 10);
         else if (hexDigitCharacter >= 'a' && hexDigitCharacter <= 'f')
-            return hexDigitCharacter - 'a' + 10;
+            return (byte) (hexDigitCharacter - 'a' + 10);
         else
             throw new NumberFormatException(Character.toString(hexDigitCharacter));
     }
@@ -81,6 +82,23 @@ public class NumberUtility {
 
         for (int digitIndex = 7; digitIndex >= 0; digitIndex --)
             bitStringBuffer.append((bite >> digitIndex) & 1);
+
+        return bitStringBuffer.toString();
+    }
+
+    /**
+     * Creates a binary String representation of the specified integer padded with zeroes. The bit
+     * order is big-endian, that is, the most significant bit first.
+     * 
+     * @param integer
+     *        integer to represent as a binary String
+     * @return binary String representation of {@code integer}
+     */
+    public static String toBinaryString(int integer) {
+        StringBuffer bitStringBuffer = new StringBuffer(32);
+
+        for (int digitIndex = 31; digitIndex >= 0; digitIndex --)
+            bitStringBuffer.append((integer >> digitIndex) & 1);
 
         return bitStringBuffer.toString();
     }
