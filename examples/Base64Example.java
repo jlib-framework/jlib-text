@@ -1,5 +1,5 @@
-import static org.jlib.core.io.encoding.Base64Utility.decodeBase64;
-import static org.jlib.core.io.encoding.Base64Utility.encodeBase64;
+import static org.jlib.core.io.encoding.base64.Base64Utility.decodeBase64;
+import static org.jlib.core.io.encoding.base64.Base64Utility.encodeBase64;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -9,8 +9,8 @@ import java.io.OutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import org.jlib.core.io.encoding.Base64InputStream;
-import org.jlib.core.io.encoding.Base64OutputStream;
+import org.jlib.core.io.encoding.base64.Base64InputStream;
+import org.jlib.core.io.encoding.base64.Base64OutputStream;
 
 /**
  * Example showing how easy and handy it is to encode and decode streams and byte array using the

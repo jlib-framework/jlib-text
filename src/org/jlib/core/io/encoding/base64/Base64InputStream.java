@@ -15,13 +15,14 @@
  *    http://www.opensource.org/licenses/cpl1.0.php
  */
 
-package org.jlib.core.io.encoding;
+package org.jlib.core.io.encoding.base64;
 
-import static org.jlib.core.io.encoding.Base64Utility.mapBase64Character;
+import static org.jlib.core.io.encoding.base64.Base64Utility.mapBase64Character;
 
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 
 /**
  * FilterInputStream performing a base64 decoding of a source InputStream.

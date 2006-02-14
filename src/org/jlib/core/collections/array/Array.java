@@ -15,7 +15,7 @@
  *    http://www.opensource.org/licenses/cpl1.0.php
  */
 
-package org.jlib.core.collections;
+package org.jlib.core.collections.array;
 
 import java.util.ArrayList;
 import java.util.Collection;

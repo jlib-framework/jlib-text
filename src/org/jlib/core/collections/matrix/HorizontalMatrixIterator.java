@@ -15,7 +15,7 @@
  *    http://www.opensource.org/licenses/cpl1.0.php
  */
 
-package org.jlib.core.collections;
+package org.jlib.core.collections.matrix;
 
 /**
  * MatrixIterator traversing the elements of a Matrix horizontally. That is, the traversal algorithm is as follows:

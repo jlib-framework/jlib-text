@@ -3,7 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    EndOfQuotedPrintableStreamException.java
+ * File:    InvalidBase64StreamException.java
  * Project: jlib.core
  * 
  * Copyright (c) 2006 Igor Akkerman
@@ -15,23 +15,22 @@
  *    http://www.opensource.org/licenses/cpl1.0.php
  */
 
-package org.jlib.core.io.encoding;
+package org.jlib.core.io.encoding.base64;
 
 import java.io.IOException;
 
 /**
- * Exception thrown if the end of a quoted-printable coded stream was reached.
- * This exception does not signal an error.
+ * Exception thrown if a stream is an invalid base64 stream.
  *
  * @author Igor Akkerman
  */
-public class EndOfQuotedPrintableStreamException
+public abstract class InvalidBase64StreamException
 extends IOException {
 
     /**
-     * Creates a new EndOfQuotedPrintableStreamException.
+     * Creates a new InvalidBase64StreamException.
      */
-    public EndOfQuotedPrintableStreamException() {
+    protected InvalidBase64StreamException() {
         super();
     }
 }

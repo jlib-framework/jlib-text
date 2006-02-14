@@ -15,10 +15,12 @@
  *    http://www.opensource.org/licenses/cpl1.0.php
  */
 
-package org.jlib.core.collections;
+package org.jlib.core.collections.matrix;
 
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.jlib.core.collections.array.Array;
 
 import static java.lang.reflect.Array.newInstance;
 

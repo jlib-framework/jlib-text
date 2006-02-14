@@ -15,7 +15,8 @@
  *    http://www.opensource.org/licenses/cpl1.0.php
  */
 
-package org.jlib.core.io.encoding;
+package org.jlib.core.io.encoding.base64;
+
 
 /**
  * Exception thrown if at least one character was expected in a base64 encoded stream.
