@@ -17,14 +17,12 @@
 
 package org.jlib.core.collections.matrix;
 
+import java.util.AbstractCollection;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import org.jlib.core.collections.ListIndexOutOfBoundsException;
 import org.jlib.core.collections.array.Array;
-
-import static java.lang.reflect.Array.newInstance;
 
 /**
  * <p>
@@ -57,15 +55,15 @@ import static java.lang.reflect.Array.newInstance;
  * // good(?) old two-dimensional array             // cool(!) new jlib Matrix class
  * Integer[][] integerMatrix = new Integer[4][2];   Matrix<Integer> integerMatrix = new Matrix<Integer>(4, 2);
  * for (int row = 1; row <= 2; row ++)              for (int row = 1; row <= 2; row ++)
- *   for (int col = 1; col <= 4; col ++)                for (int col = 1; col <= 4; col ++)
- *     integerMatrix[col - 1][row - 1] = col * row;         integerMatrix.set(col, row, col * row); }
+ *   for (int col = 1; col <= 4; col ++)              for (int col = 1; col <= 4; col ++)
+ *     integerMatrix[col - 1][row - 1] = col * row;     integerMatrix.set(col, row, col * row); }
  * </pre>
  *
  * </li>
- * <li> Conformance to the Java Collections Framework <br/> The class implements the
- * {@code java.util.Collection} interface and thus behaves like all Java Collections. </li>
+ * <li>Conformance to the Java Collections Framework <br/> The class implements the
+ * {@code java.util.Collection} interface and thus behaves like all Java Collections.</li>
  * <br />
- * <li> Full support for generics:<br/> The Java arrays do not support generic classes. For
+ * <li>Full support for generics:<br/> The Java arrays do not support generic classes. For
  * example, you cannot create an array of String Lists:
  *
  * <pre>
@@ -80,6 +78,30 @@ import static java.lang.reflect.Array.newInstance;
  * </li>
  * </ul>
  * <p>
+ * A default iteration order can be defined specifying how this Matrix is traversed by the Iterator
+ * returned by {@link #iterator()}.
+ * <ul>
+ * <li> Horizontal iteration. That is, the traversal algorithm is as follows:
+ *
+ * <pre>{@literal
+ * foreach row
+ *     foreach column
+ *         process element at (column, row)}
+ * </pre>
+ *
+ * </li>
+ * <li> Vertical iteration. That is, the traversal algorithm is as follows:
+ *
+ * <pre>{@literal
+ * foreach column
+ *     foreach row
+ *         process element at (column, row)}
+ * </pre>
+ *
+ * </li>
+ * </ul>
+ * </p>
+ * <p>
  * A Matrix has a fixed size, thus no Elements can be added to or removed from it. The corresponding
  * methods for adding and removing Elements all throw an {@link UnsupportedOperationException}.
  * </p>
@@ -89,7 +111,10 @@ import static java.lang.reflect.Array.newInstance;
  * @author Igor Akkerman
  */
 public class Matrix<Element>
-implements Collection<Element> {
+extends AbstractCollection<Element> {
+
+    /** default iteration order */
+    public static final MatrixIterationOrder DEFAULTITERATIONORDER = MatrixIterationOrder.HORIZONTAL;
 
     /** number of columns */
     private int width;
@@ -109,6 +134,9 @@ implements Collection<Element> {
     /** maximum row index */
     private int maxRowIndex;
 
+    /** order in which this Matrix is iterated */
+    private MatrixIterationOrder iterationOrder;
+
     /** Matrix data */
     private Array<Array<Element>> matrixData;
 
@@ -120,7 +148,8 @@ implements Collection<Element> {
     }
 
     /**
-     * Creates a new Matrix of the specified width and height.
+     * Creates a new Matrix of the specified width and height and the default iteration order. The
+     * default iteration order is specified by {@vaule #DEFAULTITERATIONORDER}.
      *
      * @param width
      *        integer specifying the number of columns of this matrix
@@ -132,7 +161,7 @@ implements Collection<Element> {
     public Matrix(int width, int height) {
         super();
         if (width != 0 && height != 0) {
-            construct(0, width - 1, 0, height - 1);
+            construct(0, width - 1, 0, height - 1, DEFAULTITERATIONORDER);
         }
         else {
             minRowIndex = -1;
@@ -146,7 +175,9 @@ implements Collection<Element> {
     }
 
     /**
-     * Creates a new Matrix with the specified minimum and maximum column and row indexes.
+     * Creates a new Matrix with the specified minimum and maximum column and row indexes and the
+     * default iteration order. The default iteration order is specified by
+     * {@value #DEFAULTITERATIONORDER}.
      *
      * @param minColumnIndex
      *        minimum column index
@@ -162,7 +193,59 @@ implements Collection<Element> {
      */
     public Matrix(int minColumnIndex, int maxColumnIndex, int minRowIndex, int maxRowIndex) {
         super();
-        construct(minColumnIndex, maxColumnIndex, minRowIndex, maxRowIndex);
+        construct(minColumnIndex, maxColumnIndex, minRowIndex, maxRowIndex, DEFAULTITERATIONORDER);
+    }
+
+    /**
+     * Creates a new Matrix of the specified width and height and the specified iteration order.
+     *
+     * @param width
+     *        integer specifying the number of columns of this matrix
+     * @param height
+     *        integer specifying the number of rows of this matrix
+     * @param iterationOrder
+     *        default iteration order to use by the Iterator returned by {@link #iterator()}
+     * @throws IllegalArgumentException
+     *         if {@code width < 0 || height < 0}
+     */
+    public Matrix(int width, int height, MatrixIterationOrder iterationOrder) {
+        super();
+        if (width != 0 && height != 0) {
+            construct(0, width - 1, 0, height - 1, iterationOrder);
+        }
+        else {
+            minRowIndex = -1;
+            maxRowIndex = -1;
+            minColumnIndex = -1;
+            maxColumnIndex = -1;
+            this.width = width;
+            this.height = height;
+            matrixData = new Array<Array<Element>>();
+        }
+    }
+
+    /**
+     * Creates a new Matrix with the specified minimum and maximum column and row indexes and the
+     * specified iteration order.
+     *
+     * @param minColumnIndex
+     *        minimum column index
+     * @param maxColumnIndex
+     *        maximum column index
+     * @param minRowIndex
+     *        minimum row index
+     * @param maxRowIndex
+     *        maximum row index
+     * @param iterationOrder
+     *        default iteration order to use by the Iterator returned by {@link #iterator()}
+     * @throws IllegalArgumentException
+     *         if
+     *         {@code minColumnIndex < 0 || maxColumnIndex < minColumnIndex || minRowIndex < 0 || maxRowIndex < minRowIndex}
+     */
+    public Matrix(int minColumnIndex, int maxColumnIndex, int minRowIndex, int maxRowIndex,
+                  MatrixIterationOrder iterationOrder) {
+        super();
+        construct(minColumnIndex, maxColumnIndex, minRowIndex, maxRowIndex, iterationOrder);
     }
 
     /**
@@ -176,12 +259,15 @@ implements Collection<Element> {
      *        minimum row index
      * @param maxRowIndex
      *        maximum row index
+     * @param iterationOrder
+     *        default iteration order to use by the Iterator returned by {@link #iterator()}
      * @throws IllegalArgumentException
      *         if
      *         {@code minColumnIndex < 0 || maxColumnIndex < minColumnIndex || minRowIndex < 0 || maxRowIndex < minRowIndex}
      */
     @SuppressWarnings("hiding")
-    private void construct(int minColumnIndex, int maxColumnIndex, int minRowIndex, int maxRowIndex) {
+    private void construct(int minColumnIndex, int maxColumnIndex, int minRowIndex, int maxRowIndex,
+                           MatrixIterationOrder iterationOrder) {
         if (minColumnIndex < 0 || maxColumnIndex < minColumnIndex || minRowIndex < 0 || maxRowIndex < minRowIndex) {
             throw new IllegalArgumentException();
         }
@@ -197,6 +283,8 @@ implements Collection<Element> {
         for (int row = minRowIndex; row <= maxRowIndex; row ++) {
             matrixData.set(row, new Array<Element>(minColumnIndex, maxColumnIndex));
         }
+
+        this.iterationOrder = iterationOrder;
     }
 
     /**
@@ -245,7 +333,8 @@ implements Collection<Element> {
     }
 
     /**
-     * Returns a MatrixColumn representing the specified portion of the specified column of this Matrix.
+     * Returns a MatrixColumn representing the specified portion of the specified column of this
+     * Matrix.
      *
      * @param columnIndex
      *        integer specifying the index of the column
@@ -366,7 +455,15 @@ implements Collection<Element> {
      * @return a new Iterator for this Matrix
      */
     public Iterator<Element> iterator() {
-        return newHorizontalIterator();
+        switch (iterationOrder) {
+            case HORIZONTAL:
+                return newHorizontalIterator();
+            case VERTICAL:
+                return newVerticalIterator();
+            default:
+                // impossible to occur
+                throw new RuntimeException();
+        }
     }
 
     /**
@@ -425,11 +522,6 @@ implements Collection<Element> {
         return new MatrixRowIterator<Element>(this, rowIndex);
     }
 
-    // @see java.util.Collection#isEmpty()
-    public boolean isEmpty() {
-        return size() == 0;
-    }
-
     // @see java.util.Collection#contains(java.lang.Object)
     public boolean contains(Object element) {
         for (Array<Element> columnArray : matrixData)
@@ -444,150 +536,5 @@ implements Collection<Element> {
             if (!contains(object))
                 return false;
         return true;
-    }
-
-    // @see java.util.Collection#toArray()
-    public Object[] toArray() {
-        Object[] resultArray = new Object[size()];
-
-        int index = 0;
-        for (Element element : this)
-            resultArray[index ++] = element;
-
-        return resultArray;
-    }
-
-    // @see java.util.Collection#toArray(T[])
-    @SuppressWarnings("unchecked")
-    public <ArrayElement> ArrayElement[] toArray(ArrayElement[] array) {
-        if (array == null)
-            throw new NullPointerException();
-
-        int size = size();
-
-        Object[] resultArray = array;
-        Class<?> arrayType = resultArray.getClass().getComponentType();
-        if (resultArray.length < size)
-            resultArray = (ArrayElement[]) newInstance(arrayType, size);
-
-        int index = 0;
-        for (Element element : this)
-            resultArray[index ++] = element;
-
-        if (resultArray.length > size)
-            resultArray[size] = null;
-
-        return array;
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a Matrix has a fixed size, no Elements can be added to it.
-     * </p>
-     *
-     * @param element
-     *        any Element
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public boolean add(Element element)
-    throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a Matrix has a fixed size, no Elements can be added to it.
-     * </p>
-     *
-     * @param collection
-     *        any Collection
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public boolean addAll(Collection<? extends Element> collection)
-    throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a Matrix has a fixed size, no Elements can be removed from it.
-     * </p>
-     *
-     * @param element
-     *        any Object
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public boolean remove(Object element)
-    throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a Matrix has a fixed size, no Elements can be removed from it.
-     * </p>
-     *
-     * @param collection
-     *        any Collection
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public boolean removeAll(Collection<?> collection)
-    throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a Matrix has a fixed size, no Elements can be removed from it.
-     * </p>
-     *
-     * @param collection
-     *        any Collection
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public boolean retainAll(Collection<?> collection)
-    throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a Matrix has a fixed size, no Elements can be removed from it.
-     * </p>
-     *
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public void clear()
-    throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
     }
 }
