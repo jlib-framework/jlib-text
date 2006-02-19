@@ -1,13 +1,13 @@
 /*
  * jlib - The Free Java Library
- * 
+ *
  *    http://www.jlib.org
- *    
+ *
  * File:    Matrix.java
  * Project: jlib.core
- * 
+ *
  * Copyright (c) 2006 Igor Akkerman
- * 
+ *
  * jlib is distributed under the
  *
  *    COMMON PUBLIC LICENSE VERSION 1.0
@@ -17,9 +17,12 @@
 
 package org.jlib.core.collections.matrix;
 
+import java.awt.List;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
+import org.jlib.core.collections.ListIndexOutOfBoundsException;
 import org.jlib.core.collections.array.Array;
 
 import static java.lang.reflect.Array.newInstance;
@@ -29,60 +32,59 @@ import static java.lang.reflect.Array.newInstance;
  * Fixed sized matrix. Replacement for two-dimensional arrays with special features.
  * </p>
  * <p>
- * The only syntactical difference to two-dimensinal arrays lies in the syntax of setting and getting objects:
+ * The only syntactical difference to two-dimensinal arrays lies in the syntax of setting and
+ * getting objects:
  * </p>
- * 
+ *
  * <pre>
  * {@literal
- * // good(?) old two-dimensional array           // cool(!) new jlib Matrix class 
+ * // good(?) old two-dimensional array           // cool(!) new jlib Matrix class
  * String[][] stringMatrix = new String[10][5];   Matrix<String> stringMatrix = new Matrix<String>(10, 5);
  * stringMatrix[2][3] = "Too old!";               stringMatrix.set(2, 3, "Brandnew!");
  * String s = stringMatrix[2][3];                 String s = stringMatrix.get(2, 3); }
  * </pre>
- * 
+ *
  * <p>
  * Special features:
  * </p>
  * <ul>
- * <li>
- * Minimum and maximum width and height:<br/> On instantiation, you can specify the minimum and the maximum width and
- * height of the Matrix. Thus, no offset is necessary for matrices starting at other indexes than 0. The following
- * example illustrates how a (4x2)-Matrix with indexes starting at 1, in which every entry is the product of the column
- * and row number:
- * 
+ * <li> Minimum and maximum width and height:<br/> On instantiation, you can specify the minimum
+ * and the maximum width and height of the Matrix. Thus, no offset is necessary for matrices
+ * starting at other indexes than 0. The following example illustrates how a (4x2)-Matrix with
+ * indexes starting at 1, in which every entry is the product of the column and row number:
+ *
  * <pre>
  * {@literal
- * // good(?) old two-dimensional array             // cool(!) new jlib Matrix class 
+ * // good(?) old two-dimensional array             // cool(!) new jlib Matrix class
  * Integer[][] integerMatrix = new Integer[4][2];   Matrix<Integer> integerMatrix = new Matrix<Integer>(4, 2);
  * for (int row = 1; row <= 2; row ++)              for (int row = 1; row <= 2; row ++)
  *   for (int col = 1; col <= 4; col ++)                for (int col = 1; col <= 4; col ++)
  *     integerMatrix[col - 1][row - 1] = col * row;         integerMatrix.set(col, row, col * row); }
  * </pre>
+ *
  * </li>
- * 
- * <li>
- * Conformance to the Java Collections framework <br/>
- * The class implements the {@code java.util.Collection} interface and thus behaves like all Java Collections.
- * </li>
+ * <li> Conformance to the Java Collections Framework <br/> The class implements the
+ * {@code java.util.Collection} interface and thus behaves like all Java Collections. </li>
  * <br />
- * <li>
- * Full support for generics:<br/>
- * The Java arrays do not support generic classes. For example, you cannot create an array of String Lists:
+ * <li> Full support for generics:<br/> The Java arrays do not support generic classes. For
+ * example, you cannot create an array of String Lists:
+ *
  * <pre>
  * {@literal
  * // FORBIDDEN!
  * Set<String>[][] stringSetMatrix = new Set<String>[4][2];
- * 
+ *
  * // PERMITTED!
  * Matrix<Set<String>> stringSetMatrix = new Matrix<Set<String>>(4, 2);}
  * </pre>
+ *
  * </li>
  * </ul>
  * <p>
- * A Matrix has a fixed size, thus no Elements can be added to or removed from it. The corresponding methods for adding
- * and removing Elements all throw an {@link UnsupportedOperationException}.
+ * A Matrix has a fixed size, thus no Elements can be added to or removed from it. The corresponding
+ * methods for adding and removing Elements all throw an {@link UnsupportedOperationException}.
  * </p>
- * 
+ *
  * @param <Element>
  *        type of the elements held in the Matrix
  * @author Igor Akkerman
@@ -120,7 +122,7 @@ implements Collection<Element> {
 
     /**
      * Creates a new Matrix of the specified width and height.
-     * 
+     *
      * @param width
      *        integer specifying the number of columns of this matrix
      * @param height
@@ -146,7 +148,7 @@ implements Collection<Element> {
 
     /**
      * Creates a new Matrix with the specified minimum and maximum column and row indexes.
-     * 
+     *
      * @param minColumnIndex
      *        minimum column index
      * @param maxColumnIndex
@@ -166,7 +168,7 @@ implements Collection<Element> {
 
     /**
      * Constructs this Matrix.
-     * 
+     *
      * @param minColumnIndex
      *        minimum column index
      * @param maxColumnIndex
@@ -200,30 +202,31 @@ implements Collection<Element> {
 
     /**
      * Returns the Element stored at the specified column and row in this Matrix.
-     * 
+     *
      * @param columnIndex
      *        integer specifying the column of the stored Element
      * @param rowIndex
      *        integer specifying the row of the stored Element
      * @return Element stored at the specified position in this Matrix
-     * @throws IndexOutOfBoundsException
+     * @throws ListIndexOutOfBoundsException
      *         if
      *         {@code columnIndex < getMinColumnIndex() || columnIndex > getMaxColumnIndex() || rowIndex < getMinRowIndex || rowIndex > getMaxRowIndex()}
      */
-    public Element get(int columnIndex, int rowIndex) {
+    public Element get(int columnIndex, int rowIndex)
+    throws ListIndexOutOfBoundsException {
         return matrixData.get(rowIndex).get(columnIndex);
     }
 
     /**
      * Registers the Element to store at the specified column and row in this Matrix.
-     * 
+     *
      * @param columnIndex
      *        integer specifying the column of the Element to store
      * @param rowIndex
      *        integer specifying the row of the Element to store
      * @param element
      *        Element to store. {@code null} is a valid Element.
-     * @throws IndexOutOfBoundsException
+     * @throws ListIndexOutOfBoundsException
      *         if
      *         {@code columnIndex < getMinColumnIndex() || columnIndex > getMaxColumnIndex() || rowIndex < getMinRowIndex || rowIndex > getMaxRowIndex()}
      */
@@ -232,8 +235,62 @@ implements Collection<Element> {
     }
 
     /**
+     * Returns a MatrixColumn representing the specified column of this Matrix.
+     *
+     * @param columnIndex
+     *        integer specifying the index of the column
+     * @return MatrixColumn representing the column with {@code columnIndex}
+     */
+    public MatrixColumn getColumn(int columnIndex) {
+        return new MatrixColumn<Element>(this, columnIndex);
+    }
+
+    /**
+     * Returns a MatrixColumn representing the specified portion of the specified column of this Matrix.
+     *
+     * @param columnIndex
+     *        integer specifying the index of the column
+     * @param minRowIndex
+     *        integer specifying the minimum row index of the portion of the column
+     * @param maxRowIndex
+     *        integer specifying the maximum row index of the portion of the column
+     * @return MatrixColumn representing the column with {@code columnIndex}
+     */
+    @SuppressWarnings("hiding")
+    public MatrixColumn getColumn(int columnIndex, int minRowIndex, int maxRowIndex) {
+        return new MatrixColumn<Element>(this, columnIndex, minRowIndex, maxRowIndex);
+    }
+
+    /**
+     * Returns a MatrixRow representing the specified row of this Matrix.
+     *
+     * @param rowIndex
+     *        integer specifying the index of the row
+     * @return MatrixRow representing the row with {@code rowIndex}
+     */
+    public MatrixRow getRow(int rowIndex) {
+        return new MatrixRow<Element>(this, rowIndex);
+    }
+
+    /**
+     * Returns a MatrixRow representing the specified portion of the specified row of this Matrix.
+     *
+     * @param rowIndex
+     *        integer specifying the index of the row
+     * @param minColumnIndex
+     *        integer specifying the minimum column index of the portion of the row
+     * @param maxColumnIndex
+     *        integer specifying the maximum column index of the portion of the row
+     * @return MatrixRow representing the row with {@code rowIndex}
+     */
+    @SuppressWarnings("hiding")
+    public MatrixRow getRow(int rowIndex, int minColumnIndex, int maxColumnIndex) {
+        return new MatrixRow<Element>(this, rowIndex, minColumnIndex, maxColumnIndex);
+    }
+
+    /**
      * Returns the minimum column index of this Matrix.
-     * 
+     *
      * @return integer specifying the minimum column of this Matrix
      */
     public int getMinColumnIndex() {
@@ -242,7 +299,7 @@ implements Collection<Element> {
 
     /**
      * Returns the maximum column index of this Matrix.
-     * 
+     *
      * @return integer specifying the maximum column of this Matrix
      */
     public int getMaxColumnIndex() {
@@ -251,7 +308,7 @@ implements Collection<Element> {
 
     /**
      * Returns the minimum row index of this Matrix.
-     * 
+     *
      * @return integer specifying the minimum row of this Matrix
      */
     public int getMinRowIndex() {
@@ -260,7 +317,7 @@ implements Collection<Element> {
 
     /**
      * Returns the maximum row index of this Matrix.
-     * 
+     *
      * @return integer specifying the maximum row of this Matrix
      */
     public int getMaxRowIndex() {
@@ -269,7 +326,7 @@ implements Collection<Element> {
 
     /**
      * Returns the width of this Matrix.
-     * 
+     *
      * @return integer specifying the width
      */
     public int getWidth() {
@@ -278,7 +335,7 @@ implements Collection<Element> {
 
     /**
      * Returns the height of this Matrix.
-     * 
+     *
      * @return integer specifying the height
      */
     public int getHeight() {
@@ -286,17 +343,27 @@ implements Collection<Element> {
     }
 
     /**
-     * Returns an Iterator of the Elements of this Matrix traversing it horizontally. That is, the traversal algorithm
-     * is as follows:
-     * 
+     * Returns the number of fields in this Matrix. The size is equal to
+     * {@code getWidth() * getHeight()}.
+     *
+     * @return integer specifying the number of fields
+     */
+    public int size() {
+        return width * height;
+    }
+
+    /**
+     * Returns an Iterator of the Elements of this Matrix traversing it horizontally. That is, the
+     * traversal algorithm is as follows:
+     *
      * <pre>{@literal
      * for each row
      *     for each column
      *         process element at (column, row)}
      * </pre>
-     * 
+     *
      * The {@link #newHorizontalIterator()} method has the same functionality as this method.
-     * 
+     *
      * @return a new Iterator for this Matrix
      */
     public Iterator<Element> iterator() {
@@ -304,17 +371,17 @@ implements Collection<Element> {
     }
 
     /**
-     * Returns an Iterator of the Elements of this Matrix traversing it horizontally. That is, the traversal algorithm
-     * is as follows:
-     * 
+     * Returns an Iterator of the Elements of this Matrix traversing it horizontally. That is, the
+     * traversal algorithm is as follows:
+     *
      * <pre>{@literal
      * for each row
      *     for each column
      *         process element at (column, row)}
      * </pre>
-     * 
+     *
      * The {@link #iterator()} method has the same functionality as this method.
-     * 
+     *
      * @return a new rows Iterator for this Matrix
      */
     public Iterator<Element> newHorizontalIterator() {
@@ -322,15 +389,15 @@ implements Collection<Element> {
     }
 
     /**
-     * Returns an Iterator of the Elements of this Matrix traversing it vertically. That is, the traversal algorithm is
-     * as follows:
-     * 
+     * Returns an Iterator of the Elements of this Matrix traversing it vertically. That is, the
+     * traversal algorithm is as follows:
+     *
      * <pre>{@literal
      * for each column
      *     for each row
      *         process element at (column, row)}
      * </pre>
-     * 
+     *
      * @return a new columns Iterator for this Matrix
      */
     public Iterator<Element> newVerticalIterator() {
@@ -339,7 +406,7 @@ implements Collection<Element> {
 
     /**
      * Returns an Iterator of the Elements in a single column of this Matrix.
-     * 
+     *
      * @param columnIndex
      *        integer specifying the index of the column to traverse
      * @return a new column Iterator for this Matrix
@@ -350,22 +417,13 @@ implements Collection<Element> {
 
     /**
      * Returns an Iterator of the Elements in a single row of this Matrix.
-     * 
+     *
      * @param rowIndex
      *        integer specifying the index of the row to traverse
      * @return a new row Iterator for this Matrix
      */
     public Iterator<Element> newRowIterator(int rowIndex) {
         return new MatrixRowIterator<Element>(this, rowIndex);
-    }
-
-    /**
-     * Returns the number of fields in this Matrix. The size is equal to {@code getWidth() * getHeight()}.
-     * 
-     * @return integer specifying the number of fields
-     */
-    public int size() {
-        return width * height;
     }
 
     // @see java.util.Collection#isEmpty()
@@ -430,7 +488,7 @@ implements Collection<Element> {
      * <p>
      * Since a Matrix has a fixed size, no Elements can be added to it.
      * </p>
-     * 
+     *
      * @param element
      *        any Element
      * @return never returns regulary
@@ -447,28 +505,9 @@ implements Collection<Element> {
      * Always throws an {@code UnsupportedOperationException}.
      * </p>
      * <p>
-     * Since a Matrix has a fixed size, no Elements can be removed from it.
-     * </p>
-     * 
-     * @param element
-     *        any Object
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public boolean remove(Object element)
-    throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
      * Since a Matrix has a fixed size, no Elements can be added to it.
      * </p>
-     * 
+     *
      * @param collection
      *        any Collection
      * @return never returns regulary
@@ -487,7 +526,26 @@ implements Collection<Element> {
      * <p>
      * Since a Matrix has a fixed size, no Elements can be removed from it.
      * </p>
-     * 
+     *
+     * @param element
+     *        any Object
+     * @return never returns regulary
+     * @throws UnsupportedOperationException
+     *         always
+     */
+    public boolean remove(Object element)
+    throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * <p>
+     * Always throws an {@code UnsupportedOperationException}.
+     * </p>
+     * <p>
+     * Since a Matrix has a fixed size, no Elements can be removed from it.
+     * </p>
+     *
      * @param collection
      *        any Collection
      * @return never returns regulary
@@ -506,7 +564,7 @@ implements Collection<Element> {
      * <p>
      * Since a Matrix has a fixed size, no Elements can be removed from it.
      * </p>
-     * 
+     *
      * @param collection
      *        any Collection
      * @return never returns regulary
@@ -525,7 +583,7 @@ implements Collection<Element> {
      * <p>
      * Since a Matrix has a fixed size, no Elements can be removed from it.
      * </p>
-     * 
+     *
      * @throws UnsupportedOperationException
      *         always
      */

@@ -1,13 +1,13 @@
 /*
  * jlib - The Free Java Library
- * 
+ *
  *    http://www.jlib.org
- *    
+ *
  * File:    ReflectionUtility.java
  * Project: jlib.core
- * 
+ *
  * Copyright (c) 2006 Igor Akkerman
- * 
+ *
  * jlib is distributed under the
  *
  *    COMMON PUBLIC LICENSE VERSION 1.0
@@ -38,7 +38,7 @@ import org.jlib.core.system.SystemUtility;
  * information about the original Throwable that caused it so if the actual reason is of interest, it still can be
  * retreived.
  * </p>
- * 
+ *
  * @author Igor Akkerman
  */
 public class ReflectionUtility {
@@ -54,7 +54,7 @@ public class ReflectionUtility {
      * This method calls {@link Class#newInstance()}. If it throws an Exception, it is wrapped into a
      * {@code ClassInstantiationException} and thrown by this method.
      * </p>
-     * 
+     *
      * @param <Type>
      *        type of the object to create
      * @param clazz
@@ -84,7 +84,7 @@ public class ReflectionUtility {
      * This method calls {@link Class#newInstance()}. If it throws a Throwable of any kind, it is wrapped into a
      * {@code ClassInstantiationException} and thrown by this method.
      * </p>
-     * 
+     *
      * @param <Type>
      *        type of the object to create
      * @param object
@@ -106,7 +106,7 @@ public class ReflectionUtility {
      * This method calls {@link Class#newInstance()}. If it throws a Throwable of any kind, it is wrapped into a
      * {@code ClassInstantiationException} and thrown by this method.
      * </p>
-     * 
+     *
      * @param <Type>
      *        type of the object to create
      * @param className
@@ -135,7 +135,7 @@ public class ReflectionUtility {
 
     /**
      * Creates a new instance of the class defined in the specified system property.
-     * 
+     *
      * @param <Type>
      *        type of the object to create
      * @param propertyName
