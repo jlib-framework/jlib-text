@@ -17,7 +17,6 @@
 
 package org.jlib.core.collections.matrix;
 
-import java.awt.List;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
