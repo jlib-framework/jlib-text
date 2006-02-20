@@ -22,7 +22,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.jlib.core.collections.ListIndexOutOfBoundsException;
-import org.jlib.core.collections.array.Array;
+import org.jlib.core.collections.list.Array;
 
 /**
  * <p>
@@ -47,8 +47,8 @@ import org.jlib.core.collections.array.Array;
  * <ul>
  * <li> Minimum and maximum width and height:<br/> On instantiation, you can specify the minimum
  * and the maximum width and height of the Matrix. Thus, no offset is necessary for matrices
- * starting at other indexes than 0. The following example illustrates how a (4x2)-Matrix with
- * indexes starting at 1, in which every entry is the product of the column and row number:
+ * starting at other indices than 0. The following example illustrates how a (4x2)-Matrix with
+ * indices starting at 1, in which every entry is the product of the column and row number:
  *
  * <pre>
  * {@literal
@@ -175,7 +175,7 @@ extends AbstractCollection<Element> {
     }
 
     /**
-     * Creates a new Matrix with the specified minimum and maximum column and row indexes and the
+     * Creates a new Matrix with the specified minimum and maximum column and row indices and the
      * default iteration order. The default iteration order is specified by
      * {@value #DEFAULTITERATIONORDER}.
      *
@@ -225,7 +225,7 @@ extends AbstractCollection<Element> {
     }
 
     /**
-     * Creates a new Matrix with the specified minimum and maximum column and row indexes and the
+     * Creates a new Matrix with the specified minimum and maximum column and row indices and the
      * specified iteration order.
      *
      * @param minColumnIndex
@@ -436,6 +436,7 @@ extends AbstractCollection<Element> {
      *
      * @return integer specifying the number of fields
      */
+    @Override
     public int size() {
         return width * height;
     }
@@ -454,6 +455,7 @@ extends AbstractCollection<Element> {
      *
      * @return a new Iterator for this Matrix
      */
+    @Override
     public Iterator<Element> iterator() {
         switch (iterationOrder) {
             case HORIZONTAL:
@@ -523,6 +525,7 @@ extends AbstractCollection<Element> {
     }
 
     // @see java.util.Collection#contains(java.lang.Object)
+    @Override
     public boolean contains(Object element) {
         for (Array<Element> columnArray : matrixData)
             if (columnArray.contains(element))
@@ -531,6 +534,7 @@ extends AbstractCollection<Element> {
     }
 
     // @see java.util.Collection#containsAll(java.util.Collection)
+    @Override
     public boolean containsAll(Collection<?> collection) {
         for (Object object : collection)
             if (!contains(object))

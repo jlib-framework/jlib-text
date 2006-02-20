@@ -15,7 +15,7 @@
  *    http://www.opensource.org/licenses/cpl1.0.php
  */
 
-package org.jlib.core.collections.array;
+package org.jlib.core.collections.list;
 
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
