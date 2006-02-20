@@ -132,7 +132,7 @@ import org.jlib.core.collections.ListIndexOutOfBoundsException;
  */
 public class Array<Element>
 extends AbstractIndexedList<Element>
-implements ModifiableIndexedList<Element>, Cloneable {
+implements EditableIndexedList<Element>, Cloneable {
 
     /** ArrayList containing the Elements of this Array */
     private ArrayList<Element> backingList;
