@@ -87,7 +87,7 @@ public abstract class Base64Utility {
             outputBytes[i] = readBytes[i];
         }
 
-        return (byte[]) outputBytes;
+        return outputBytes;
     }
 
     /**

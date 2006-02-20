@@ -114,7 +114,7 @@ public class StringUtility {
                     stringBuffer.append(character);
                 break;
             case FRONTBACK:
-                halfLength = (int) (currentLength + length + 1) / 2;
+                halfLength = (currentLength + length + 1) / 2;
                 for (; currentLength < halfLength; currentLength ++)
                     stringBuffer.append(character);
                 stringBuffer.append(string);
@@ -122,7 +122,7 @@ public class StringUtility {
                     stringBuffer.append(character);
                 break;
             case BACKFRONT:
-                halfLength = (int) (currentLength + length) / 2;
+                halfLength = (currentLength + length) / 2;
                 for (; currentLength < halfLength; currentLength ++)
                     stringBuffer.append(character);
                 stringBuffer.append(string);
