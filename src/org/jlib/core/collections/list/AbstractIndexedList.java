@@ -33,7 +33,7 @@ import org.jlib.core.collections.ListIndexOutOfBoundsException;
  */
 public abstract class AbstractIndexedList<Element>
 extends AbstractCollection<Element>
-implements ModifiableIndexedList<Element>, RandomAccess {
+implements IndexedList<Element>, RandomAccess {
 
     /** current minimum index of this list */
     protected int minIndex;
@@ -94,7 +94,7 @@ implements ModifiableIndexedList<Element>, RandomAccess {
         if (fromIndex > toIndex)
             throw new IllegalArgumentException();
 
-        ModifiableIndexedList<Element> list = new Array<Element>(fromIndex, toIndex);
+        EditableIndexedList<Element> list = new Array<Element>(fromIndex, toIndex);
         for (int index = fromIndex; index <= toIndex; index ++)
             list.set(index, get(index));
 
