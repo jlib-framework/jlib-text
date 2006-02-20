@@ -132,12 +132,14 @@ extends FilterOutputStream {
     }
 
     // documented in super class
+    @Override
     public void flush()
     throws IOException {
         out.flush();
     }
 
     // documented in super class
+    @Override
     public void close()
     throws IOException {
         flush();

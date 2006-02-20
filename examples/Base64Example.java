@@ -71,7 +71,7 @@ public abstract class Base64Example {
             outputBytes[i] = readBytes[i];
         }
 
-        return (byte[]) outputBytes;
+        return outputBytes;
     }
 
     /**

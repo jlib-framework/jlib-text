@@ -65,6 +65,7 @@ extends FilterInputStream {
     }
 
     // documented in super class
+    @Override
     public int read()
     throws IOException {
         do {
@@ -88,6 +89,7 @@ extends FilterInputStream {
     }
 
     // documented in super class
+    @Override
     public int read(byte[] buffer, int offset, int length)
     throws IOException {
         for (int i = 0; i < length; i++) {
@@ -203,6 +205,7 @@ extends FilterInputStream {
     }
 
     // documented in super class
+    @Override
     public int available() {
         return 4 - outputBufferPosition;
     }

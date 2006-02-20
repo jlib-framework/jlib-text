@@ -104,7 +104,7 @@ public abstract class IOUtility {
      * @throws ArrayIndexOutOfBoundsException
      *         if {@code offset + 2 > hexCharacters.length}
      * @throws NumberFormatException
-     *         if the array contains illegal characters at the parsed indexes
+     *         if the array contains illegal characters at the parsed indices
      */
     public static byte parseHexNumberAsByte(byte[] hexCharacters, int offset)
     throws NumberFormatException {

@@ -56,6 +56,7 @@ extends InvalidQuotedPrintableStreamException {
     }
 
     // @see java.lang.Throwable#toString()
+    @Override
     public String toString() {
         return super.toString() + "[" + illegalCharacters[0] + ", " + illegalCharacters[1] + "]";
     }
