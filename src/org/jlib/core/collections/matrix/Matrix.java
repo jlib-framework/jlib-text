@@ -328,7 +328,7 @@ extends AbstractCollection<Element> {
      *        integer specifying the index of the column
      * @return MatrixColumn representing the column with {@code columnIndex}
      */
-    public MatrixColumn getColumn(int columnIndex) {
+    public MatrixColumn<Element> getColumn(int columnIndex) {
         return new MatrixColumn<Element>(this, columnIndex);
     }
 
@@ -345,7 +345,7 @@ extends AbstractCollection<Element> {
      * @return MatrixColumn representing the column with {@code columnIndex}
      */
     @SuppressWarnings("hiding")
-    public MatrixColumn getColumn(int columnIndex, int minRowIndex, int maxRowIndex) {
+    public MatrixColumn<Element> getColumn(int columnIndex, int minRowIndex, int maxRowIndex) {
         return new MatrixColumn<Element>(this, columnIndex, minRowIndex, maxRowIndex);
     }
 
@@ -356,7 +356,7 @@ extends AbstractCollection<Element> {
      *        integer specifying the index of the row
      * @return MatrixRow representing the row with {@code rowIndex}
      */
-    public MatrixRow getRow(int rowIndex) {
+    public MatrixRow<Element> getRow(int rowIndex) {
         return new MatrixRow<Element>(this, rowIndex);
     }
 
@@ -372,7 +372,7 @@ extends AbstractCollection<Element> {
      * @return MatrixRow representing the row with {@code rowIndex}
      */
     @SuppressWarnings("hiding")
-    public MatrixRow getRow(int rowIndex, int minColumnIndex, int maxColumnIndex) {
+    public MatrixRow<Element> getRow(int rowIndex, int minColumnIndex, int maxColumnIndex) {
         return new MatrixRow<Element>(this, rowIndex, minColumnIndex, maxColumnIndex);
     }
 
