@@ -1,4 +1,4 @@
-package org.jlib.core.collections;
+package org.jlib.core.collections.list;
 
 /*
  * jlib - The Free Java Library

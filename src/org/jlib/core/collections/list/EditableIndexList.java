@@ -3,7 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    EditableIndexedList.java
+ * File:    EditableIndexList.java
  * Project: jlib.core
  *
  * Copyright (c) 2006 Igor Akkerman
@@ -17,26 +17,25 @@
 
 package org.jlib.core.collections.list;
 
-import org.jlib.core.collections.ListIndexOutOfBoundsException;
 
 /**
  * <p>
- * IndexedList that allows modification of the Elements that it contains.
+ * IndexList that allows modification of the Elements that it contains.
  * </p>
  * <p>
  * It does not necessarily allow modification of the list, that is, this interface does not provide
- * methods for adding and removing Elements. See {@link ModifiableIndexedList} for this behaviour.
+ * methods for adding and removing Elements. See {@link ModifiableIndexList} for this behaviour.
  * </p>
  *
  * @param <Element>
- *        type of the elements held in the IndexedList
+ *        type of the elements held in the IndexList
  * @author Igor Akkerman
  */
-public interface EditableIndexedList<Element>
-extends IndexedList<Element> {
+public interface EditableIndexList<Element>
+extends IndexList<Element> {
 
     /**
-     * Stores the specified Element at the specified index in this IndexedList.
+     * Stores the specified Element at the specified index in this IndexList.
      *
      * @param index
      *        integer specifying the index

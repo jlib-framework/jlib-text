@@ -20,9 +20,7 @@ package org.jlib.core.collections.list;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.ListIterator;
 
-import org.jlib.core.collections.ListIndexOutOfBoundsException;
 
 /**
  * <p>
@@ -131,8 +129,8 @@ import org.jlib.core.collections.ListIndexOutOfBoundsException;
  * @author Igor Akkerman
  */
 public class Array<Element>
-extends AbstractIndexedList<Element>
-implements EditableIndexedList<Element>, Cloneable {
+extends AbstractIndexList<Element>
+implements EditableIndexList<Element>, Cloneable {
 
     /** ArrayList containing the Elements of this Array */
     private ArrayList<Element> backingList;
@@ -353,20 +351,20 @@ implements EditableIndexedList<Element>, Cloneable {
     // @see java.lang.Iterable#iterator()
     @Override
     public Iterator<Element> iterator() {
-        return new ArrayIterator<Element>(this);
+        return new EditableIndexListIterator<Element>(this);
     }
 
-    // @see org.jlib.core.collections.list.IndexedList#listIterator()
-    public ListIterator<Element> listIterator() {
-        return new ArrayIterator<Element>(this);
+    // @see org.jlib.core.collections.list.IndexList#listIterator()
+    public EditableIndexListIterator<Element> listIterator() {
+        return new EditableIndexListIterator<Element>(this);
     }
 
-    // @see org.jlib.core.collections.list.IndexedList#listIterator(int)
-    public ListIterator<Element> listIterator(int index)
+    // @see org.jlib.core.collections.list.IndexList#listIterator(int)
+    public EditableIndexListIterator<Element> listIterator(int index)
     throws IndexOutOfBoundsException {
         if (index < minIndex || index > maxIndex)
             throw new java.lang.ArrayIndexOutOfBoundsException(index);
-        return new ArrayIterator<Element>(this, index);
+        return new EditableIndexListIterator<Element>(this, index);
     }
 
     // @see java.lang.Object#clone()
@@ -375,7 +373,7 @@ implements EditableIndexedList<Element>, Cloneable {
         return new Array<Element>(minIndex, this);
     }
 
-    // @see org.jlib.core.collections.list.IndexedList#equals(java.lang.Object)
+    // @see org.jlib.core.collections.list.IndexList#equals(java.lang.Object)
     @Override
     public boolean equals(Object object) {
         if (object == null || !(object instanceof Array<?>))
@@ -387,7 +385,7 @@ implements EditableIndexedList<Element>, Cloneable {
     // @see java.lang.Object#toString()
     @Override
     public String toString() {
-        ListIterator<Element> iterator = listIterator();
+        EditableIndexListIterator<Element> iterator = listIterator();
         boolean hasNext = iterator.hasNext();
 
         StringBuffer stringBuffer = new StringBuffer(8 * size());

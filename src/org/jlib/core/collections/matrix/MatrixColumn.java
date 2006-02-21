@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.RandomAccess;
 
-import org.jlib.core.collections.ListIndexOutOfBoundsException;
+import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
 
 /**
  * Row or partial row of a Matrix.
