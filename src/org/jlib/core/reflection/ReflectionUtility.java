@@ -41,6 +41,7 @@ import org.jlib.core.system.SystemUtility;
  *
  * @author Igor Akkerman
  */
+@SuppressWarnings("unchecked")
 public class ReflectionUtility {
 
     /** no constructor */
@@ -116,7 +117,6 @@ public class ReflectionUtility {
      *         if the instantiation of the specified class fails or the instantiated object is not an instance of the
      *         class represented by {@code Type} or a subclass
      */
-    @SuppressWarnings("unchecked")
     public static <Type> Type newInstanceOf(String className)
     throws ClassInstantiationException {
         Class<? extends Type> clazz;
@@ -162,6 +162,7 @@ public class ReflectionUtility {
     public static <Type> Type newInstanceByProperty(String propertyName)
     throws SecurityException, NullPointerException, PropertyNotSetException, ClassInstantiationException {
         String className = SystemUtility.getProperty(propertyName);
-        return newInstanceOf(className);
+        Object object = newInstanceOf(className);
+        return (Type) object;
     }
 }
