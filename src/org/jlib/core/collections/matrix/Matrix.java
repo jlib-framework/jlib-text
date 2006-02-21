@@ -21,8 +21,8 @@ import java.util.AbstractCollection;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.jlib.core.collections.ListIndexOutOfBoundsException;
 import org.jlib.core.collections.list.Array;
+import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
 
 /**
  * <p>
@@ -149,7 +149,7 @@ extends AbstractCollection<Element> {
 
     /**
      * Creates a new Matrix of the specified width and height and the default iteration order. The
-     * default iteration order is specified by {@vaule #DEFAULTITERATIONORDER}.
+     * default iteration order is specified by {@link #DEFAULTITERATIONORDER}.
      *
      * @param width
      *        integer specifying the number of columns of this matrix
@@ -177,7 +177,7 @@ extends AbstractCollection<Element> {
     /**
      * Creates a new Matrix with the specified minimum and maximum column and row indices and the
      * default iteration order. The default iteration order is specified by
-     * {@value #DEFAULTITERATIONORDER}.
+     * {@link #DEFAULTITERATIONORDER}.
      *
      * @param minColumnIndex
      *        minimum column index
