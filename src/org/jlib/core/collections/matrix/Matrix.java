@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.jlib.core.collections.list.Array;
+import org.jlib.core.collections.list.EditableIndexListIterator;
 import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
 
 /**
@@ -268,9 +269,8 @@ extends AbstractCollection<Element> {
     @SuppressWarnings("hiding")
     private void construct(int minColumnIndex, int maxColumnIndex, int minRowIndex, int maxRowIndex,
                            MatrixIterationOrder iterationOrder) {
-        if (minColumnIndex < 0 || maxColumnIndex < minColumnIndex || minRowIndex < 0 || maxRowIndex < minRowIndex) {
+        if (minColumnIndex < 0 || minColumnIndex > maxColumnIndex || minRowIndex < 0 || minRowIndex > maxRowIndex)
             throw new IllegalArgumentException();
-        }
 
         this.minColumnIndex = minColumnIndex;
         this.maxColumnIndex = maxColumnIndex;
@@ -280,9 +280,8 @@ extends AbstractCollection<Element> {
         this.height = maxRowIndex - minRowIndex + 1;
 
         matrixData = new Array<Array<Element>>(minRowIndex, maxRowIndex);
-        for (int row = minRowIndex; row <= maxRowIndex; row ++) {
-            matrixData.set(row, new Array<Element>(minColumnIndex, maxColumnIndex));
-        }
+        for (int rowIndex = minRowIndex; rowIndex <= maxRowIndex; rowIndex ++)
+            matrixData.set(rowIndex, new Array<Element>(minColumnIndex, maxColumnIndex));
 
         this.iterationOrder = iterationOrder;
     }
@@ -297,7 +296,7 @@ extends AbstractCollection<Element> {
      * @return Element stored at the specified position in this Matrix
      * @throws ListIndexOutOfBoundsException
      *         if
-     *         {@code columnIndex < getMinColumnIndex() || columnIndex > getMaxColumnIndex() || rowIndex < getMinRowIndex || rowIndex > getMaxRowIndex()}
+     *         {@code nextColumnIndex < getMinColumnIndex() || nextColumnIndex > getMaxColumnIndex() || nextRowIndex < getMinRowIndex || nextRowIndex > getMaxRowIndex()}
      */
     public Element get(int columnIndex, int rowIndex)
     throws ListIndexOutOfBoundsException {
@@ -315,7 +314,7 @@ extends AbstractCollection<Element> {
      *        Element to store. {@code null} is a valid Element.
      * @throws ListIndexOutOfBoundsException
      *         if
-     *         {@code columnIndex < getMinColumnIndex() || columnIndex > getMaxColumnIndex() || rowIndex < getMinRowIndex || rowIndex > getMaxRowIndex()}
+     *         {@code nextColumnIndex < getMinColumnIndex() || nextColumnIndex > getMaxColumnIndex() || nextRowIndex < getMinRowIndex || nextRowIndex > getMaxRowIndex()}
      */
     public void set(int columnIndex, int rowIndex, Element element) {
         matrixData.get(rowIndex).set(columnIndex, element);
@@ -326,9 +325,9 @@ extends AbstractCollection<Element> {
      *
      * @param columnIndex
      *        integer specifying the index of the column
-     * @return MatrixColumn representing the column with {@code columnIndex}
+     * @return MatrixColumn representing the column with {@code nextColumnIndex}
      */
-    public MatrixColumn<Element> getColumn(int columnIndex) {
+    public MatrixColumn<Element> column(int columnIndex) {
         return new MatrixColumn<Element>(this, columnIndex);
     }
 
@@ -342,10 +341,10 @@ extends AbstractCollection<Element> {
      *        integer specifying the minimum row index of the portion of the column
      * @param maxRowIndex
      *        integer specifying the maximum row index of the portion of the column
-     * @return MatrixColumn representing the column with {@code columnIndex}
+     * @return MatrixColumn representing the column with {@code nextColumnIndex}
      */
     @SuppressWarnings("hiding")
-    public MatrixColumn<Element> getColumn(int columnIndex, int minRowIndex, int maxRowIndex) {
+    public MatrixColumn<Element> column(int columnIndex, int minRowIndex, int maxRowIndex) {
         return new MatrixColumn<Element>(this, columnIndex, minRowIndex, maxRowIndex);
     }
 
@@ -354,9 +353,9 @@ extends AbstractCollection<Element> {
      *
      * @param rowIndex
      *        integer specifying the index of the row
-     * @return MatrixRow representing the row with {@code rowIndex}
+     * @return MatrixRow representing the row with {@code nextRowIndex}
      */
-    public MatrixRow<Element> getRow(int rowIndex) {
+    public MatrixRow<Element> row(int rowIndex) {
         return new MatrixRow<Element>(this, rowIndex);
     }
 
@@ -369,10 +368,10 @@ extends AbstractCollection<Element> {
      *        integer specifying the minimum column index of the portion of the row
      * @param maxColumnIndex
      *        integer specifying the maximum column index of the portion of the row
-     * @return MatrixRow representing the row with {@code rowIndex}
+     * @return MatrixRow representing the row with {@code nextRowIndex}
      */
     @SuppressWarnings("hiding")
-    public MatrixRow<Element> getRow(int rowIndex, int minColumnIndex, int maxColumnIndex) {
+    public MatrixRow<Element> row(int rowIndex, int minColumnIndex, int maxColumnIndex) {
         return new MatrixRow<Element>(this, rowIndex, minColumnIndex, maxColumnIndex);
     }
 
@@ -381,7 +380,7 @@ extends AbstractCollection<Element> {
      *
      * @return integer specifying the minimum column of this Matrix
      */
-    public int getMinColumnIndex() {
+    public int minColumnIndex() {
         return minColumnIndex;
     }
 
@@ -390,7 +389,7 @@ extends AbstractCollection<Element> {
      *
      * @return integer specifying the maximum column of this Matrix
      */
-    public int getMaxColumnIndex() {
+    public int maxColumnIndex() {
         return maxColumnIndex;
     }
 
@@ -399,7 +398,7 @@ extends AbstractCollection<Element> {
      *
      * @return integer specifying the minimum row of this Matrix
      */
-    public int getMinRowIndex() {
+    public int minRowIndex() {
         return minRowIndex;
     }
 
@@ -408,7 +407,7 @@ extends AbstractCollection<Element> {
      *
      * @return integer specifying the maximum row of this Matrix
      */
-    public int getMaxRowIndex() {
+    public int maxRowIndex() {
         return maxRowIndex;
     }
 
@@ -417,7 +416,7 @@ extends AbstractCollection<Element> {
      *
      * @return integer specifying the width
      */
-    public int getWidth() {
+    public int width() {
         return width;
     }
 
@@ -426,7 +425,7 @@ extends AbstractCollection<Element> {
      *
      * @return integer specifying the height
      */
-    public int getHeight() {
+    public int height() {
         return height;
     }
 
@@ -451,7 +450,7 @@ extends AbstractCollection<Element> {
      *         process element at (column, row)}
      * </pre>
      *
-     * The {@link #newHorizontalIterator()} method has the same functionality as this method.
+     * The {@link #horizontalIterator()} method has the same functionality as this method.
      *
      * @return a new Iterator for this Matrix
      */
@@ -459,9 +458,9 @@ extends AbstractCollection<Element> {
     public Iterator<Element> iterator() {
         switch (iterationOrder) {
             case HORIZONTAL:
-                return newHorizontalIterator();
+                return horizontalIterator();
             case VERTICAL:
-                return newVerticalIterator();
+                return verticalIterator();
             default:
                 // impossible to occur
                 throw new RuntimeException();
@@ -480,9 +479,9 @@ extends AbstractCollection<Element> {
      *
      * The {@link #iterator()} method has the same functionality as this method.
      *
-     * @return a new rows Iterator for this Matrix
+     * @return a new horizontal Iterator for this Matrix
      */
-    public Iterator<Element> newHorizontalIterator() {
+    public Iterator<Element> horizontalIterator() {
         return new VerticalMatrixIterator<Element>(this);
     }
 
@@ -496,9 +495,9 @@ extends AbstractCollection<Element> {
      *         process element at (column, row)}
      * </pre>
      *
-     * @return a new columns Iterator for this Matrix
+     * @return a new vertical Iterator for this Matrix
      */
-    public Iterator<Element> newVerticalIterator() {
+    public Iterator<Element> verticalIterator() {
         return new HorizontalMatrixIterator<Element>(this);
     }
 
@@ -509,19 +508,19 @@ extends AbstractCollection<Element> {
      *        integer specifying the index of the column to traverse
      * @return a new column Iterator for this Matrix
      */
-    public Iterator<Element> newColumnIterator(int columnIndex) {
-        return new MatrixColumnIterator<Element>(this, columnIndex);
+    public EditableIndexListIterator<Element> columnIterator(int columnIndex) {
+        return column(columnIndex).editableIndexListIterator();
     }
 
     /**
-     * Returns an Iterator of the Elements in a single row of this Matrix.
+     * Returns an EditableIndexListIterator over the Elements of a single row of this Matrix.
      *
      * @param rowIndex
      *        integer specifying the index of the row to traverse
      * @return a new row Iterator for this Matrix
      */
-    public Iterator<Element> newRowIterator(int rowIndex) {
-        return new MatrixRowIterator<Element>(this, rowIndex);
+    public EditableIndexListIterator<Element> rowIterator(int rowIndex) {
+        return row(rowIndex).editableIndexListIterator();
     }
 
     // @see java.util.Collection#contains(java.lang.Object)
@@ -540,5 +539,11 @@ extends AbstractCollection<Element> {
             if (!contains(object))
                 return false;
         return true;
+    }
+
+    // @see java.util.AbstractCollection#toString()
+    @Override
+    public String toString() {
+        return matrixData.toString();
     }
 }

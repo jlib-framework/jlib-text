@@ -17,15 +17,7 @@
 
 package org.jlib.core.collections.matrix;
 
-import static java.lang.reflect.Array.newInstance;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.RandomAccess;
-
+import org.jlib.core.collections.list.AbstractEditableIndexList;
 import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
 
 /**
@@ -36,18 +28,18 @@ import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
  *        type of the elements held in the Matrix
  */
 public class MatrixRow<Element>
-implements List<Element>, RandomAccess {
+extends AbstractEditableIndexList<Element> {
 
-    /** Matrix of which this MatrixRow represents the portion of a row */
+    /** Matrix of which this MatrixRow represents the range of a row */
     private Matrix<Element> matrix;
 
     /** integer specifying the index of the row in the Matrix that this MatrixRow represents */
     private int rowIndex;
 
-    /** integer specifying the minimum column index of the portion of the row */
+    /** integer specifying the minimum column index of the range of the row */
     private int minColumnIndex;
 
-    /** integer specifying the maximum column index of the portion of the row */
+    /** integer specifying the maximum column index of the range of the row */
     private int maxColumnIndex;
 
     /** no default constructor */
@@ -65,21 +57,21 @@ implements List<Element>, RandomAccess {
      */
     protected MatrixRow(Matrix<Element> matrix, int rowIndex)
     throws ListIndexOutOfBoundsException {
-        this(matrix, rowIndex, matrix.getMinColumnIndex(), matrix.getMaxColumnIndex());
+        this(matrix, rowIndex, matrix.minColumnIndex(), matrix.maxColumnIndex());
     }
 
     /**
-     * Creates a new MatrixRow representing the specified portion of the specified row of the
+     * Creates a new MatrixRow representing the specified range of the specified row of the
      * specified Matrix.
      *
      * @param matrix
-     *        Matrix of which this MatrixRow represents the portion of a row
+     *        Matrix of which this MatrixRow represents the range of a row
      * @param rowIndex
      *        integer specifying the index of the row in the Matrix that this MatrixRow represents
      * @param minColumnIndex
-     *        integer specifying the minimum column index of the portion of the row
+     *        integer specifying the minimum column index of the range of the row
      * @param maxColumnIndex
-     *        integer specifying the maximum column index of the portion of the row
+     *        integer specifying the maximum column index of the range of the row
      * @throws IllegalArgumentException
      *         if {@code minColumnIndex > maxColumnIndex}
      * @throws ListIndexOutOfBoundsException
@@ -89,7 +81,7 @@ implements List<Element>, RandomAccess {
      */
     public MatrixRow(Matrix<Element> matrix, int rowIndex, int minColumnIndex, int maxColumnIndex)
     throws IllegalArgumentException, ListIndexOutOfBoundsException {
-        super();
+        super(minColumnIndex, maxColumnIndex);
         this.matrix = matrix;
         this.rowIndex = rowIndex;
         this.minColumnIndex = minColumnIndex;
@@ -98,84 +90,22 @@ implements List<Element>, RandomAccess {
         if (minColumnIndex > maxColumnIndex)
             throw new IllegalArgumentException();
 
-        if (rowIndex < matrix.getMinRowIndex() || rowIndex > matrix.getMaxRowIndex())
+        if (rowIndex < matrix.minRowIndex() || rowIndex > matrix.maxRowIndex())
             throw new ListIndexOutOfBoundsException(rowIndex);
 
-        if (minColumnIndex < matrix.getMinColumnIndex())
+        if (minColumnIndex < matrix.minColumnIndex())
             throw new ListIndexOutOfBoundsException(minColumnIndex);
 
-        if (maxColumnIndex > matrix.getMaxColumnIndex())
+        if (maxColumnIndex > matrix.maxColumnIndex())
             throw new ListIndexOutOfBoundsException(maxColumnIndex);
     }
 
-    // @see java.util.List#contains(java.lang.Object)
-    public boolean contains(Object element) {
-        for (Element rowElement : this)
-            if (element == rowElement || element != null && element.equals(rowElement))
-                return true;
-        return false;
-    }
-
-    // @see java.util.List#containsAll(java.util.Collection)
-    public boolean containsAll(Collection<?> collection) {
-        for (Object collectionElement : collection)
-            if (!contains(collectionElement))
-                return false;
-        return true;
-    }
-
-    // @see java.util.List#get(int)
+    // @see org.jlib.core.collections.list.IndexList#get(int)
     public Element get(int index) {
         return matrix.get(index, rowIndex);
     }
 
-    // @see java.util.List#indexOf(java.lang.Object)
-    public int indexOf(Object element) {
-        Element rowElement;
-        for (int columnIndex = minColumnIndex; columnIndex <= maxColumnIndex; columnIndex ++) {
-            rowElement = get(columnIndex);
-            if (element == rowElement || element != null && element.equals(rowElement))
-                return columnIndex;
-        }
-        return -1;
-    }
-
-    /**
-     * Returns {@code false} since this MatrixRow always contains at least one Element
-     *
-     * @return always {@code false}
-     */
-    public boolean isEmpty() {
-        return false;
-    }
-
-    // @see java.util.List#iterator()
-    public Iterator<Element> iterator() {
-        return matrix.newRowIterator(rowIndex);
-    }
-
-    // @see java.util.List#lastIndexOf(java.lang.Object)
-    public int lastIndexOf(Object element) {
-        Element rowElement;
-        for (int columnIndex = maxColumnIndex; columnIndex >= minColumnIndex; columnIndex --) {
-            rowElement = get(columnIndex);
-            if (element == rowElement || element != null && element.equals(rowElement))
-                return columnIndex;
-        }
-        return -1;
-    }
-
-    // @see java.util.List#listIterator()
-    public ListIterator<Element> listIterator() {
-        return new MatrixRowIterator<Element>(matrix, rowIndex, minColumnIndex, maxColumnIndex);
-    }
-
-    // @see java.util.List#listIterator(int)
-    public ListIterator<Element> listIterator(int index) {
-        return new MatrixRowIterator<Element>(matrix, rowIndex, index, maxColumnIndex);
-    }
-
-    // @see java.util.List#set(int, java.lang.Object)
+    // @see org.jlib.core.collections.list.EditableIndexList#set(int, java.lang.Object)
     public Element set(int index, Element element)
     throws ListIndexOutOfBoundsException {
         Element oldElement = get(index);
@@ -183,74 +113,13 @@ implements List<Element>, RandomAccess {
         return oldElement;
     }
 
-    // @see java.util.List#size()
-    public int size() {
-        return maxColumnIndex - minColumnIndex + 1;
-    }
-
-    // @see java.util.List#subList(int, int)
-    public List<Element> subList(int fromIndex, int toIndex)
-    throws IllegalArgumentException, ListIndexOutOfBoundsException {
-        if (fromIndex > toIndex)
-            throw new IllegalArgumentException();
-
-        ArrayList<Element> subList = new ArrayList<Element>(toIndex - fromIndex + 1);
-        for (int columnIndex = fromIndex; columnIndex <= toIndex; columnIndex ++)
-            subList.add(get(columnIndex));
-
-        return subList;
-    }
-
-    // @see java.util.List#toArray()
-    public Object[] toArray() {
-        Object[] array = new Object[size()];
-        for (int columnIndex = minColumnIndex, arrayIndex = 0; columnIndex <= maxColumnIndex; columnIndex ++, arrayIndex ++)
-            array[arrayIndex] = get(columnIndex);
-
-        return array;
-    }
-
-    // @see java.util.List#toArray(T[])
-    @SuppressWarnings("unchecked")
-    public <ArrayElement> ArrayElement[] toArray(ArrayElement[] array) {
-        if (array == null)
-            throw new NullPointerException();
-
-        int size = size();
-
-        Object[] resultArray = array;
-        Class<?> arrayType = resultArray.getClass().getComponentType();
-        if (resultArray.length < size)
-            resultArray = (ArrayElement[]) newInstance(arrayType, size);
-
-        int arrayIndex = 0;
-        for (Element element : this)
-            resultArray[arrayIndex ++] = element;
-
-        if (resultArray.length > size)
-            resultArray[size] = null;
-
-        return array;
-    }
-
     /**
-     * Returns the maximum column index of the portion of the row that this MatrixRow represents.
+     * Returns the Matrix of which this MatrixRow represents the row or the range of a row.
      *
-     * @return integer specifying the maximum column index of the portion of the row that this
-     *         MatrixRow represents
+     * @return Matrix of which this MatrixRow represents the row or the range of a row
      */
-    public final int getMaxColumnIndex() {
-        return maxColumnIndex;
-    }
-
-    /**
-     * Returns the minimum column index of the portion of the row that this MatrixRow represents.
-     *
-     * @return integer specifying the minimum column index of the portion of the row that this
-     *         MatrixRow represents
-     */
-    public final int getMinColumnIndex() {
-        return minColumnIndex;
+    public final Matrix<Element> getMatrix() {
+        return matrix;
     }
 
     /**
@@ -263,173 +132,24 @@ implements List<Element>, RandomAccess {
     }
 
     /**
-     * Returns the Matrix of which this MatrixRow represents the row or the portion of a row.
+     * Returns the minimum column index of the range of the row that this MatrixColumn
+     * represents.
      *
-     * @return Matrix of which this MatrixRow represents the row or the portion of a row
+     * @return integer specifying the minimum column index of the range of the row that
+     *         this MatrixColumn represents
      */
-    public final Matrix<Element> getMatrix() {
-        return matrix;
+    public final int getMinColumnIndex() {
+        return minColumnIndex;
     }
 
     /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a MatrixRow has a fixed size, no Elements can be added to it.
-     * </p>
+     * Returns the maximum column index of the range of the row that this MatrixColumn
+     * represents.
      *
-     * @param element
-     *        any Element
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
+     * @return integer specifying the maximum column index of the range of the row that
+     *         this MatrixColumn represents
      */
-    public boolean add(Element element) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a MatrixRow has a fixed size, no Elements can be added to it.
-     * </p>
-     *
-     * @param index
-     *        any integer
-     * @param element
-     *        any Element
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public void add(int index, Element element) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a MatrixRow has a fixed size, no Elements can be added to it.
-     * </p>
-     *
-     * @param collection
-     *        any Collection
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public boolean addAll(Collection<? extends Element> collection) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a MatrixRow has a fixed size, no Elements can be added to it.
-     * </p>
-     *
-     * @param index
-     *        any integer
-     * @param collection
-     *        any Collection
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public boolean addAll(int index, Collection<? extends Element> collection) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a MatrixRow has a fixed size, no Elements can be removed from it.
-     * </p>
-     *
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public void clear() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a MatrixRow has a fixed size, no Elements can be removed from it.
-     * </p>
-     *
-     * @param index
-     *        any integer
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public Element remove(int index) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a MatrixRow has a fixed size, no Elements can be removed from it.
-     * </p>
-     *
-     * @param element
-     *        any Object
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public boolean remove(Object element) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a MatrixRow has a fixed size, no Elements can be removed from it.
-     * </p>
-     *
-     * @param collection
-     *        any Collection
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public boolean removeAll(Collection<?> collection) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * <p>
-     * Always throws an {@code UnsupportedOperationException}.
-     * </p>
-     * <p>
-     * Since a MatrixRow has a fixed size, no Elements can be removed from it.
-     * </p>
-     *
-     * @param collection
-     *        any Collection
-     * @return never returns regulary
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public boolean retainAll(Collection<?> collection) {
-        throw new UnsupportedOperationException();
+    public final int getMaxColumnIndex() {
+        return maxColumnIndex;
     }
 }
