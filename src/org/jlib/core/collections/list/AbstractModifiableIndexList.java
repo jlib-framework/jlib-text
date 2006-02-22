@@ -25,9 +25,40 @@ package org.jlib.core.collections.list;
  * @author Igor Akkerman
  */
 public abstract class AbstractModifiableIndexList<Element>
-extends AbstractIndexList<Element>
-implements ModifiableIndexList<Element>, EditableIndexList<Element> {
+extends AbstractEditableIndexList<Element>
+implements ModifiableIndexList<Element> {
 
+    /**
+     * Creates a new AbstractModifiableIndexList initialized as empty.
+     */
+    protected AbstractModifiableIndexList() {
+        super();
+    }
 
+    /**
+     * Creates a new AbstractModifiableIndexList initialized with the correct values for
+     * minimum and maximum indices. Classes extending this class must initialize the
+     * Element store.
+     *
+     * @param minIndex
+     *        integer specifying the minimum index of this List
+     * @param maxIndex
+     *        integer specifying the maximum index of this List
+     * @throws IllegalArgumentException
+     *         if {@code  minIndex < 0 || minIndex > maxIndex}
+     */
+    protected AbstractModifiableIndexList(int minIndex, int maxIndex)
+    throws IllegalArgumentException {
+        super(minIndex, maxIndex);
+    }
 
+    // @see org.jlib.core.collections.list.ModifiableIndexList#modifiableIndexListIterator()
+    public ModifiableIndexListIterator<Element> modifiableIndexListIterator() {
+        return modifiableIndexListIterator(minIndex);
+    }
+
+    // @see org.jlib.core.collections.list.ModifiableIndexList#modifiableIndexListIterator(int)
+    public ModifiableIndexListIterator<Element> modifiableIndexListIterator(int startIndex) {
+        return new DefaultModifiableIndexListIterator<Element>(this, startIndex);
+    }
 }

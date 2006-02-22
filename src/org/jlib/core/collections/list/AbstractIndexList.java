@@ -17,20 +17,17 @@
 
 package org.jlib.core.collections.list;
 
-import java.util.AbstractCollection;
 import java.util.ArrayList;
-import java.util.List;
-
 
 /**
- * Skeletal implementation of an IndexList using a random access data store.
+ * Skeletal implementation of the IndexList interface.
  *
  * @param <Element>
  *        type of elements stored in the AbstractIndexList
  * @author Igor Akkerman
  */
 public abstract class AbstractIndexList<Element>
-extends AbstractCollection<Element>
+extends AbstractList<Element>
 implements IndexList<Element> {
 
     /** current minimum index of this list */
@@ -54,9 +51,9 @@ implements IndexList<Element> {
      * indices. Classes extending this class must initialize the Element store.
      *
      * @param minIndex
-     *        integer specifying the minimum index of this list
+     *        integer specifying the minimum index of this List
      * @param maxIndex
-     *        integer specifying the maximum index of this list
+     *        integer specifying the maximum index of this List
      * @throws IllegalArgumentException
      *         if {@code  minIndex < 0 || minIndex > maxIndex}
      */
@@ -69,17 +66,17 @@ implements IndexList<Element> {
         this.maxIndex = maxIndex;
     }
 
-    // @see org.jlib.core.collections.list.IndexList#getMinIndex()
-    public int getMinIndex() {
+    // @see org.jlib.core.collections.list.IndexList#minIndex()
+    public int minIndex() {
         return minIndex;
     }
 
-    // @see org.jlib.core.collections.list.IndexList#getMaxIndex()
-    public int getMaxIndex() {
+    // @see org.jlib.core.collections.list.IndexList#maxIndex()
+    public int maxIndex() {
         return maxIndex;
     }
 
-    // @see java.util.AbstractCollection#size()
+    // @see java.util.Collection#size()
     @Override
     public int size() {
         return maxIndex - minIndex + 1;
@@ -90,7 +87,7 @@ implements IndexList<Element> {
         Element listElement;
         for (int index = minIndex; index <= maxIndex; index ++) {
             listElement = get(index);
-            if (listElement != null ? listElement.equals(element) : element == null)
+            if (listElement == element || listElement != null && listElement.equals(element))
                 return index;
         }
         return -1;
@@ -101,26 +98,38 @@ implements IndexList<Element> {
         Element listElement;
         for (int index = maxIndex; index >= minIndex; index --) {
             listElement = get(index);
-            if (listElement != null ? listElement.equals(element) : element == null)
+            if (listElement == element || listElement != null && listElement.equals(element))
                 return index;
         }
         return -1;
     }
 
-    // @see org.jlib.core.collections.list.IndexList#toList()
-    public List<Element> toList() {
-        return subList(minIndex, maxIndex);
+    // @see org.jlib.core.collections.list.IndexList#indexListIterator()
+    public IndexListIterator<Element> indexListIterator() {
+        return indexListIterator(minIndex);
     }
 
-    // @see org.jlib.core.collections.list.IndexList#subList(int, int)
-    public List<Element> subList(int fromIndex, int toIndex)
+    // @see org.jlib.core.collections.list.IndexList#indexListIterator(int)
+    public IndexListIterator<Element> indexListIterator(int startIndex)
+    throws ListIndexOutOfBoundsException {
+        return new DefaultIndexListIterator<Element>(this, startIndex);
+    }
+
+    // @see org.jlib.core.collections.list.List#listIterator()
+    public ListIterator<Element> listIterator() {
+        return indexListIterator();
+    }
+
+    // @see org.jlib.core.collections.list.IndexList#subJavaList(int, int)
+    public java.util.List<Element> subJavaList(int fromIndex, int toIndex)
     throws IllegalArgumentException, ListIndexOutOfBoundsException {
         if (fromIndex > toIndex)
             throw new IllegalArgumentException();
 
-        List<Element> list = new ArrayList<Element>(toIndex - fromIndex + 1);
+        java.util.List<Element> list = new ArrayList<Element>(size());
         for (int index = fromIndex; index <= toIndex; index ++)
             list.add(get(index));
+
         return list;
     }
 
@@ -135,5 +144,27 @@ implements IndexList<Element> {
             list.set(index, get(index));
 
         return list;
+    }
+
+    // @see java.lang.Object#toString()
+    @Override
+    public String toString() {
+        IndexListIterator<Element> iterator = indexListIterator();
+        boolean hasNext = iterator.hasNext();
+
+        StringBuffer stringBuffer = new StringBuffer(8 * size());
+
+        stringBuffer.append('[');
+        while (hasNext) {
+            stringBuffer.append(iterator.nextIndex());
+            stringBuffer.append('=');
+            stringBuffer.append(iterator.next());
+            hasNext = iterator.hasNext();
+            if (hasNext)
+                stringBuffer.append(", ");
+        }
+        stringBuffer.append(']');
+
+        return stringBuffer.toString();
     }
 }

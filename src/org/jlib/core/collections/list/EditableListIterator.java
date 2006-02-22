@@ -18,10 +18,10 @@
 package org.jlib.core.collections.list;
 
 /**
- * Iterator of an EditableList.
+ * Iterator over an EditableList.
  *
  * @param <Element>
- *        type of the elements held in the list
+ *        type of the elements held in the List
  * @author Igor Akkerman
  */
 public interface EditableListIterator<Element>

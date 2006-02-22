@@ -19,8 +19,6 @@ package org.jlib.core.collections.list;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-
 
 /**
  * <p>
@@ -129,7 +127,7 @@ import java.util.Iterator;
  * @author Igor Akkerman
  */
 public class Array<Element>
-extends AbstractIndexList<Element>
+extends AbstractEditableIndexList<Element>
 implements EditableIndexList<Element>, Cloneable {
 
     /** ArrayList containing the Elements of this Array */
@@ -294,16 +292,16 @@ implements EditableIndexList<Element>, Cloneable {
      * @param maxIndex
      *        integer specifying the maximum index of this Array
      * @throws IllegalArgumentException
-     *         if {@code  minIndex < 0 || maxIndex < minIndex}
+     *         if {@code  minIndex < 0 || minIndex > maxIndex}
      */
     @SuppressWarnings("hiding")
     private void construct(int minIndex, int maxIndex) {
-        if (minIndex < 0 || maxIndex < minIndex)
+        if (minIndex < 0 || minIndex > maxIndex)
             throw new IllegalArgumentException();
 
         int size = maxIndex - minIndex + 1;
         backingList = new ArrayList<Element>(size);
-        for (int i = 0; i < size; i ++)
+        for (int index = 0; index < size; index ++)
             backingList.add(null);
 
         this.minIndex = minIndex;
@@ -348,25 +346,6 @@ implements EditableIndexList<Element>, Cloneable {
         return backingList.containsAll(collection);
     }
 
-    // @see java.lang.Iterable#iterator()
-    @Override
-    public Iterator<Element> iterator() {
-        return new EditableIndexListIterator<Element>(this);
-    }
-
-    // @see org.jlib.core.collections.list.IndexList#listIterator()
-    public EditableIndexListIterator<Element> listIterator() {
-        return new EditableIndexListIterator<Element>(this);
-    }
-
-    // @see org.jlib.core.collections.list.IndexList#listIterator(int)
-    public EditableIndexListIterator<Element> listIterator(int index)
-    throws IndexOutOfBoundsException {
-        if (index < minIndex || index > maxIndex)
-            throw new java.lang.ArrayIndexOutOfBoundsException(index);
-        return new EditableIndexListIterator<Element>(this, index);
-    }
-
     // @see java.lang.Object#clone()
     @Override
     public Object clone() {
@@ -380,27 +359,5 @@ implements EditableIndexList<Element>, Cloneable {
             return false;
         Array<?> array = (Array<?>) object;
         return minIndex == array.minIndex && maxIndex == array.maxIndex && backingList.equals(array.backingList);
-    }
-
-    // @see java.lang.Object#toString()
-    @Override
-    public String toString() {
-        EditableIndexListIterator<Element> iterator = listIterator();
-        boolean hasNext = iterator.hasNext();
-
-        StringBuffer stringBuffer = new StringBuffer(8 * size());
-
-        stringBuffer.append('[');
-        while (hasNext) {
-            stringBuffer.append(iterator.nextIndex());
-            stringBuffer.append('=');
-            stringBuffer.append(iterator.next());
-            hasNext = iterator.hasNext();
-            if (hasNext)
-                stringBuffer.append(", ");
-        }
-        stringBuffer.append(']');
-
-        return stringBuffer.toString();
     }
 }

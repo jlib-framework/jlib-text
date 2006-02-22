@@ -17,22 +17,15 @@
 
 package org.jlib.core.collections.list;
 
-
 /**
- * <p>
- * IndexList that allows modification of the Elements that it contains.
- * </p>
- * <p>
- * It does not necessarily allow modification of the list, that is, this interface does not provide
- * methods for adding and removing Elements. See {@link ModifiableIndexList} for this behaviour.
- * </p>
+ * IndexList that allows its Elements to be modified.
  *
  * @param <Element>
- *        type of the elements held in the IndexList
+ *        type of the elements held in the List
  * @author Igor Akkerman
  */
 public interface EditableIndexList<Element>
-extends IndexList<Element> {
+extends EditableList<Element>, IndexList<Element> {
 
     /**
      * Stores the specified Element at the specified index in this IndexList.
@@ -48,4 +41,29 @@ extends IndexList<Element> {
     public Element set(int index, Element element)
     throws ListIndexOutOfBoundsException;
 
+    /**
+     * Returns an EditableIndexListIterator traversing the Elements of this IndexList in proper
+     * sequence. Initially, the Iterator points to the beginning of this IndexList, that is, the
+     * Element returned by the first call to {@code nextIndex()} is the Element stored at
+     * {@code getMinIndex()}.
+     *
+     * @return EditableIndexListIterator over this IndexList initially pointing to the beginning of
+     *         this IndexList
+     */
+    public EditableIndexListIterator<Element> editableIndexListIterator();
+
+    /**
+     * Returns an EditableIndexListIterator traversing the Elements of this IndexList in proper
+     * sequence. That is, the Element returned by the first call to {@code nextIndex()} is the
+     * Element stored at the specified start index.
+     *
+     * @param startIndex
+     *        integer specifying the index of the first Element returned by the Iterator
+     * @return EditableIndexListIterator over this IndexList initially pointing to the beginning of
+     *         this IndexList
+     * @throws ListIndexOutOfBoundsException
+     *         if {@code startIndex < minIndex() || startIndex > maxIndex()}
+     */
+    public EditableIndexListIterator<Element> editableIndexListIterator(int startIndex)
+    throws ListIndexOutOfBoundsException;
 }

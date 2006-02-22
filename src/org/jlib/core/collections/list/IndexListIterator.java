@@ -17,7 +17,6 @@
 
 package org.jlib.core.collections.list;
 
-
 /**
  * Iterator over an IndexList.
  *
@@ -29,18 +28,18 @@ public interface IndexListIterator<Element>
 extends ListIterator<Element> {
 
     /**
-     * Returns the next Element of this Iterator.
-     *
-     * @return the next Element of this Iterator; returns {@code getMaxIndex() + 1} if there is no
-     *         next Element
-     */
-    public int nextIndex();
-
-    /**
      * Returns the previous Element of this Iterator.
      *
      * @return the previous Element of this Iterator; returns {@code getMinIndex() - 1} if there is
      *         no previous Element
      */
     public int previousIndex();
+
+    /**
+     * Returns the next Element of this Iterator.
+     *
+     * @return the next Element of this Iterator; returns {@code getMaxIndex() + 1} if there is no
+     *         next Element
+     */
+    public int nextIndex();
 }
