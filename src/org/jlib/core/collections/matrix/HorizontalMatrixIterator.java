@@ -46,41 +46,15 @@ extends MatrixIterator<Element> {
      */
     protected HorizontalMatrixIterator(Matrix<Element> matrix) {
         super(matrix);
-        columnIndex = matrix.getMinColumnIndex() - 1;
-        rowIndex = matrix.getMinRowIndex() - 1;
     }
 
-    // @see org.jlib.core.collections.matrix.MatrixIterator#getNextElementColumnIndex()
+    // @see org.jlib.core.collections.MatrixIterator#nextElement()
     @Override
-    protected int getNextElementColumnIndex() {
-        return columnIndex <= matrix.getMaxColumnIndex() - 1 ? columnIndex + 1 : matrix.getMinColumnIndex();
-    }
-
-    // @see org.jlib.core.collections.matrix.MatrixIterator#getNextElementRowIndex()
-    @Override
-    protected int getNextElementRowIndex() {
-        return columnIndex <= matrix.getMaxColumnIndex() - 1 ? rowIndex : rowIndex + 1;
-    }
-
-    // @see org.jlib.core.collections.matrix.MatrixIterator#getPreviousElementColumnIndex()
-    @Override
-    protected int getPreviousElementColumnIndex() {
-        return columnIndex >= matrix.getMinColumnIndex() + 1 ? columnIndex - 1 : matrix.getMaxColumnIndex();
-    }
-
-    // @see org.jlib.core.collections.matrix.MatrixIterator#getPreviousElementRowIndex()
-    @Override
-    protected int getPreviousElementRowIndex() {
-        return columnIndex >= matrix.getMinColumnIndex() + 1 ? rowIndex : rowIndex - 1;
-    }
-
-    // @see java.util.ListIterator#nextIndex()
-    public int nextIndex() {
-        return (rowIndex - 1) * matrix.getWidth() + columnIndex + 1;
-    }
-
-    // @see java.util.ListIterator#previousIndex()
-    public int previousIndex() {
-        return (rowIndex - 1) * matrix.getWidth() + columnIndex - 1;
+    protected void updateNextElementIndices() {
+        nextElementColumnIndex ++;
+        if (nextElementColumnIndex > matrix.maxColumnIndex()) {
+            nextElementRowIndex ++;
+            nextElementColumnIndex = 0;
+        }
     }
 }

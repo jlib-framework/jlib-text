@@ -17,39 +17,39 @@
 
 package org.jlib.core.collections.matrix;
 
-import java.util.ListIterator;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * Iterator over the elements of a Matrix.
+ * Iterator over a Matrix.
  *
  * @param <Element>
  *        type of elements stored in the Matrix
  * @author Igor Akkerman
  */
 abstract class MatrixIterator<Element>
-implements ListIterator<Element> {
+implements Iterator<Element> {
 
     /** matrix containing the elements */
     protected Matrix<Element> matrix;
 
-    /** column index of the current Element */
-    protected int columnIndex;
-
-    /** row index of the current Element */
-    protected int rowIndex;
-
-    /** minimum column index of the traversal */
+    /** minimum column index */
     protected int minColumnIndex;
 
-    /** minimum row index of the traveral */
-    protected int minRowIndex;
-
-    /** maximum column index of the traversal */
+    /** maximum column index */
     protected int maxColumnIndex;
 
-    /** maximum row index of the traveral */
+    /** minimum row index */
+    protected int minRowIndex;
+
+    /** maximum row index */
     protected int maxRowIndex;
+
+    /** column index of the next Element */
+    protected int nextElementColumnIndex;
+
+    /** row index of the next Element */
+    protected int nextElementRowIndex;
 
     /** no default constructor */
     private MatrixIterator() {};
@@ -61,50 +61,42 @@ implements ListIterator<Element> {
      *        Matrix to traverse
      */
     protected MatrixIterator(Matrix<Element> matrix) {
-        super();
-        this.matrix = matrix;
-        minColumnIndex = matrix.getMinColumnIndex();
-        minRowIndex = matrix.getMinRowIndex();
-        maxColumnIndex = matrix.getMaxColumnIndex();
-        maxRowIndex = matrix.getMaxRowIndex();
+        this(matrix, matrix.minColumnIndex(), matrix.maxColumnIndex(), matrix.minRowIndex(), matrix.maxRowIndex());
     }
 
     /**
-     * Returns the column index of the next Element.
+     * Creates a new MatrixIterator for the specified portion of the specified Matrix.
      *
-     * @return integer specifying the column index of the next Element
+     * @param matrix
+     *        Matrix to traverse
+     * @param minColumnIndex
+     *        integer specifying the minimum column index of the Matrix portion
+     * @param maxColumnIndex
+     *        integer specifying the maximum column index of the Matrix portion
+     * @param minRowIndex
+     *        integer specifying the minimum row index of the Matrix portion
+     * @param maxRowIndex
+     *        integer specifying the maximum row index of the Matrix portion
      */
-    protected abstract int getNextElementColumnIndex();
+    protected MatrixIterator(Matrix<Element> matrix, int minColumnIndex, int maxColumnIndex, int minRowIndex,
+                             int maxRowIndex) {
+        super();
 
-    /**
-     * Returns the row index of the next Element.
-     *
-     * @return integer specifying the row index of the next Element
-     */
-    protected abstract int getNextElementRowIndex();
+        this.matrix = matrix;
 
-    /**
-     * Returns the column index of the previous Element.
-     *
-     * @return integer specifying the column index of the previous Element
-     */
-    protected abstract int getPreviousElementColumnIndex();
+        this.minColumnIndex = minColumnIndex;
+        this.maxColumnIndex = maxColumnIndex;
+        this.minRowIndex = minRowIndex;
+        this.maxRowIndex = maxRowIndex;
 
-    /**
-     * Returns the row index of the previous Element.
-     *
-     * @return integer specifying the row index of the previous Element
-     */
-    protected abstract int getPreviousElementRowIndex();
+        nextElementColumnIndex = minColumnIndex;
+        nextElementRowIndex = maxColumnIndex;
+    }
 
     // @see java.util.Iterator#hasNext()
     public boolean hasNext() {
-        return getNextElementColumnIndex() <= maxColumnIndex && getNextElementRowIndex() <= maxRowIndex;
-    }
-
-    // @see java.util.ListIterator#hasPrevious()
-    public boolean hasPrevious() {
-        return getPreviousElementColumnIndex() >= minColumnIndex && getPreviousElementRowIndex() >= minRowIndex;
+        return minColumnIndex <= nextElementColumnIndex && nextElementColumnIndex <= maxColumnIndex
+               && minRowIndex <= nextElementRowIndex && nextElementRowIndex <= maxRowIndex;
     }
 
     // @see java.util.Iterator#next()
@@ -113,51 +105,28 @@ implements ListIterator<Element> {
             throw new NoSuchElementException();
         }
 
-        columnIndex = getNextElementColumnIndex();
-        rowIndex = getNextElementRowIndex();
+        Element element = matrix.get(nextElementColumnIndex, nextElementRowIndex);
 
-        return matrix.get(columnIndex, rowIndex);
-    }
+        updateNextElementIndices();
 
-    // @see java.util.ListIterator#previous()
-    public Element previous() {
-        if (!hasPrevious()) {
-            throw new NoSuchElementException();
-        }
-
-        columnIndex = getPreviousElementColumnIndex();
-        rowIndex = getPreviousElementRowIndex();
-
-        return matrix.get(columnIndex, rowIndex);
-    }
-
-    // @see java.util.ListIterator#set(java.lang.Object)
-    public void set(Element element) {
-        matrix.set(columnIndex, rowIndex, element);
+        return element;
     }
 
     /**
-     * Always throws a {@code UnsupportedOperationException} since Elements cannot be removed from a
-     * Matrix.
+     * Sets the column and row of this MatrixIterator to the column and row of the next
+     * Element to be traversed.
+     */
+    protected abstract void updateNextElementIndices();
+
+    /**
+     * Always throws a {@code UnsupportedOperationException} since Elements in a Matrix
+     * cannot be removed.
      *
      * @throws UnsupportedOperationException
      *         always
      */
     public void remove()
     throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Always throws a {@code UnsupportedOperationException} since Elements cannot be added to a
-     * Matrix.
-     *
-     * @param element
-     *        any Element
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public void add(Element element) {
         throw new UnsupportedOperationException();
     }
 }
