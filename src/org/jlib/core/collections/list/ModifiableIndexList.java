@@ -20,30 +20,42 @@ package org.jlib.core.collections.list;
 import java.util.Collection;
 
 /**
- * <p>
- * IndexList that allows Elements to be added and removed.
- * </p>
- * <p>
- * It does not necessarily allow modification of the Elements in the list, that is, this interface
- * does not provide methods for updating Elements. See {@link EditableIndexList} for this
- * behaviour.
- * </p>
+ * EditableIndexList that allows Elements to be added and removed.
  *
  * @param <Element>
  *        type of elements held in the IndexList
  * @author Igor Akkerman
  */
 public interface ModifiableIndexList<Element>
-extends IndexList<Element> {
+extends EditableIndexList<Element>, ModifiableList<Element> {
 
     /**
-     * Appends the specified Element to the end of this IndexList.
+     * Returns a ModifiableIndexListIterator traversing the Elements of this
+     * List in proper sequence. Initially, the Iterator points to the beginning
+     * of this List, that is, the Element returned by the first call to
+     * {@code nextIndex()} is the Element stored at {@code getMinIndex()}.
      *
-     * @param element
-     *        Element to add
-     * @return always {@code true}
+     * @return ModifiableIndexListIterator over this IndexList initially
+     *         pointing to the beginning of this List
      */
-    public boolean add(Element element);
+    public ModifiableIndexListIterator<Element> modifiableIndexListIterator();
+
+    /**
+     * Returns a ModifiableIndexListIterator traversing the Elements of this
+     * List in proper sequence. That is, the Element returned by the first call
+     * to {@code nextIndex()} is the Element stored at the specified start
+     * index.
+     *
+     * @param startIndex
+     *        integer specifying the index of the first Element returned by the
+     *        Iterator
+     * @return ModifiableIndexListIterator over this List initially pointing to
+     *         the beginning of this List
+     * @throws ListIndexOutOfBoundsException
+     *         if {@code startIndex < minIndex() || startIndex > maxIndex()}
+     */
+    public ModifiableIndexListIterator<Element> modifiableIndexListIterator(int startIndex)
+    throws ListIndexOutOfBoundsException;
 
     /**
      * Inserts the specified Element at the specified index in this IndexList.
@@ -56,26 +68,17 @@ extends IndexList<Element> {
     public void add(int index, Element element);
 
     /**
-     * Appends all Elements of the specified Collection to the end of this IndexList. The Elements
-     * are appended in the order they are returned by the Collection's Iterator.
-     *
-     * @param collection
-     *        Collection holding the Elements to add
-     * @return {@code true} if this IndexList changed as a result of this call, that is, if
-     *         {@code collection} is not empty; {@code false} otherwise
-     */
-    public boolean addAll(Collection<? extends Element> collection);
-
-    /**
-     * Inserts all Elements of the specified Collection at the specified index of this IndexList.
-     * The Elements are inserted in the order they are returned by the Collection's Iterator.
+     * Inserts all Elements of the specified Collection at the specified index
+     * of this IndexList. The Elements are inserted in the order they are
+     * returned by the Collection's Iterator.
      *
      * @param index
      *        integer specifying the index
      * @param collection
      *        Collection holding the Elements to add
-     * @return {@code true} if this IndexList changed as a result of this call, that is, if
-     *         {@code collection} is not empty; {@code false} otherwise
+     * @return {@code true} if this IndexList changed as a result of this call,
+     *         that is, if {@code collection} is not empty; {@code false}
+     *         otherwise
      */
     public boolean addAll(int index, Collection<? extends Element> collection);
 
@@ -87,48 +90,4 @@ extends IndexList<Element> {
      * @return the removed Element
      */
     public Element remove(int index);
-
-    /**
-     * Removes from this IndexList the specified Element at its first occurence. More formally, the
-     * first {@code listElement} is removed such as
-     * {@code listElement != null ? listElement.equals(element) : element == null}.
-     *
-     * @param element
-     *        Element to remove
-     * @return {@code true} if this IndexList changed as a result of this call, that is, if this
-     *         IndexList contains {@code element}; {@code false} otherwise
-     */
-    public boolean remove(Object element);
-
-    /**
-     * Removes from this IndexList all Elements of the specified Collection. More formally, for each
-     * {@code collectionElement} the first {@code listElement} is removed such as
-     * {@code listElement != null ? listElement.equals(collectionElement) : collectionElement == null}.
-     *
-     * @param collection
-     *        Collection holding the Elements to remove
-     * @return {@code true} if this IndexList changed as a result of this call, that is, if
-     *         {@code collection} is not empty and at least one Element of {@code collection} equals
-     *         to an Element of this List; {@code false} otherwise
-     */
-    public boolean removeAll(Collection<?> collection);
-
-    /**
-     * Retains in this IndexList only the Elements contained by the specified Collection. That is,
-     * removes from this IndexList all Elements that are not contained by the specified Collection.
-     * More formally, each {@code listElement} is removed if for no {@code collectionElement}
-     * {@code listElement != null ? listElement.equals(collectionElement) : collectionElement == null}.
-     *
-     * @param collection
-     *        Collection holding the Elements to retain
-     * @return {@code true} if this IndexList changed as a result of this call, that is, if
-     *         {@code collection} is not empty and at least one Element of {@code collection} is not
-     *         equal to an Element of this List; {@code false} otherwise
-     */
-    public boolean retainAll(Collection<?> collection);
-
-    /**
-     * Removes all Elements from this IndexList.
-     */
-    public void clear();
 }

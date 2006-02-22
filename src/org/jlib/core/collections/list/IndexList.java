@@ -17,19 +17,15 @@
 
 package org.jlib.core.collections.list;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 import java.util.RandomAccess;
-
 
 /**
  * <p>
  * Ordered random access sequence with minimum and maximum indices.
  * <p>
  * <p>
- * Since the {@link List} interface of the Java Collections Framework is zero-based, this interface
- * extends {@link Collection} instead.
+ * Since the {@link java.util.List} interface of the Java Collections Framework is zero-based, this
+ * interface extends {@code org.jlib.core.collections.list.List} instead.
  * </p>
  *
  * @param <Element>
@@ -37,7 +33,7 @@ import java.util.RandomAccess;
  * @author Igor Akkerman
  */
 public interface IndexList<Element>
-extends Collection<Element>, RandomAccess {
+extends List<Element>, RandomAccess {
 
     /**
      * Returns the Element stored at the specified index in this IndexList.
@@ -56,14 +52,40 @@ extends Collection<Element>, RandomAccess {
      *
      * @return int specifying the minimum index
      */
-    public int getMinIndex();
+    public int minIndex();
 
     /**
      * Returns the maximum index of this IndexList.
      *
      * @return int specifying the maximum index
      */
-    public int getMaxIndex();
+    public int maxIndex();
+
+    /**
+     * Returns an IndexListIterator traversing the Elements of this IndexList in proper sequence.
+     * Initially, the Iterator points to the beginning of this IndexList, that is, the Element
+     * returned by the first call to {@code nextIndex()} is the Element stored at
+     * {@code getMinIndex()}.
+     *
+     * @return IndexListIterator over this IndexList initially pointing to the beginning of this
+     *         IndexList
+     */
+    public IndexListIterator<Element> indexListIterator();
+
+    /**
+     * Returns an IndexListIterator traversing the Elements of this IndexList in proper sequence.
+     * That is, the Element returned by the first call to {@code nextIndex()} is the Element stored
+     * at the specified start index.
+     *
+     * @param startIndex
+     *        integer specifying the index of the first Element returned by the Iterator
+     * @return IndexListIterator over this IndexList initially pointing to the beginning of this
+     *         IndexList
+     * @throws ListIndexOutOfBoundsException
+     *         if {@code startIndex < minIndex() || startIndex > maxIndex()}
+     */
+    public IndexListIterator<Element> indexListIterator(int startIndex)
+    throws ListIndexOutOfBoundsException;
 
     /**
      * Returns the index of the first occurence of the specified Element in this IndexList.
@@ -84,14 +106,8 @@ extends Collection<Element>, RandomAccess {
     public int lastIndexOf(Element element);
 
     /**
-     * Returns a List containing all Elements stored in this IndexList.
-     *
-     * @return List containing the Elements stored in this IndexList
-     */
-    public List<Element> toList();
-
-    /**
-     * Returns a List containing the Elements stored in this IndexList in the specified index range.
+     * Returns a Java List containing the Elements stored in this IndexList in the specified index
+     * range in proper sequence.
      *
      * @param fromIndex
      *        integer specifying the index of the first Element
@@ -103,7 +119,7 @@ extends Collection<Element>, RandomAccess {
      * @throws ListIndexOutOfBoundsException
      *         if {@code fromIndex < getMinIndex() || toIndex > getMaxIndex()}
      */
-    public List<Element> subList(int fromIndex, int toIndex)
+    public java.util.List<Element> subJavaList(int fromIndex, int toIndex)
     throws IllegalArgumentException, ListIndexOutOfBoundsException;
 
     /**
@@ -123,36 +139,6 @@ extends Collection<Element>, RandomAccess {
      */
     public IndexList<Element> subIndexList(int fromIndex, int toIndex)
     throws IllegalArgumentException, ListIndexOutOfBoundsException;
-
-    /**
-     * Returns an Iterator traversing the Elements of this IndexList in proper sequence.
-     *
-     * @return Iterator over this IndexList
-     */
-    public Iterator<Element> iterator();
-
-    /**
-     * Returns a ListIterator traversing the Elements of this IndexList in proper sequence.
-     * Initially, the ListIterator points to the beginning of this IndexList, that is, the Element
-     * returned by the first call to {@code nextIndex()} is the Element stored at
-     * {@code getMinIndex()}.
-     *
-     * @return ListIterator over this IndexList initially pointing to the beginning of this
-     *         IndexList
-     */
-    public ListIterator<Element> listIterator();
-
-    /**
-     * Returns a ListIterator traversing the Elements of this IndexList in proper sequence.
-     * Initially, the Element returned by the first call to {@code next()} is the Element stored at
-     * the specified index.
-     *
-     * @param index
-     *        integer specifying the index of the Element returned by the first call to
-     *        {@code next()}
-     * @return ListIterator over this IndexList initially pointing to the specified Element
-     */
-    public ListIterator<Element> listIterator(int index);
 
     /**
      * Returns whether the specified Object is an IndexList with the same minimum and maximum

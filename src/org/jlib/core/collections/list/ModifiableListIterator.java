@@ -20,14 +20,14 @@ package org.jlib.core.collections.list;
 import java.util.NoSuchElementException;
 
 /**
- * Iterator over a modifiable list.
+ * Iterator over a ModifiableList.
  *
  * @param <Element>
  *        type of the elements held in the list
  * @author Igor Akkerman
  */
 public interface ModifiableListIterator<Element>
-extends ListIterator<Element> {
+extends EditableListIterator<Element> {
 
     /**
      * <p>
