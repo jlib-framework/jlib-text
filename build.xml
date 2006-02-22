@@ -24,7 +24,7 @@
         />
     </target>
     <target name="jar" depends="javac">
-        <jar destfile="jlib.core-0.1.jar"
+        <jar destfile="jlib.core-0.2.jar"
              basedir="bin"
         />
     </target>
@@ -38,7 +38,7 @@
                  Version="true"
                  Use="true"
                  Author="true"
-                 Windowtitle="jlib.core 0.1 API"
+                 Windowtitle="jlib.core 0.2 API"
                  nodeprecated="false"
                  nodeprecatedlist="false"
                  noindex="false"
@@ -49,10 +49,10 @@
                  includenosourcepackages="true"
         >
             <doctitle>
-                <![CDATA[jlib.core API 0.1<br /><small>jlib - The Free Java Library</small>]]>
+                <![CDATA[jlib.core API 0.2<br /><small>jlib - The Free Java Library</small>]]>
             </doctitle>
             <header>
-                <![CDATA[<b>jlib.core 0.1</b><br /><small><b>jlib - The Free Java Library</b></small>]]>
+                <![CDATA[<b>jlib.core 0.2</b><br /><small><b>jlib - The Free Java Library</b></small>]]>
             </header>
             <footer>
                 <![CDATA[<b>&copy; 2006 Igor Akkerman</b>]]>
