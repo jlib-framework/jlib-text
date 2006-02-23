@@ -27,7 +27,7 @@ import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
  * @param <Element>
  *        type of the elements held in the Matrix
  */
-public class DefaultMatrixColumn<Element>
+class DefaultMatrixColumn<Element>
 extends AbstractEditableIndexList<Element>
 implements MatrixColumn<Element> {
 

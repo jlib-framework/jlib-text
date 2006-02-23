@@ -31,8 +31,8 @@ import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
  * Fixed sized matrix. Replacement for two-dimensional arrays with special features.
  * </p>
  * <p>
- * The only syntactical difference to two-dimensinal arrays lies in the syntax of setting and
- * getting objects:
+ * The only syntactical difference to two-dimensinal arrays lies in the syntax of setting
+ * and getting objects:
  * </p>
  *
  * <pre>
@@ -47,10 +47,11 @@ import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
  * Special features:
  * </p>
  * <ul>
- * <li> Minimum and maximum width and height:<br/> On instantiation, you can specify the minimum
- * and the maximum width and height of the Matrix. Thus, no offset is necessary for matrices
- * starting at other indices than 0. The following example illustrates how a (4x2)-Matrix with
- * indices starting at 1, in which every entry is the product of the column and row number:
+ * <li> Minimum and maximum width and height:<br/> On instantiation, you can specify the
+ * minimum and the maximum width and height of the Matrix. Thus, no offset is necessary
+ * for matrices starting at other indices than 0. The following example illustrates how a
+ * (4x2)-Matrix with indices starting at 1, in which every entry is the product of the
+ * column and row number:
  *
  * <pre>
  * {@literal
@@ -65,8 +66,8 @@ import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
  * <li>Conformance to the Java Collections Framework <br/> The class implements the
  * {@code java.util.Collection} interface and thus behaves like all Java Collections.</li>
  * <br />
- * <li>Full support for generics:<br/> The Java arrays do not support generic classes. For
- * example, you cannot create an array of String Lists:
+ * <li>Full support for generics:<br/> The Java arrays do not support generic classes.
+ * For example, you cannot create an array of String Lists:
  *
  * <pre>
  * {@literal
@@ -80,8 +81,8 @@ import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
  * </li>
  * </ul>
  * <p>
- * A default iteration order can be defined specifying how this Matrix is traversed by the Iterator
- * returned by {@link #iterator()}.
+ * A default iteration order can be defined specifying how this Matrix is traversed by the
+ * Iterator returned by {@link #iterator()}.
  * <ul>
  * <li> Horizontal iteration. That is, the traversal algorithm is as follows:
  *
@@ -104,8 +105,9 @@ import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
  * </ul>
  * </p>
  * <p>
- * A Matrix has a fixed size, thus no Elements can be added to or removed from it. The corresponding
- * methods for adding and removing Elements all throw an {@link UnsupportedOperationException}.
+ * A Matrix has a fixed size, thus no Elements can be added to or removed from it. The
+ * corresponding methods for adding and removing Elements all throw an
+ * {@link UnsupportedOperationException}.
  * </p>
  *
  * @param <Element>
@@ -150,8 +152,8 @@ extends AbstractCollection<Element> {
     }
 
     /**
-     * Creates a new Matrix of the specified width and height and the default iteration order. The
-     * default iteration order is specified by {@link #DEFAULTITERATIONORDER}.
+     * Creates a new Matrix of the specified width and height and the default iteration
+     * order. The default iteration order is specified by {@link #DEFAULTITERATIONORDER}.
      *
      * @param width
      *        integer specifying the number of columns of this matrix
@@ -177,8 +179,8 @@ extends AbstractCollection<Element> {
     }
 
     /**
-     * Creates a new Matrix with the specified minimum and maximum column and row indices and the
-     * default iteration order. The default iteration order is specified by
+     * Creates a new Matrix with the specified minimum and maximum column and row indices
+     * and the default iteration order. The default iteration order is specified by
      * {@link #DEFAULTITERATIONORDER}.
      *
      * @param minColumnIndex
@@ -199,14 +201,16 @@ extends AbstractCollection<Element> {
     }
 
     /**
-     * Creates a new Matrix of the specified width and height and the specified iteration order.
+     * Creates a new Matrix of the specified width and height and the specified iteration
+     * order.
      *
      * @param width
      *        integer specifying the number of columns of this matrix
      * @param height
      *        integer specifying the number of rows of this matrix
      * @param iterationOrder
-     *        default iteration order to use by the Iterator returned by {@link #iterator()}
+     *        default iteration order to use by the Iterator returned by
+     *        {@link #iterator()}
      * @throws IllegalArgumentException
      *         if {@code width < 0 || height < 0}
      */
@@ -227,8 +231,8 @@ extends AbstractCollection<Element> {
     }
 
     /**
-     * Creates a new Matrix with the specified minimum and maximum column and row indices and the
-     * specified iteration order.
+     * Creates a new Matrix with the specified minimum and maximum column and row indices
+     * and the specified iteration order.
      *
      * @param minColumnIndex
      *        minimum column index
@@ -239,7 +243,8 @@ extends AbstractCollection<Element> {
      * @param maxRowIndex
      *        maximum row index
      * @param iterationOrder
-     *        default iteration order to use by the Iterator returned by {@link #iterator()}
+     *        default iteration order to use by the Iterator returned by
+     *        {@link #iterator()}
      * @throws IllegalArgumentException
      *         if
      *         {@code minColumnIndex < 0 || maxColumnIndex < minColumnIndex || minRowIndex < 0 || maxRowIndex < minRowIndex}
@@ -262,7 +267,8 @@ extends AbstractCollection<Element> {
      * @param maxRowIndex
      *        maximum row index
      * @param iterationOrder
-     *        default iteration order to use by the Iterator returned by {@link #iterator()}
+     *        default iteration order to use by the Iterator returned by
+     *        {@link #iterator()}
      * @throws IllegalArgumentException
      *         if
      *         {@code minColumnIndex < 0 || maxColumnIndex < minColumnIndex || minRowIndex < 0 || maxRowIndex < minRowIndex}
@@ -328,13 +334,13 @@ extends AbstractCollection<Element> {
      *        integer specifying the index of the column
      * @return MatrixColumn representing the column with {@code nextColumnIndex}
      */
-    public DefaultMatrixColumn<Element> column(int columnIndex) {
+    public MatrixColumn<Element> column(int columnIndex) {
         return new DefaultMatrixColumn<Element>(this, columnIndex);
     }
 
     /**
-     * Returns a MatrixColumn representing the specified portion of the specified column of this
-     * Matrix.
+     * Returns a MatrixColumn representing the specified portion of the specified column
+     * of this Matrix.
      *
      * @param columnIndex
      *        integer specifying the index of the column
@@ -342,10 +348,10 @@ extends AbstractCollection<Element> {
      *        integer specifying the minimum row index of the portion of the column
      * @param maxRowIndex
      *        integer specifying the maximum row index of the portion of the column
-     * @return MatrixColumn representing the column with {@code nextColumnIndex}
+     * @return MatrixColumn representing the specified portion of the column with {@code nextColumnIndex}
      */
     @SuppressWarnings("hiding")
-    public DefaultMatrixColumn<Element> column(int columnIndex, int minRowIndex, int maxRowIndex) {
+    public MatrixColumn<Element> column(int columnIndex, int minRowIndex, int maxRowIndex) {
         return new DefaultMatrixColumn<Element>(this, columnIndex, minRowIndex, maxRowIndex);
     }
 
@@ -356,8 +362,25 @@ extends AbstractCollection<Element> {
      *        integer specifying the index of the row
      * @return MatrixRow representing the row with {@code nextRowIndex}
      */
-    public DefaultMatrixRow<Element> row(int rowIndex) {
+    public MatrixRow<Element> row(int rowIndex) {
         return new DefaultMatrixRow<Element>(this, rowIndex);
+    }
+
+    /**
+     * Returns a MatrixRow representing the specified portion of the specified row of this
+     * Matrix.
+     *
+     * @param rowIndex
+     *        integer specifying the index of the row
+     * @param minColumnIndex
+     *        integer specifying the minimum column index of the portion of the row
+     * @param maxColumnIndex
+     *        integer specifying the maximum column index of the portion of the row
+     * @return MatrixRow representing the specified portion of the row with {@code nextRowIndex}
+     */
+    @SuppressWarnings("hiding")
+    public MatrixRow<Element> row(int rowIndex, int minColumnIndex, int maxColumnIndex) {
+        return new DefaultMatrixRow<Element>(this, rowIndex, minColumnIndex, maxColumnIndex);
     }
 
     /**
@@ -376,22 +399,6 @@ extends AbstractCollection<Element> {
      */
     public IndexList<MatrixColumn<Element>> columnsList() {
         return new MatrixColumnsList<Element>(this);
-    }
-
-    /**
-     * Returns a MatrixRow representing the specified portion of the specified row of this Matrix.
-     *
-     * @param rowIndex
-     *        integer specifying the index of the row
-     * @param minColumnIndex
-     *        integer specifying the minimum column index of the portion of the row
-     * @param maxColumnIndex
-     *        integer specifying the maximum column index of the portion of the row
-     * @return MatrixRow representing the row with {@code nextRowIndex}
-     */
-    @SuppressWarnings("hiding")
-    public DefaultMatrixRow<Element> row(int rowIndex, int minColumnIndex, int maxColumnIndex) {
-        return new DefaultMatrixRow<Element>(this, rowIndex, minColumnIndex, maxColumnIndex);
     }
 
     /**
@@ -460,8 +467,8 @@ extends AbstractCollection<Element> {
     }
 
     /**
-     * Returns an Iterator of the Elements of this Matrix traversing it horizontally. That is, the
-     * traversal algorithm is as follows:
+     * Returns an Iterator of the Elements of this Matrix traversing it horizontally. That
+     * is, the traversal algorithm is as follows:
      *
      * <pre>{@literal
      * for each row
@@ -487,8 +494,8 @@ extends AbstractCollection<Element> {
     }
 
     /**
-     * Returns an Iterator of the Elements of this Matrix traversing it horizontally. That is, the
-     * traversal algorithm is as follows:
+     * Returns an Iterator of the Elements of this Matrix traversing it horizontally. That
+     * is, the traversal algorithm is as follows:
      *
      * <pre>{@literal
      * for each row
@@ -505,8 +512,8 @@ extends AbstractCollection<Element> {
     }
 
     /**
-     * Returns an Iterator of the Elements of this Matrix traversing it vertically. That is, the
-     * traversal algorithm is as follows:
+     * Returns an Iterator of the Elements of this Matrix traversing it vertically. That
+     * is, the traversal algorithm is as follows:
      *
      * <pre>{@literal
      * for each column
@@ -532,7 +539,8 @@ extends AbstractCollection<Element> {
     }
 
     /**
-     * Returns an EditableIndexListIterator over the Elements of a single row of this Matrix.
+     * Returns an EditableIndexListIterator over the Elements of a single row of this
+     * Matrix.
      *
      * @param rowIndex
      *        integer specifying the index of the row to traverse
