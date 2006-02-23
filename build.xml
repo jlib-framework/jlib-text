@@ -17,6 +17,9 @@
 -->
 
 <project>
+    <property name="apiname" value="jlib.core"/>
+    <property name="apiversion" value="0.2" />
+
     <target name="javac">
         <javac srcdir="src"
                destdir="bin"
@@ -24,7 +27,7 @@
         />
     </target>
     <target name="jar" depends="javac">
-        <jar destfile="jlib.core-0.2.jar"
+        <jar destfile="${apiname}-${apiversion}.jar"
              basedir="bin"
         />
     </target>
@@ -38,7 +41,7 @@
                  Version="true"
                  Use="true"
                  Author="true"
-                 Windowtitle="jlib.core 0.2 API"
+                 Windowtitle="${apiname} ${apiversion} API"
                  nodeprecated="false"
                  nodeprecatedlist="false"
                  noindex="false"
@@ -49,10 +52,10 @@
                  includenosourcepackages="true"
         >
             <doctitle>
-                <![CDATA[jlib.core API 0.2<br /><small>jlib - The Free Java Library</small>]]>
+                <![CDATA[${apiname} ${apiversion} API<br /><small>jlib - The Free Java Library</small>]]>
             </doctitle>
             <header>
-                <![CDATA[<b>jlib.core 0.2</b><br /><small><b>jlib - The Free Java Library</b></small>]]>
+                <![CDATA[<b>${apiname} ${apiversion} API</b><br /><small><b>jlib - The Free Java Library</b></small>]]>
             </header>
             <footer>
                 <![CDATA[<b>&copy; 2006 Igor Akkerman</b>]]>

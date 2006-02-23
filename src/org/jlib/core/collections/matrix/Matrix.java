@@ -23,6 +23,7 @@ import java.util.Iterator;
 
 import org.jlib.core.collections.list.Array;
 import org.jlib.core.collections.list.EditableIndexListIterator;
+import org.jlib.core.collections.list.IndexList;
 import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
 
 /**
@@ -327,8 +328,8 @@ extends AbstractCollection<Element> {
      *        integer specifying the index of the column
      * @return MatrixColumn representing the column with {@code nextColumnIndex}
      */
-    public MatrixColumn<Element> column(int columnIndex) {
-        return new MatrixColumn<Element>(this, columnIndex);
+    public DefaultMatrixColumn<Element> column(int columnIndex) {
+        return new DefaultMatrixColumn<Element>(this, columnIndex);
     }
 
     /**
@@ -344,8 +345,8 @@ extends AbstractCollection<Element> {
      * @return MatrixColumn representing the column with {@code nextColumnIndex}
      */
     @SuppressWarnings("hiding")
-    public MatrixColumn<Element> column(int columnIndex, int minRowIndex, int maxRowIndex) {
-        return new MatrixColumn<Element>(this, columnIndex, minRowIndex, maxRowIndex);
+    public DefaultMatrixColumn<Element> column(int columnIndex, int minRowIndex, int maxRowIndex) {
+        return new DefaultMatrixColumn<Element>(this, columnIndex, minRowIndex, maxRowIndex);
     }
 
     /**
@@ -355,8 +356,26 @@ extends AbstractCollection<Element> {
      *        integer specifying the index of the row
      * @return MatrixRow representing the row with {@code nextRowIndex}
      */
-    public MatrixRow<Element> row(int rowIndex) {
-        return new MatrixRow<Element>(this, rowIndex);
+    public DefaultMatrixRow<Element> row(int rowIndex) {
+        return new DefaultMatrixRow<Element>(this, rowIndex);
+    }
+
+    /**
+     * Returns the List of the MatrixRows of this Matrix.
+     *
+     * @return IndexList of the MatrixRows of this Matrix
+     */
+    public IndexList<MatrixRow<Element>> rowsList() {
+        return new MatrixRowsList<Element>(this);
+    }
+
+    /**
+     * Returns the List of the MatrixColumns of this Matrix.
+     *
+     * @return IndexList of the MatrixColumns of this Matrix
+     */
+    public IndexList<MatrixColumn<Element>> columnsList() {
+        return new MatrixColumnsList<Element>(this);
     }
 
     /**
@@ -371,8 +390,8 @@ extends AbstractCollection<Element> {
      * @return MatrixRow representing the row with {@code nextRowIndex}
      */
     @SuppressWarnings("hiding")
-    public MatrixRow<Element> row(int rowIndex, int minColumnIndex, int maxColumnIndex) {
-        return new MatrixRow<Element>(this, rowIndex, minColumnIndex, maxColumnIndex);
+    public DefaultMatrixRow<Element> row(int rowIndex, int minColumnIndex, int maxColumnIndex) {
+        return new DefaultMatrixRow<Element>(this, rowIndex, minColumnIndex, maxColumnIndex);
     }
 
     /**

@@ -17,6 +17,8 @@
 
 package org.jlib.core.collections.list;
 
+import java.util.Iterator;
+
 /**
  * Skeletal implementation of a ModifiableIndexList using a random access data store.
  *
@@ -50,6 +52,17 @@ implements ModifiableIndexList<Element> {
     protected AbstractModifiableIndexList(int minIndex, int maxIndex)
     throws IllegalArgumentException {
         super(minIndex, maxIndex);
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p>
+     * The returned Iterator supports the {@code remove()} operation.
+     * </p>
+     */
+    @Override
+    public Iterator<Element> iterator() {
+        return modifiableIndexListIterator();
     }
 
     // @see org.jlib.core.collections.list.ModifiableIndexList#modifiableIndexListIterator()
