@@ -27,7 +27,7 @@ package org.jlib.core.collections.list;
  * </p>
  *
  * @param <Element>
- *        type of elements held in this List
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public interface EditableList<Element>

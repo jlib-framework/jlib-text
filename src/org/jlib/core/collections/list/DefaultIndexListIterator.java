@@ -23,7 +23,7 @@ import java.util.NoSuchElementException;
  * IndexListIterator traversing the Elements in the proper order.
  *
  * @param <Element>
- *        type of the elements held in the IndexList
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public class DefaultIndexListIterator<Element>

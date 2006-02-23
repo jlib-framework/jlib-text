@@ -17,8 +17,10 @@
 -->
 
 <project>
-    <property name="apiname" value="jlib.core"/>
+    <property name="apiname" value="jlib.core" />
     <property name="apiversion" value="0.3" />
+    <!-- Add JDK Source to the sourcepath so documentation is inherited -->
+    <!-- property name="j2sesource" value="/JDK/src" / -->
 
     <target name="javac">
         <javac srcdir="src"
@@ -32,9 +34,7 @@
         />
     </target>
     <target name="javadoc">
-        <javadoc sourcepath="src"
-                 destdir="doc"
-                 packagenames="*"
+        <javadoc destdir="doc"
                  access="protected"
                  Splitindex="false"
                  Verbose="true"
@@ -63,6 +63,12 @@
             <bottom>
                 <![CDATA[This API is distributed under the <a href="http://www.opensource.org/licenses/cpl1.0.php" target="_blank">Common Public License V1.0</a>.]]>
             </bottom>
+            <packageset dir="src" defaultexcludes="yes">
+                  <include name="org/jlib/**" />
+            </packageset>
+            <packageset dir="jdksrc" defaultexcludes="yes">
+                  <!-- include name="java/**" / -->
+            </packageset>
             <link href="http://java.sun.com/j2se/1.5.0/docs/api" />
         </javadoc>
     </target>

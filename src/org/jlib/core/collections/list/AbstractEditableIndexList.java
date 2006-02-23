@@ -21,7 +21,7 @@ package org.jlib.core.collections.list;
  * Skeletal implementation of an EditableIndexList.
  *
  * @param <Element>
- *        type of elements held by the list
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public abstract class AbstractEditableIndexList<Element>

@@ -25,7 +25,7 @@ import java.util.Iterator;
  * Skeletal implementation of the List interface.
  *
  * @param <Element>
- *        type of elements in the list
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public abstract class AbstractList<Element>

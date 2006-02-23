@@ -21,7 +21,7 @@ package org.jlib.core.collections.list;
  * Iterator over an EditableIndexList using a random access data store.
  *
  * @param <Element>
- *        type of elements stored in the IndexList
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public class DefaultEditableIndexListIterator<Element>

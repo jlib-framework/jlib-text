@@ -21,7 +21,7 @@ package org.jlib.core.collections.list;
  * EditableIndexListIterator over a ModifiableIndexList.
  *
  * @param <Element>
- *        type of the elements held in the IndexList
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public class DefaultModifiableIndexListIterator<Element>
