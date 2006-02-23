@@ -23,7 +23,7 @@ import java.util.NoSuchElementException;
  * Iterator over a ModifiableList.
  *
  * @param <Element>
- *        type of the elements held in the list
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public interface ModifiableListIterator<Element>

@@ -23,7 +23,7 @@ import java.util.Collection;
  * EditableList that allows Elements to be added and removed.
  *
  * @param <Element>
- *        type of elements held in this List
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public interface ModifiableList<Element>

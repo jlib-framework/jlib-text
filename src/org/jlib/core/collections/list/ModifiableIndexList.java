@@ -23,7 +23,7 @@ import java.util.Collection;
  * EditableIndexList that allows Elements to be added and removed.
  *
  * @param <Element>
- *        type of elements held in the IndexList
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public interface ModifiableIndexList<Element>

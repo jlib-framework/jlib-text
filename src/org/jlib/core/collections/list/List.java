@@ -18,16 +18,25 @@
 package org.jlib.core.collections.list;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Ordered sequence of elements.
  *
  * @param <Element>
- *        type of elements held by this List
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public interface List<Element>
 extends Collection<Element> {
+
+    /**
+     * Returns a ListIterator traversing the Elements of this List in proper sequence.
+     * The Element returned by the first call to {@code next()} is the first Element in the List.
+     *
+     * @return Iterator over this List
+     */
+    public Iterator<Element> iterator();
 
     /**
      * Returns a ListIterator traversing the Elements of this List in proper sequence.

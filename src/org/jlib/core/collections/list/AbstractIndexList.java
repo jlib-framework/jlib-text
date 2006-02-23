@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * Skeletal implementation of the IndexList interface.
  *
  * @param <Element>
- *        type of elements stored in the AbstractIndexList
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public abstract class AbstractIndexList<Element>

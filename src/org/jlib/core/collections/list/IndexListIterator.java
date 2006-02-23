@@ -21,7 +21,7 @@ package org.jlib.core.collections.list;
  * Iterator over an IndexList.
  *
  * @param <Element>
- *        type of the elements held in the list.
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public interface IndexListIterator<Element>

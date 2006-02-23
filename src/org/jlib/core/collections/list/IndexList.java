@@ -29,7 +29,7 @@ import java.util.RandomAccess;
  * </p>
  *
  * @param <Element>
- *        type of the elements held in the IndexList
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public interface IndexList<Element>

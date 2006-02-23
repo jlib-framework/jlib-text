@@ -23,7 +23,7 @@ import java.util.Iterator;
  * Skeletal implementation of a ModifiableIndexList using a random access data store.
  *
  * @param <Element>
- *        type of elements stored in the list
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public abstract class AbstractModifiableIndexList<Element>

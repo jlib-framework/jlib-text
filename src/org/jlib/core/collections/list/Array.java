@@ -100,7 +100,7 @@ import java.util.Collection;
  * It doesn't know whether the first parameter is meant as the minimum index of the Array or the
  * first element of the list. You could pass a Java array of Integers instead which is the
  * equivalent to the list form for the argument {@code Integer... elements} but this class provides
- * an easier way: Use one of the factory methods {@link #newIntegerArray(Integer[])} or
+ * an easier way: the factory methods {@link #newIntegerArray(Integer[])} or
  * {@link #newIntegerArrayFrom(int, Integer[])}. The latter form takes the minimum index as first
  * argument.
  *
@@ -110,7 +110,7 @@ import java.util.Collection;
  * Array<Integer> integerArray = new Array<Integer>(new Integer[] {1, 2, 3, 4, 5, 6});
  * Array<Integer> integerArray = new Array<Integer>(1, new Integer[] {1, 2, 3, 4, 5, 6});
  *
- * // easier to use (needs the static import of the method(s))
+ * // easier to use (needs the static import of the factory method(s))
  * Array<Integer> integerArray = newIntegerArray(1, 2, 3, 4, 5);
  * Array<Integer> integerArray = newIntegerArrayFrom(1, 1, 2, 3, 4, 5);}
  * </pre>
@@ -123,7 +123,7 @@ import java.util.Collection;
  * </p>
  *
  * @param <Element>
- *        type of elements stored in the Array
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public class Array<Element>

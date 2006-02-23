@@ -24,7 +24,7 @@ import java.util.NoSuchElementException;
  * Iterator over a list.
  *
  * @param <Element>
- *        type of the elements held in the list
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public interface ListIterator<Element>

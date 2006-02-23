@@ -21,7 +21,7 @@ package org.jlib.core.collections.list;
  * IndexList that allows its Elements to be modified.
  *
  * @param <Element>
- *        type of the elements held in the List
+ *        type of elements held in the List
  * @author Igor Akkerman
  */
 public interface EditableIndexList<Element>
