@@ -17,119 +17,31 @@
 
 package org.jlib.core.collections.matrix;
 
-import org.jlib.core.collections.list.AbstractEditableIndexList;
-import org.jlib.core.collections.list.ListIndexOutOfBoundsException;
+import org.jlib.core.collections.list.EditableIndexList;
 
 /**
  * Row or partial row of a Matrix.
  *
- * @author Igor Akkerman
  * @param <Element>
- *        type of the elements held in the Matrix
+ *        type of the elements in the Matrix
+ *
+ * @author Igor Akkerman
  */
-public class MatrixRow<Element>
-extends AbstractEditableIndexList<Element> {
-
-    /** Matrix of which this MatrixRow represents the range of a row */
-    private Matrix<Element> matrix;
-
-    /** integer specifying the index of the row in the Matrix that this MatrixRow represents */
-    private int rowIndex;
-
-    /** integer specifying the minimum column index of the range of the row */
-    private int minColumnIndex;
-
-    /** integer specifying the maximum column index of the range of the row */
-    private int maxColumnIndex;
-
-    /** no default constructor */
-    private MatrixRow() {}
-
-    /**
-     * Creates a new MatrixRow representing the specified row of the specified Matrix.
-     *
-     * @param matrix
-     *        Matrix of which this MatrixRow represents a row
-     * @param rowIndex
-     *        integer specifying the index of the row in the Matrix that this MatrixRow represents
-     * @throws ListIndexOutOfBoundsException
-     *         if {@code rowIndex} is not a valid row index of {@code matrix}
-     */
-    protected MatrixRow(Matrix<Element> matrix, int rowIndex)
-    throws ListIndexOutOfBoundsException {
-        this(matrix, rowIndex, matrix.minColumnIndex(), matrix.maxColumnIndex());
-    }
-
-    /**
-     * Creates a new MatrixRow representing the specified range of the specified row of the
-     * specified Matrix.
-     *
-     * @param matrix
-     *        Matrix of which this MatrixRow represents the range of a row
-     * @param rowIndex
-     *        integer specifying the index of the row in the Matrix that this MatrixRow represents
-     * @param minColumnIndex
-     *        integer specifying the minimum column index of the range of the row
-     * @param maxColumnIndex
-     *        integer specifying the maximum column index of the range of the row
-     * @throws IllegalArgumentException
-     *         if {@code minColumnIndex > maxColumnIndex}
-     * @throws ListIndexOutOfBoundsException
-     *         if {@code nextElementRowIndex} is not a valid row index of {@code matrix} or either
-     *         {@code minColumnIndex} or {@code maxColumnIndex} is not a valid column index of
-     *         {@code matrix}
-     */
-    public MatrixRow(Matrix<Element> matrix, int rowIndex, int minColumnIndex, int maxColumnIndex)
-    throws IllegalArgumentException, ListIndexOutOfBoundsException {
-        super(minColumnIndex, maxColumnIndex);
-        this.matrix = matrix;
-        this.rowIndex = rowIndex;
-        this.minColumnIndex = minColumnIndex;
-        this.maxColumnIndex = maxColumnIndex;
-
-        if (minColumnIndex > maxColumnIndex)
-            throw new IllegalArgumentException();
-
-        if (rowIndex < matrix.minRowIndex() || rowIndex > matrix.maxRowIndex())
-            throw new ListIndexOutOfBoundsException(rowIndex);
-
-        if (minColumnIndex < matrix.minColumnIndex())
-            throw new ListIndexOutOfBoundsException(minColumnIndex);
-
-        if (maxColumnIndex > matrix.maxColumnIndex())
-            throw new ListIndexOutOfBoundsException(maxColumnIndex);
-    }
-
-    // @see org.jlib.core.collections.list.IndexList#get(int)
-    public Element get(int index) {
-        return matrix.get(index, rowIndex);
-    }
-
-    // @see org.jlib.core.collections.list.EditableIndexList#set(int, java.lang.Object)
-    public Element set(int index, Element element)
-    throws ListIndexOutOfBoundsException {
-        Element oldElement = get(index);
-        matrix.set(index, rowIndex, element);
-        return oldElement;
-    }
-
+public interface MatrixRow<Element>
+extends EditableIndexList<Element> {
     /**
      * Returns the Matrix of which this MatrixRow represents the row or the range of a row.
      *
      * @return Matrix of which this MatrixRow represents the row or the range of a row
      */
-    public final Matrix<Element> getMatrix() {
-        return matrix;
-    }
+    public Matrix<Element> getMatrix();
 
     /**
      * Returns the index of the row that this MatrixRow represents.
      *
      * @return integer specifying the index of the row that this MatrixRow represents
      */
-    public final int getRowIndex() {
-        return rowIndex;
-    }
+    public int getRowIndex();
 
     /**
      * Returns the minimum column index of the range of the row that this MatrixColumn
@@ -138,9 +50,7 @@ extends AbstractEditableIndexList<Element> {
      * @return integer specifying the minimum column index of the range of the row that
      *         this MatrixColumn represents
      */
-    public final int getMinColumnIndex() {
-        return minColumnIndex;
-    }
+    public int getMinColumnIndex();
 
     /**
      * Returns the maximum column index of the range of the row that this MatrixColumn
@@ -149,7 +59,5 @@ extends AbstractEditableIndexList<Element> {
      * @return integer specifying the maximum column index of the range of the row that
      *         this MatrixColumn represents
      */
-    public final int getMaxColumnIndex() {
-        return maxColumnIndex;
-    }
+    public int getMaxColumnIndex();
 }

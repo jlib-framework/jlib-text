@@ -22,7 +22,7 @@ package org.jlib.core.collections.list;
  * ListIterator over a ModifiableIndexList.
  * </p>
  * <p>
- * This interface simply unites the capabilities of the interfaces EditableIndexListIterator and
+ * This interface simply merges the capabilities of the interfaces EditableIndexListIterator and
  * ModifiableListIterator.
  * </p>
  *
