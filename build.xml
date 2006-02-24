@@ -23,7 +23,7 @@
     <property name="libpath" value="" />
 
     <!-- Add JDK Source to the sourcepath so that Java SE documentation is inherited -->
-    <!-- property name="javasesource" value="C:\Programme\Java SE Development Kit 6.0 Beta\src" / -->
+    <!-- property name="javasesource" value="C:\JDK1.5\src" / -->
 
     <property name="org.jlib.label" value="jlib - The Free Java Library" />
 
