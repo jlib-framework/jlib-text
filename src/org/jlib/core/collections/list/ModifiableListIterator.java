@@ -17,7 +17,6 @@
 
 package org.jlib.core.collections.list;
 
-import java.util.NoSuchElementException;
 
 /**
  * Iterator over a ModifiableList.
@@ -31,12 +30,13 @@ extends EditableListIterator<Element> {
 
     /**
      * <p>
-     * Inserts the specified Element into the list at the current position of this Iterator.
+     * Inserts the specified Element into the list at the current position of this
+     * Iterator.
      * </p>
      * <p>
-     * The Element is inserted immediately before the next Element that would have been returned by
-     * {@code next} and immediately after the previous Element that would have been returned by
-     * {@code previous()}.
+     * The Element is inserted immediately before the next Element that would have been
+     * returned by {@code next} and immediately after the previous Element that would have
+     * been returned by {@code previous()}.
      * </p>
      * <p>
      * A subsequent call to {@code next()} would be unaffected, and a subsequent call to
@@ -45,21 +45,26 @@ extends EditableListIterator<Element> {
      *
      * @param element
      *        Element to add
+     * @throws IllegalStateException
+     *         if {@code next()} or {@code previous()} have not been called initially or after
+     *         the last call to {@code add} or {@code remove()}
      */
-    public void add(Element element);
+    public void add(Element element)
+    throws IllegalStateException;
 
     /**
      * <p>
      * Removes the last Element returned by {@code previous()} or {@code next()}.
      * </p>
      * <p>
-     * This call cannot be made after a call to {@code add} or {@code remove()} before a call to
-     * {@code previous()} or {@code next()}.
+     * This call cannot be made after a call to {@code add} or {@code remove()} before a
+     * call to {@code previous()} or {@code next()}.
      * </p>
      *
-     * @throws NoSuchElementException
-     *         if there is no next element
+     * @throws IllegalStateException
+     *         if {@code next()} or {@code prev()} have not been called initially or after
+     *         the last call to {@code add} or {@code remove()}
      */
     public void remove()
-    throws NoSuchElementException;
+    throws IllegalStateException;
 }

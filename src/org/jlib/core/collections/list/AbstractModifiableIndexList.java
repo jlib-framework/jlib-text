@@ -62,7 +62,7 @@ implements ModifiableIndexList<Element> {
      */
     @Override
     public Iterator<Element> iterator() {
-        return modifiableIndexListIterator();
+        return new LegacyModifiableListIterator<Element>(this);
     }
 
     // @see org.jlib.core.collections.list.ModifiableIndexList#modifiableIndexListIterator()

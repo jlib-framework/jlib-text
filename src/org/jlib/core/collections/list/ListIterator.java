@@ -17,7 +17,6 @@
 
 package org.jlib.core.collections.list;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -27,8 +26,7 @@ import java.util.NoSuchElementException;
  *        type of elements held in the List
  * @author Igor Akkerman
  */
-public interface ListIterator<Element>
-extends Iterator<Element> {
+public interface ListIterator<Element> {
 
     /**
      * Returns whether this Iterator has a previous Element.

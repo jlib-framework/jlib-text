@@ -42,7 +42,8 @@ implements IndexListIterator<Element> {
     private DefaultIndexListIterator() {}
 
     /**
-     * Creates a new DefaultIndexListIterator over the Elements of the specified EditableIndexList.
+     * Creates a new DefaultIndexListIterator over the Elements of the specified
+     * EditableIndexList.
      *
      * @param list
      *        IndexList to traverse
@@ -52,8 +53,8 @@ implements IndexListIterator<Element> {
     }
 
     /**
-     * Creates a new DefaultEditableIndexListIterator over the Elements of the specified IndexList
-     * starting the traversal at the specified index.
+     * Creates a new DefaultEditableIndexListIterator over the Elements of the specified
+     * IndexList starting the traversal at the specified index.
      *
      * @param list
      *        EditableIndexList to traverse
@@ -113,28 +114,11 @@ implements IndexListIterator<Element> {
     }
 
     /**
-     * <p>
-     * {@inheritDoc}
-     * </p>
-     * <p>
-     * This implementation of this method always throws an {@code UnsupportedOperationException}.
-     * </p>
-     *
-     * @throws UnsupportedOperationException
-     *         always
-     */
-    public void remove()
-    throws UnsupportedOperationException {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
      * Returns the index of the last retreived Element.
      *
      * @return integer specifying the index
      */
-    protected int getLastRetreivedElementIndex() {
+    protected int lastRetreivedElementIndex() {
         return lastRetreivedElementIndex;
     }
-
 }
