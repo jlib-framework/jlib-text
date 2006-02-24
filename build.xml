@@ -18,30 +18,35 @@
 
 <project>
     <property name="apiname" value="jlib.core" />
+    <property name="apinamelong" value="jlib Core" />
     <property name="apiversion" value="0.3" />
-    <!-- Add JDK Source to the sourcepath so documentation is inherited -->
-    <!-- property name="j2sesource" value="/JDK/src" / -->
+    <property name="libpath" value="" />
+
+    <!-- Add JDK Source to the sourcepath so that Java SE documentation is inherited -->
+    <!-- property name="javasesource" value="C:\Programme\Java SE Development Kit 6.0 Beta\src" / -->
+
+    <property name="org.jlib.label" value="jlib - The Free Java Library" />
 
     <target name="javac">
         <javac srcdir="src"
                destdir="bin"
-               debug="on"
+               classpath="${libpath}"
+               debug="off"
         />
     </target>
     <target name="jar" depends="javac">
-        <jar destfile="${apiname}-${apiversion}.jar"
-             basedir="bin"
-        />
+        <jar destfile="${apiname}-${apiversion}.jar" basedir="bin" />
     </target>
     <target name="javadoc">
         <javadoc destdir="doc"
+                 classpath="${libpath}"
                  access="protected"
                  Splitindex="false"
                  Verbose="true"
                  Version="true"
                  Use="true"
                  Author="true"
-                 Windowtitle="${apiname} ${apiversion} API"
+                 Windowtitle="${apinamelong}"
                  nodeprecated="false"
                  nodeprecatedlist="false"
                  noindex="false"
@@ -51,11 +56,13 @@
                  source="1.5"
                  includenosourcepackages="true"
         >
+            <packageset dir="src" />
+            <sourcepath path="${javasesource}" />
             <doctitle>
-                <![CDATA[${apiname} ${apiversion} API<br /><small>jlib - The Free Java Library</small>]]>
+                <![CDATA[${apinamelong} ${apiversion} API<br /><small>${org.jlib.label}</small>]]>
             </doctitle>
             <header>
-                <![CDATA[<b>${apiname} ${apiversion} API</b><br /><small><b>jlib - The Free Java Library</b></small>]]>
+                <![CDATA[<b>${apiname} ${apiversion} API</b><br /><small><b>${org.jlib.label}</b></small>]]>
             </header>
             <footer>
                 <![CDATA[<b>&copy; 2006 Igor Akkerman</b>]]>
@@ -63,14 +70,8 @@
             <bottom>
                 <![CDATA[This API is distributed under the <a href="http://www.opensource.org/licenses/cpl1.0.php" target="_blank">Common Public License V1.0</a>.]]>
             </bottom>
-            <packageset dir="src" defaultexcludes="yes">
-                  <include name="org/jlib/**" />
-            </packageset>
-            <packageset dir="jdksrc" defaultexcludes="yes">
-                  <!-- include name="java/**" / -->
-            </packageset>
-            <link href="http://java.sun.com/j2se/1.5.0/docs/api" />
+            <link href="http://java.sun.com/javase/6/docs/api" />
+            <link href="http://jlib-api.sourceforge.net/jlib.core/javadoc" />
         </javadoc>
     </target>
 </project>
-
