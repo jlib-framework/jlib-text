@@ -50,6 +50,6 @@ implements List<Element> {
     // @see java.util.AbstractCollection#iterator()
     @Override
     public Iterator<Element> iterator() {
-        return listIterator();
+        return new LegacyListIterator<Element>(this);
     }
 }

@@ -68,13 +68,7 @@ implements ModifiableIndexListIterator<Element> {
         this.list = list;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @throws IllegalStateException
-     *         if {@code next()} or {@code prev()} have not been called initially or after
-     *         the last call to {@code add} or {@code remove()}
-     */
+    // @see org.jlib.core.collections.list.ModifiableListIterator#add(java.lang.Object)
     public void add(Element element)
     throws IllegalStateException {
         if (!modificationReady)
@@ -85,19 +79,12 @@ implements ModifiableIndexListIterator<Element> {
         modificationReady = false;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @throws IllegalStateException
-     *         if {@code next()} or {@code prev()} have not been called initially or after
-     *         the last call to {@code add} or {@code remove()}
-     */
-    @Override
+    // @see org.jlib.core.collections.list.ModifiableListIterator#remove()
     public void remove() {
         if (!modificationReady)
             throw new IllegalStateException();
 
-        list.remove(getLastRetreivedElementIndex());
+        list.remove(lastRetreivedElementIndex());
 
         modificationReady = false;
     }
