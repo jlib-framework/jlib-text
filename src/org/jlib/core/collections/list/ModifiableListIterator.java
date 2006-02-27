@@ -17,16 +17,15 @@
 
 package org.jlib.core.collections.list;
 
-
 /**
  * Iterator over a ModifiableList.
- *
+ * 
  * @param <Element>
  *        type of elements held in the List
  * @author Igor Akkerman
  */
 public interface ModifiableListIterator<Element>
-extends EditableListIterator<Element> {
+extends EditableListIterator<Element>, ModifiableCollectionIterator<Element> {
 
     /**
      * <p>
@@ -42,12 +41,12 @@ extends EditableListIterator<Element> {
      * A subsequent call to {@code next()} would be unaffected, and a subsequent call to
      * {@code previous()} would return the new element.
      * </p>
-     *
+     * 
      * @param element
      *        Element to add
      * @throws IllegalStateException
-     *         if {@code next()} or {@code previous()} have not been called initially or after
-     *         the last call to {@code add} or {@code remove()}
+     *         if {@code next()} or {@code previous()} have not been called initially or
+     *         after the last call to {@code add} or {@code remove()}
      */
     public void add(Element element)
     throws IllegalStateException;
@@ -60,7 +59,7 @@ extends EditableListIterator<Element> {
      * This call cannot be made after a call to {@code add} or {@code remove()} before a
      * call to {@code previous()} or {@code next()}.
      * </p>
-     *
+     * 
      * @throws IllegalStateException
      *         if {@code next()} or {@code prev()} have not been called initially or after
      *         the last call to {@code add} or {@code remove()}
