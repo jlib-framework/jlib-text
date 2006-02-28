@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!--
    jlib - The Free Java Library
 
@@ -22,7 +22,7 @@
     <property name="apiversion" value="0.3" />
     <property name="libpath" value="" />
 
-    <!-- Add JDK Source to the sourcepath so that Java SE documentation is inherited -->
+    <!-- Add Java SE Source to the sourcepath so that Java SE documentation is inherited -->
     <!-- property name="javasesource" value="C:\JDK1.5\src" / -->
 
     <property name="org.jlib.label" value="jlib - The Free Java Library" />
