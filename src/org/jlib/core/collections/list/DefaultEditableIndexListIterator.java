@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    DefaultEditableIndexListIterator.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -31,11 +28,6 @@ implements EditableIndexListIterator<Element> {
     /** EditableIndexList traversed by this Iterator */
     private EditableIndexList<Element> list;
 
-    /** no default constructor */
-    private DefaultEditableIndexListIterator() {
-        super(null);
-    }
-
     /**
      * Creates a new DefaultEditableIndexListIterator over the Elements of the specified
      * EditableIndexList.
@@ -43,7 +35,7 @@ implements EditableIndexListIterator<Element> {
      * @param list
      *        EditableIndexList to traverse
      */
-    public DefaultEditableIndexListIterator(EditableIndexList<Element> list) {
+    protected DefaultEditableIndexListIterator(EditableIndexList<Element> list) {
         this(list, list.minIndex());
     }
 
@@ -58,7 +50,7 @@ implements EditableIndexListIterator<Element> {
      * @throws IndexOutOfBoundsException
      *         if {@code startIndex < matrix.minIndex() || matrix.maxIndex > startIndex}
      */
-    public DefaultEditableIndexListIterator(EditableIndexList<Element> list, int startIndex)
+    protected DefaultEditableIndexListIterator(EditableIndexList<Element> list, int startIndex)
     throws IndexOutOfBoundsException {
         super(list, startIndex);
         this.list = list;

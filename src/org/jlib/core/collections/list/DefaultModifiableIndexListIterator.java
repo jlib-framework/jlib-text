@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    DefaultModifiableIndexListIterator.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -34,11 +31,6 @@ implements ModifiableIndexListIterator<Element> {
     /** ready for modifying operation (add/remove) */
     private boolean modificationReady;
 
-    /** no default constructor */
-    private DefaultModifiableIndexListIterator() {
-        super(new Array<Element>());
-    }
-
     /**
      * Creates a new DefaultModifiableIndexListIterator for the specified
      * ModifiableIndexList.
@@ -46,7 +38,7 @@ implements ModifiableIndexListIterator<Element> {
      * @param list
      *        ModifiableIndexList to traverse
      */
-    public DefaultModifiableIndexListIterator(ModifiableIndexList<Element> list) {
+    protected DefaultModifiableIndexListIterator(ModifiableIndexList<Element> list) {
         super(list);
         this.list = list;
     }
@@ -62,7 +54,7 @@ implements ModifiableIndexListIterator<Element> {
      * @throws IndexOutOfBoundsException
      *         if {@code startIndex < matrix.minIndex() || matrix.maxIndex > startIndex}
      */
-    public DefaultModifiableIndexListIterator(ModifiableIndexList<Element> list, int startIndex)
+    protected DefaultModifiableIndexListIterator(ModifiableIndexList<Element> list, int startIndex)
     throws IndexOutOfBoundsException {
         super(list, startIndex);
         this.list = list;

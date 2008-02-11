@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    IllegalBase64CharacterException.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -29,9 +26,6 @@ extends InvalidBase64StreamException {
 
     /** illegal character */
     int illegalCharacter;
-
-    /** no default constructor */
-    private IllegalBase64CharacterException() {}
 
     /**
      * Creates a new IllegalBase64CharacterException.

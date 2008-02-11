@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    ModifiableListIterator.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -17,6 +14,8 @@
 
 package org.jlib.core.collections.list;
 
+import java.util.Iterator;
+
 /**
  * Iterator over a ModifiableList.
  * 
@@ -25,7 +24,7 @@ package org.jlib.core.collections.list;
  * @author Igor Akkerman
  */
 public interface ModifiableListIterator<Element>
-extends EditableListIterator<Element>, ModifiableCollectionIterator<Element> {
+extends EditableListIterator<Element>, Iterator<Element> {
 
     /**
      * <p>

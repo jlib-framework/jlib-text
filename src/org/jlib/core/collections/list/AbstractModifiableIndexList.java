@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    AbstractModifiableIndexList.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -66,11 +63,13 @@ implements ModifiableIndexList<Element> {
     }
 
     // @see org.jlib.core.collections.list.ModifiableIndexList#modifiableIndexListIterator()
+    @Override
     public ModifiableIndexListIterator<Element> modifiableIndexListIterator() {
         return modifiableIndexListIterator(minIndex);
     }
 
     // @see org.jlib.core.collections.list.ModifiableIndexList#modifiableIndexListIterator(int)
+    @Override
     public ModifiableIndexListIterator<Element> modifiableIndexListIterator(int startIndex) {
         return new DefaultModifiableIndexListIterator<Element>(this, startIndex);
     }

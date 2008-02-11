@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    SystemUtility.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -24,17 +21,22 @@ package org.jlib.core.system;
  */
 public class SystemUtility {
 
+    /** no default constructor */
+    private SystemUtility() {}
+
     /**
-     * Returns the value of the system property indicated by the specified key. The difference to the
-     * {@link System#getProperty(String)} method is that this method throws an Exception if the specified key is not
-     * set.
+     * Returns the value of the system property indicated by the specified key.
+     * The difference to the {@link System#getProperty(String)} method is that
+     * this method throws an Exception if the specified key is not set, whereas
+     * the other method would return {@code null}.
      * 
      * @param propertyName
      *        String specifying the name of the system property
-     * @return String specifying the value of the system property with {@code propertyName}
+     * @return String specifying the value of the system property with
+     *         {@code propertyName}
      * @throws SecurityException
-     *         if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the
-     *         specified system property
+     *         if a security manager exists and its {@code checkPropertyAccess}
+     *         method doesn't allow access to the specified system property
      * @throws NullPointerException
      *         if {@code key} is null
      * @throws IllegalArgumentException
@@ -48,4 +50,7 @@ public class SystemUtility {
             throw new PropertyNotSetException(propertyName);
         return propertyValue;
     }
+
+    /** the system's line separator */
+    public final static String LINE_SEPARATOR = System.getProperty("line.separator");
 }

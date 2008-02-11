@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    PropertyNotSetException.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -27,9 +24,6 @@ extends RuntimeException {
 
     /** name of the property that is not set */
     private String propertyName;
-
-    /** no default constructor */
-    private PropertyNotSetException() {}
 
     /**
      * Creates a new PropertyNotSetException.
@@ -54,6 +48,6 @@ extends RuntimeException {
     // @see java.lang.Throwable#toString()
     @Override
     public String toString() {
-        return getClass().getName() + "[" + propertyName + "]";
+        return getClass().getSimpleName() + "[" + propertyName + "]";
     }
 }

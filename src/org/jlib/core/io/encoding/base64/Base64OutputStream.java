@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    Base64OutputStream.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -45,11 +42,6 @@ extends FilterOutputStream {
 
     /** length of the current output line */
     private int outputLineLength = 0;
-
-    /** no default constructor */
-    private Base64OutputStream() {
-        super(null);
-    }
 
     /**
      * Creates a new filter output stream performing a base64 encoding to the specified output stream.

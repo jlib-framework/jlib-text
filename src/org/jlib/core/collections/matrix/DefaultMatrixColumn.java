@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    MatrixColumn.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -45,9 +42,6 @@ implements MatrixColumn<Element> {
 
     /** integer specifying the maximum row index of the range of the column */
     private int maxRowIndex;
-
-    /** no default constructor */
-    private DefaultMatrixColumn() {}
 
     /**
      * Creates a new MatrixColumn representing the specified column of the specified

@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    Wrapper.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -58,27 +55,27 @@ package org.jlib.core.system;
  * the wrapped Object.
  * </p>
  * 
- * @param <Obj>
+ * @param <WrappedObject>
  *        type of the Object to wrap
  * @author Igor Akkerman
  */
-public class Wrapper<Obj> {
+public class Wrapper<WrappedObject> {
 
     /**
      * Creates a new Wrapper for the specified Object.
      * 
-     * @param <Obj>
+     * @param <WrappedObject>
      *        type of the Object to wrap
      * @param wrappedObject
      *        Object to wrap
      * @return Wrapper wrapping {@code wrappedObject}
      */
-    public static <Obj> Wrapper<Obj> wrap(Obj wrappedObject) {
-        return new Wrapper<Obj>(wrappedObject);
+    public static <WrappedObject> Wrapper<WrappedObject> wrap(WrappedObject wrappedObject) {
+        return new Wrapper<WrappedObject>(wrappedObject);
     }
 
     /** Object wrapped by this Wrapper */
-    private Obj wrappedObject;
+    private WrappedObject wrappedObject;
 
     /** no default constructor */
     private Wrapper() {}
@@ -89,7 +86,7 @@ public class Wrapper<Obj> {
      * @param wrappedObject
      *        Object wrapped by this Wrapper
      */
-    private Wrapper(Obj wrappedObject) {
+    private Wrapper(WrappedObject wrappedObject) {
         super();
         this.wrappedObject = wrappedObject;
     }
@@ -99,7 +96,7 @@ public class Wrapper<Obj> {
      * 
      * @return wrapped Object
      */
-    public final Obj get() {
+    public final WrappedObject get() {
         return wrappedObject;
     }
 
@@ -109,7 +106,7 @@ public class Wrapper<Obj> {
      * @param wrappedObject
      *        wrapped Object
      */
-    public final void set(Obj wrappedObject) {
+    public final void set(WrappedObject wrappedObject) {
         this.wrappedObject = wrappedObject;
     }
 
@@ -117,18 +114,18 @@ public class Wrapper<Obj> {
      * Returns whether the Object wrapped by the specified Wrapper is equal to the Object wrapped by
      * this wrapper.
      * 
-     * @param obj
+     * @param otherObject
      *        other Wrapper
      * @return {@code true} if the object wrapped by the specified Wrapper is equal to the Object
      *         wrapped by this wrapper or if both wrapped Objects are {@code null}; {@code false}
      *         otherwise
      */
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Wrapper))
+    public boolean equals(Object otherObject) {
+        if (!(otherObject instanceof Wrapper))
             return false;
 
-        Object otherWrappedObject = ((Wrapper) obj).get();
+        Object otherWrappedObject = ((Wrapper<?>) otherObject).get();
 
         return wrappedObject != null ? wrappedObject.equals(otherWrappedObject) : otherWrappedObject == null;
     }

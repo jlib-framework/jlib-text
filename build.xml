@@ -4,10 +4,7 @@
 
       http://www.jlib.org
 
-   File:    build.xml
-   Project: jlib.core
-
-   Copyright (c) 2006 Igor Akkerman
+   Copyright (c) 2006-2008 Igor Akkerman
 
    jlib is distributed under the
 
@@ -17,61 +14,99 @@
 -->
 
 <project>
-    <property name="apiname" value="jlib.core" />
-    <property name="apinamelong" value="jlib Core" />
-    <property name="apiversion" value="0.3" />
-    <property name="libpath" value="" />
-
-    <!-- Add Java SE Source to the sourcepath so that Java SE documentation is inherited -->
-    <!-- property name="javasesource" value="C:\JDK1.5\src" / -->
-
     <property name="org.jlib.label" value="jlib - The Free Java Library" />
+    <property name="org.jlib.licenseurl" value="http://www.opensource.org/licenses/cpl1.0.php" />
+    <property name="org.jlib.licensename" value="Common Public License V1.0" />
 
-    <target name="javac">
-        <javac srcdir="src"
-               destdir="bin"
-               classpath="${libpath}"
-               debug="off"
+    <property name="api.name" value="jlib.core" />
+    <property name="api.namelong" value="jlib Core API" />
+    <property name="api.version" value="0.4" />
+    <property name="api.years" value="2006-2008" />
+    <property name="api.author" value="Igor Akkerman" />
+    <property name="api.rootpackage" value="org.jlib.core" />
+    <property name="api.sourcepath" value="src" />
+    <property name="api.libpath" value="" />
+    <property name="api.binpath" value="bin" />
+    <property name="api.jarfilename" value="${api.name}-${api.version}.jar" />
+    <property name="api.apidocpath" value="doc" />
+    <property name="api.apidocurl" value="http://jlib-api.sourceforge.net/jlib.core/javadoc/" />
+
+    <!-- Java SE Source is added to the sourcepath to allow to inherit Java SE documentation -->
+    <!-- property name="javase.source" value="C:\JDK1.6\src" / -->
+    <property name="javase.sourcepath" value="${java.home}\..\src" />
+    <property name="javase.apidocurl" value="http://java.sun.com/javase/6/docs/api/" />
+
+    <target name="clean">
+        <delete includeemptydirs="true">
+            <fileset dir="${api.binpath}" includes="**/*" />
+        </delete>
+        <delete file="${api.jarfilename}" />
+        <delete dir="${api.apidocpath}" />
+    </target>
+    
+    <target name="compile">
+        <javac srcdir="${api.sourcepath}"
+               destdir="${api.binpath}"
+               classpath="${api.libpath}"
+               debug="false"
         />
     </target>
-    <target name="jar" depends="javac">
-        <jar destfile="${apiname}-${apiversion}.jar" basedir="bin" />
+
+    <target name="jar" depends="compile">
+        <jar destfile="${api.jarfilename}" basedir="${api.binpath}" />
     </target>
+
     <target name="javadoc">
-        <javadoc destdir="doc"
-                 classpath="${libpath}"
+        <echo>
+            Running Javadoc.
+            Please ignore the errors and warnings issued while scanning the Java SE source files.
+        </echo>
+
+        <javadoc destdir="${api.apidocpath}"
                  access="protected"
-                 Splitindex="false"
-                 Verbose="true"
-                 Version="true"
-                 Use="true"
-                 Author="true"
-                 Windowtitle="${apinamelong}"
+                 splitindex="false"
+                 version="true"
+                 use="true"
+                 author="true"
                  nodeprecated="false"
                  nodeprecatedlist="false"
                  noindex="false"
                  nonavbar="false"
                  notree="false"
-                 defaultexcludes="yes"
-                 source="1.5"
                  includenosourcepackages="true"
+                 verbose="false"
+                 windowtitle="${api.namelong}"
         >
-            <packageset dir="src" />
-            <sourcepath path="${javasesource}" />
+            <package name="${api.rootpackage}.*" />
+            <sourcepath location="${api.sourcepath}" />
+            <sourcepath location="${javase.sourcepath}" />
+            <classpath path="${api.libpath}" />
+
+            <link href="${javase.apidocurl}" />
+            <link href="${api.apidocurl}" />
+
             <doctitle>
-                <![CDATA[${apinamelong} ${apiversion} API<br /><small>${org.jlib.label}</small>]]>
+                <![CDATA[
+                    ${api.namelong} ${api.version} API<br />
+                    <small>${org.jlib.label}</small>
+                ]]>
             </doctitle>
             <header>
-                <![CDATA[<b>${apiname} ${apiversion} API</b><br /><small><b>${org.jlib.label}</b></small>]]>
+                <![CDATA[
+                    <b>${api.name} ${api.version} API</b><br />
+                    <small><b>${org.jlib.label}</b></small>
+                ]]>
             </header>
             <footer>
-                <![CDATA[<b>&copy; 2006 Igor Akkerman</b>]]>
+                <![CDATA[
+                    <b>&copy; ${api.years} ${api.author}</b>
+                ]]>
             </footer>
             <bottom>
-                <![CDATA[This API is distributed under the <a href="http://www.opensource.org/licenses/cpl1.0.php" target="_blank">Common Public License V1.0</a>.]]>
+                <![CDATA[
+                    This API is distributed under the <a href="${org.jlib.licenseurl}" target="_blank">${org.jlib.licensename}</a>.
+                ]]>
             </bottom>
-            <link href="http://java.sun.com/javase/6/docs/api" />
-            <link href="http://jlib-api.sourceforge.net/jlib.core/javadoc" />
         </javadoc>
     </target>
 </project>

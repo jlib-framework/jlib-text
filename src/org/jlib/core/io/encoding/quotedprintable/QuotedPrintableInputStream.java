@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    QuotedPrintableInputStream.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -47,11 +44,6 @@ extends FilterInputStream {
 
     /** position in the output buffer */
     int outputBufferPosition = 0;
-
-    /** no default constructor */
-    private QuotedPrintableInputStream() {
-        super(null);
-    }
 
     /**
      * Creates a new QuotedPrintableInputStream decoding the specified quoted-printable InputStream.

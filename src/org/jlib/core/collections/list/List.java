@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    List.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -19,6 +16,8 @@ package org.jlib.core.collections.list;
 
 import java.util.Iterator;
 
+import org.jlib.core.collections.Collection;
+
 /**
  * Ordered sequence of elements.
  *
@@ -27,10 +26,10 @@ import java.util.Iterator;
  * @author Igor Akkerman
  */
 public interface List<Element>
-extends Iterable<Element> {
+extends Collection<Element> {
 
     /**
-     * Returns a Java Iterator traversing the Elements of this List in proper sequence.
+     * Returns an Iterator traversing the Elements of this List in proper sequence.
      * The Element returned by the first call to {@code next()} is the first Element in the List.
      *
      * @return Iterator over this List

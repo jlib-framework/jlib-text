@@ -5,10 +5,7 @@ package org.jlib.core.collections.list;
  *
  *    http://www.jlib.org
  *
- * File:    ListIndexOutOfBoundsException.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -19,7 +16,7 @@ package org.jlib.core.collections.list;
 
 /**
  * Exception thrown when a jlib List is accessed with an illegal index.
- *
+ * 
  * @author Igor Akkerman
  */
 public class ListIndexOutOfBoundsException
@@ -28,12 +25,10 @@ extends IndexOutOfBoundsException {
     /** illegal index */
     private int index;
 
-    /** no default constructor */
-    private ListIndexOutOfBoundsException() {};
-
     /**
-     * Creates a new ListIndexOutOfBoundsException with the specified illegal index.
-     *
+     * Creates a new ListIndexOutOfBoundsException for the specified illegal
+     * index.
+     * 
      * @param index
      *        integer specifying the illegal index
      */
@@ -43,9 +38,9 @@ extends IndexOutOfBoundsException {
     }
 
     /**
-     * Creates a new ListIndexOutOfBoundsException with the specified illegal index and the
-     * specified message.
-     *
+     * Creates a new ListIndexOutOfBoundsException for the specified illegal
+     * index and the specified message.
+     * 
      * @param index
      *        integer specifying the illegal index
      * @param message
@@ -57,8 +52,8 @@ extends IndexOutOfBoundsException {
 
     /**
      * Returns the illegal index of this ListIndexOutOfBoundsException.
-     *
-     * @return int specifying the illegal index
+     * 
+     * @return integer specifying the illegal index
      */
     public int getIndex() {
         return index;

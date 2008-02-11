@@ -1,18 +1,6 @@
 /*
- * jlib - The Free Java Library
- *
- *    http://www.jlib.org
- *
- * File:    ReflectionUtility.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
- *
- * jlib is distributed under the
- *
- *    COMMON PUBLIC LICENSE VERSION 1.0
- *
- *    http://www.opensource.org/licenses/cpl1.0.php
+ * Igor Akkerman jlib is distributed under the COMMON PUBLIC LICENSE VERSION 1.0
+ * http://www.opensource.org/licenses/cpl1.0.php
  */
 
 package org.jlib.core.reflection;
@@ -22,26 +10,29 @@ import org.jlib.core.system.SystemUtility;
 
 /**
  * <p>
- * Utility class providing an easy-to-use interface for creating objects using reflection. It consists of static methods
- * solely. Objects can be created providing their class, an Object of their class, their class name or the name of a
- * system property specifying their class name.
+ * Utility class providing an easy-to-use interface for creating objects using
+ * reflection. It consists of static methods solely. Objects can be created
+ * providing their class, an Object of their class, their class name or the name
+ * of a system property specifying their class name.
  * </p>
  * <p>
- * Additionally, when using the methods of the class {@link Class} for instantiating classes using reflection, a heap of
- * Exceptions have to be catched. Usually, the application that uses these methods makes no difference why the
- * instantiation failed. They simply catch {@code Throwable} to perform the exception handling. This is not a clean way
- * to handle this problem.
+ * Additionally, when using the methods of the class {@link Class} for
+ * instantiating classes using reflection, a heap of Exceptions have to be
+ * catched. Usually, the application that uses these methods makes no difference
+ * why the instantiation failed. They simply catch {@code Throwable} to perform
+ * the exception handling. This is not a clean way to handle this problem.
  * </p>
  * <p>
- * In contrast, the methods of this class throw one single checked exception, {@link ClassInstantiationException}, so
- * that the application only needs to catch that single one. The {@code ClassInstantiationException} contains the
- * information about the original Throwable that caused it so if the actual reason is of interest, it still can be
- * retreived.
+ * In contrast, the methods of this class throw one single checked exception,
+ * {@link ClassInstantiationException}, so that the application only needs to
+ * catch that single one. The {@code ClassInstantiationException} contains the
+ * information about the original Throwable that caused it so if the actual
+ * reason is of interest, it still can be retreived.
  * </p>
- *
+ * 
  * @author Igor Akkerman
  */
-@SuppressWarnings("unchecked")
+// @SuppressWarnings("unchecked")
 public class ReflectionUtility {
 
     /** no constructor */
@@ -52,10 +43,11 @@ public class ReflectionUtility {
      * Creates a new instance of the specified class.
      * </p>
      * <p>
-     * This method calls {@link Class#newInstance()}. If it throws an Exception, it is wrapped into a
-     * {@code ClassInstantiationException} and thrown by this method.
+     * This method calls {@link Class#newInstance()}. If it throws an
+     * Exception, it is wrapped into a {@code ClassInstantiationException} and
+     * thrown by this method.
      * </p>
-     *
+     * 
      * @param <Type>
      *        type of the object to create
      * @param clazz
@@ -82,10 +74,12 @@ public class ReflectionUtility {
      * Creates a new instance of the class of the specified Object.
      * </p>
      * <p>
-     * This method calls {@link Class#newInstance()}. If it throws a Throwable of any kind, it is wrapped into a
-     * {@code ClassInstantiationException} and thrown by this method.
+     * This method calls {@link Class#newInstance()}. If that method throws a
+     * Throwable of any kind, it is wrapped into a
+     * {@code ClassInstantiationException}, which is then thrown by this
+     * method.
      * </p>
-     *
+     * 
      * @param <Type>
      *        type of the object to create
      * @param object
@@ -94,6 +88,7 @@ public class ReflectionUtility {
      * @throws ClassInstantiationException
      *         if the instantiation of the specified class fails
      */
+    @SuppressWarnings("unchecked")
     public static <Type> Type newInstanceOf(Type object)
     throws ClassInstantiationException {
         return newInstanceOf((Class<? extends Type>) object.getClass());
@@ -104,19 +99,23 @@ public class ReflectionUtility {
      * Creates a new instance of the class specified by its name.
      * </p>
      * <p>
-     * This method calls {@link Class#newInstance()}. If it throws a Throwable of any kind, it is wrapped into a
-     * {@code ClassInstantiationException} and thrown by this method.
+     * This method calls {@link Class#newInstance()}. If that method throws a
+     * Throwable of any kind, it is wrapped into a
+     * {@code ClassInstantiationException}, which is then thrown by this
+     * method.
      * </p>
-     *
+     * 
      * @param <Type>
      *        type of the object to create
      * @param className
      *        String specifying the name of the class to instantiate
      * @return a new instance of the specified class
      * @throws ClassInstantiationException
-     *         if the instantiation of the specified class fails or the instantiated object is not an instance of the
-     *         class represented by {@code Type} or a subclass
+     *         if the instantiation of the specified class fails or the
+     *         instantiated object is not an instance of the class represented
+     *         by {@code Type} or a subclass
      */
+    @SuppressWarnings("unchecked")
     public static <Type> Type newInstanceOf(String className)
     throws ClassInstantiationException {
         Class<? extends Type> clazz;
@@ -134,16 +133,18 @@ public class ReflectionUtility {
     }
 
     /**
-     * Creates a new instance of the class defined in the specified system property.
-     *
+     * Creates a new instance of the class defined in the specified system
+     * property.
+     * 
      * @param <Type>
      *        type of the object to create
      * @param propertyName
-     *        String specifying the name of the system property in which the class name is defined
+     *        String specifying the name of the system property in which the
+     *        class name is defined
      * @return a new instance of the specified class
      * @throws SecurityException
-     *         if a security manager exists and its {@code checkPropertyAccess} method doesn't allow access to the
-     *         specified system property
+     *         if a security manager exists and its {@code checkPropertyAccess}
+     *         method doesn't allow access to the specified system property
      * @throws NullPointerException
      *         if {@code propertyName == null}
      * @throws IllegalArgumentException
@@ -152,17 +153,21 @@ public class ReflectionUtility {
      *         if the specified system property is not set
      * @throws ClassInstantiationException
      *         <ul>
-     *         <li>if the specified system property is not set (cause is a {@link PropertyNotSetException}) or</li>
-     *         <li>if the instantiation of the specified class fails (cause is one of the exceptions thrown by
-     *         {@link Class#forName(String)}) or</li>
-     *         <li>the instantiated object is not an instance of the class represented by {@code Type} or a subclass
-     *         (cause is a {@link ClassCastException}).
+     *         <li>if the specified system property is not set (cause is a
+     *         {@link PropertyNotSetException}) or</li>
+     *         <li>if the instantiation of the specified class fails (cause is
+     *         one of the exceptions thrown by {@link Class#forName(String)})
+     *         or</li>
+     *         <li>the instantiated object is not an instance of the class
+     *         represented by {@code Type} or a subclass (cause is a
+     *         {@link ClassCastException}).
      *         </ul>
      */
+    @SuppressWarnings("unchecked")
     public static <Type> Type newInstanceByProperty(String propertyName)
     throws SecurityException, NullPointerException, PropertyNotSetException, ClassInstantiationException {
         String className = SystemUtility.getProperty(propertyName);
-        Object object = newInstanceOf(className);
-        return (Type) object;
+        return (Type) newInstanceOf(className); 
+        // the cast is necessary for javac, not for the Eclipse compiler
     }
 }
