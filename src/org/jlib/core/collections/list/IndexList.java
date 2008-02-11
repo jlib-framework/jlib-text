@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    IndexList.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -41,23 +38,23 @@ extends List<Element>, RandomAccess {
      * @param index
      *        integer specifying the index of the stored Element
      * @return Element stored at {@code index}
-     * @throws IndexOutOfBoundsException
+     * @throws ListIndexOutOfBoundsException
      *         if {@code index < getMinIndex() || index > getMaxIndex()}
      */
     public Element get(int index)
-    throws IndexOutOfBoundsException;
+    throws ListIndexOutOfBoundsException;
 
     /**
      * Returns the minimum index of this IndexList.
      *
-     * @return int specifying the minimum index
+     * @return integer specifying the minimum index
      */
     public int minIndex();
 
     /**
      * Returns the maximum index of this IndexList.
      *
-     * @return int specifying the maximum index
+     * @return integer specifying the maximum index
      */
     public int maxIndex();
 
@@ -88,20 +85,20 @@ extends List<Element>, RandomAccess {
     throws ListIndexOutOfBoundsException;
 
     /**
-     * Returns the index of the first occurence of the specified Element in this IndexList.
+     * Returns the index of the first occurrence of the specified Element in this IndexList.
      *
      * @param element
      *        Element to find
-     * @return integer specifying the index of the first occurence of {@code element}
+     * @return integer specifying the index of the first occurrence of {@code element}
      */
     public int indexOf(Element element);
 
     /**
-     * Returns the index of the first occurence of the specified Element in this IndexList.
+     * Returns the index of the first occurrence of the specified Element in this IndexList.
      *
      * @param element
      *        Element to find
-     * @return integer specifying the index of the first occurence of {@code element}
+     * @return integer specifying the index of the first occurrence of {@code element}
      */
     public int lastIndexOf(Element element);
 
@@ -137,7 +134,7 @@ extends List<Element>, RandomAccess {
      * @throws ListIndexOutOfBoundsException
      *         if {@code fromIndex < getMinIndex() || toIndex > getMaxIndex()}
      */
-    public IndexList<Element> subIndexList(int fromIndex, int toIndex)
+    public IndexList<Element> subList(int fromIndex, int toIndex)
     throws IllegalArgumentException, ListIndexOutOfBoundsException;
 
     /**

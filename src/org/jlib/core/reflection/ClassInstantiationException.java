@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    ClassInstantiationException.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -28,9 +25,6 @@ extends Exception {
 
     /** class name */
     private String className;
-
-    /** no default constructor */
-    private ClassInstantiationException() {};
 
     /**
      * Creates a new ClassInstantiationException if a class with the specified name cannot be instantiated.
@@ -54,7 +48,7 @@ extends Exception {
      *        original Throwable that caused this Exception
      */
     public ClassInstantiationException(Class<?> clazz, Throwable cause) {
-        this(clazz.getName(), cause);
+        this(clazz.getSimpleName(), cause);
     }
 
     /**
@@ -73,6 +67,6 @@ extends Exception {
      */
     @Override
     public String toString() {
-        return getClass().getName() + "[" + className + "][" + getCause() + "]";
+        return getClass().getSimpleName() + "[" + className + "][" + getCause() + "]";
     }
 }

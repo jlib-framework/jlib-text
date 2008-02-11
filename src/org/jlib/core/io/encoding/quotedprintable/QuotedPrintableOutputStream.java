@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    QuotedPrintableOutputStream.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -39,11 +36,6 @@ extends FilterOutputStream {
 
     /** last written character */
     private int lastWrittenCharacter;
-
-    /** no default constructor */
-    private QuotedPrintableOutputStream() {
-        super(null);
-    }
 
     /**
      * Creates a new QuotedPrintableOutputStream performing a quoted-printable encoding to the

@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    IOUtility.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -17,7 +14,7 @@
 
 package org.jlib.core.io;
 
-import static org.jlib.core.util.number.NumberUtility.parseHexDigit;
+import static org.jlib.core.number.NumberUtility.parseHexDigit;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -29,15 +26,18 @@ import java.io.OutputStream;
  */
 public abstract class IOUtility {
 
+    /** no default constructor */
+    private IOUtility() {}
+    
     /**
      * <p>
-     * Converts the specified signed byte value into an unsigned integer value taking in account the
-     * sign of the byte.
+     * Converts the specified signed byte value into an unsigned integer value
+     * taking in account the sign of the byte.
      * </p>
      * <p>
-     * Many stream operations like the {@link OutputStream#write(int)} method require a byte to be
-     * specified by an integer. Using this method, an unsigned byte can be converted into such an
-     * integer.
+     * Many stream operations like the {@link OutputStream#write(int)} method
+     * require a byte to be specified by an integer. Using this method, an
+     * unsigned byte can be converted into such an integer.
      * </p>
      * 
      * @param signedByte
@@ -50,20 +50,21 @@ public abstract class IOUtility {
 
     /**
      * <p>
-     * Converts the specified unsigned integer value into an signed byte value taking in account the
-     * sign of the byte.
+     * Converts the specified unsigned integer value into an signed byte value
+     * taking in account the sign of the byte.
      * </p>
      * <p>
-     * The {@link InputStream#read() read()} method of the {@link InputStream} class returns a byte
-     * as an integer. Using this method, such an integer can be converted into a signed byte.
+     * The {@link InputStream#read() read()} method of the {@link InputStream}
+     * class returns a byte as an integer. Using this method, such an integer
+     * can be converted into a signed byte.
      * </p>
      * <p>
      * This method has the same functionality as a simple cast to a byte.
      * </p>
      * 
      * @param unsignedInt
-     *        the unsigned integer value of a signed byte (0 to 255). The 24 higher-order bits of
-     *        this integer are ignored.
+     *        the unsigned integer value of a signed byte (0 to 255). The 24
+     *        higher-order bits of this integer are ignored.
      * @return the signed byte value (-128 to 127)
      */
     public static byte toSignedByte(int unsignedInt) {
@@ -73,9 +74,10 @@ public abstract class IOUtility {
     }
 
     /**
-     * Parses a hexadecimal signed byte value out of the specified array containing the two
-     * hexadecimal digit characters as bytes. The character order is assumed to be big-endian, that
-     * is, {@code hexCharacter[offset]} holds the most significant hexadecimal character.
+     * Parses a hexadecimal signed byte value out of the specified array
+     * containing the two hexadecimal digit characters as bytes. The character
+     * order is assumed to be big-endian, that is, {@code hexCharacter[offset]}
+     * holds the most significant hexadecimal character.
      * 
      * @param hexCharacters
      *        array of bytes containing the hexadecimal digit characters
@@ -91,9 +93,10 @@ public abstract class IOUtility {
     }
 
     /**
-     * Parses a hexadecimal signed byte value at the specified offst in specified array containing
-     * the two hexadecimal digit characters as bytes. The character order is assumed to be
-     * big-endian, that is, {@code hexCharacter[offset]} holds the most significant hexadecimal
+     * Parses a hexadecimal signed byte value at the specified offst in
+     * specified array containing the two hexadecimal digit characters as bytes.
+     * The character order is assumed to be big-endian, that is,
+     * {@code hexCharacter[offset]} holds the most significant hexadecimal
      * character.
      * 
      * @param hexCharacters

@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    Base64Utility.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -24,7 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Utility class for base64 encoding operations.
+ * Utility class providing base64 encoding operations.
  * 
  * @author Igor Akkerman
  */
@@ -65,7 +62,7 @@ public abstract class Base64Utility {
      * 
      * @param base64String
      *        base64 encoded String
-     * @return array of decoded bytes from {@code base64String} 
+     * @return array of decoded bytes from {@code base64String}
      * @throws IOException
      *         if an i/o exception occurs
      */
@@ -95,8 +92,8 @@ public abstract class Base64Utility {
      * 
      * @param base64Character
      *        integer specifying the base64 character
-     * @return integer value represented by {@code base64Char}; -1 if {@code base64Char} is the
-     *         padding character
+     * @return integer value represented by {@code base64Char}; -1 if
+     *         {@code base64Char} is the padding character
      * @throws IllegalBase64CharacterException
      *         if the specified character does not belong to the base64 alphabet
      */

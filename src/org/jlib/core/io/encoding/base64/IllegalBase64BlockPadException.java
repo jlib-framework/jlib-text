@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    IllegalBase64BlockPadException.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -30,9 +27,6 @@ extends InvalidBase64StreamException {
 
     /** base64 block containing a wrong padding character */
     private int[] base64Block;
-
-    /** no default constructor */
-    private IllegalBase64BlockPadException() {}
 
     /**
      * Creates a new IllegalBase64BlockPadException for the specified base64 block.

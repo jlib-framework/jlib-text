@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    AbstractIndexList.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -134,7 +131,7 @@ implements IndexList<Element> {
     }
 
     // @see org.jlib.core.collections.list.IndexList#subIndexList(int, int)
-    public IndexList<Element> subIndexList(int fromIndex, int toIndex)
+    public IndexList<Element> subList(int fromIndex, int toIndex)
     throws IllegalArgumentException, ListIndexOutOfBoundsException {
         if (fromIndex > toIndex)
             throw new IllegalArgumentException();

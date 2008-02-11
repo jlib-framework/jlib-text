@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    IllegalQuotedPrintableOctetException.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -28,10 +25,7 @@ extends InvalidQuotedPrintableStreamException {
 
     /** the illegal characters */
     private byte[] illegalCharacters = new byte[2];
-
-    /** no default constructor */
-    private IllegalQuotedPrintableOctetException() {}
-
+    
     /**
      * Creates a new IllegalQuotedPrintableOctetException for the specified illegal characters.
      * 

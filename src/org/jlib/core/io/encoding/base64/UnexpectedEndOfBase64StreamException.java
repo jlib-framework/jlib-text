@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    UnexpectedEndOfBase64StreamException.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *

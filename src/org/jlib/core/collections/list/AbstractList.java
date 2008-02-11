@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    AbstractList.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -17,9 +14,10 @@
 
 package org.jlib.core.collections.list;
 
-import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import org.jlib.core.collections.AbstractCollection;
 
 /**
  * Skeletal implementation of the List interface.

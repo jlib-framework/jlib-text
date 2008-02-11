@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    DefaultIndexListIterator.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -35,11 +32,8 @@ implements IndexListIterator<Element> {
     /** index of the next Element in the IndexList */
     protected int nextElementIndex;
 
-    /** index of last retreived Element */
+    /** index of last retrieved Element */
     private int lastRetreivedElementIndex;
-
-    /** no default constructor */
-    private DefaultIndexListIterator() {}
 
     /**
      * Creates a new DefaultIndexListIterator over the Elements of the specified
@@ -48,7 +42,7 @@ implements IndexListIterator<Element> {
      * @param list
      *        IndexList to traverse
      */
-    public DefaultIndexListIterator(IndexList<Element> list) {
+    protected DefaultIndexListIterator(IndexList<Element> list) {
         this(list, list.minIndex());
     }
 
@@ -63,7 +57,7 @@ implements IndexListIterator<Element> {
      * @throws ListIndexOutOfBoundsException
      *         if {@code startIndex < minIndex() || startIndex > maxIndex()}
      */
-    public DefaultIndexListIterator(IndexList<Element> list, int startIndex)
+    protected DefaultIndexListIterator(IndexList<Element> list, int startIndex)
     throws ListIndexOutOfBoundsException {
         super();
         this.list = list;

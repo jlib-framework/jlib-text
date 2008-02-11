@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    LegacyListIterator.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -17,30 +14,30 @@
 
 package org.jlib.core.collections.list;
 
+import java.util.Iterator;
+
 /**
  * <p>
  * Iterator of a List implementing the Java Iterator interface.
  * </p>
  * <p>
- * The {@code remove()} method of this implementation throws an {@link UnsupportedOperationException}.
+ * The {@code remove()} method of this implementation throws an
+ * {@link UnsupportedOperationException}.
  * </p>
- *
+ * 
  * @param <Element>
  *        type of elements held in the List
  * @author Igor Akkerman
  */
 class LegacyListIterator<Element>
-implements java.util.Iterator<Element> {
+implements Iterator<Element> {
 
     /** backing Iterator */
     protected ListIterator<Element> backingIterator;
 
-    /** no default constructor */
-    private LegacyListIterator() {}
-
     /**
      * Creates a new Iterator over the Elements of the specified List.
-     *
+     * 
      * @param list
      *        List to traverse
      */

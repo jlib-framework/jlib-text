@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    QuotedPrintableUtility.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -19,7 +16,7 @@ package org.jlib.core.io.encoding.quotedprintable;
 
 import static org.jlib.core.io.IOUtility.parseHexNumberAsByte;
 import static org.jlib.core.io.IOUtility.toUnsignedInt;
-import static org.jlib.core.util.number.NumberUtility.HEXCHARACTERS;
+import static org.jlib.core.number.NumberUtility.HEXCHARACTERS;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -3,10 +3,7 @@
  * 
  *    http://www.jlib.org
  *    
- * File:    Base64InputStream.java
- * Project: jlib.core
- * 
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  * 
  * jlib is distributed under the
  *
@@ -23,10 +20,9 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 /**
  * FilterInputStream performing a base64 decoding of a source InputStream.
- *
+ * 
  * @author Igor Akkerman
  */
 
@@ -35,7 +31,7 @@ extends FilterInputStream {
 
     /** padding byte */
     private static final byte PAD = -1;
-    
+
     /** input buffer */
     private int[] inputBuffer = new int[4];
 
@@ -48,15 +44,10 @@ extends FilterInputStream {
     /** current position in the output buffer */
     private int outputBufferPosition = 0;
 
-    /** no default constructor */
-    private Base64InputStream() {
-        super(null);
-    }
-
     /**
      * Creates a new filter input stream decoding the specified base64 input
      * stream.
-     *
+     * 
      * @param sourceInputStream
      *        input stream to be decoded
      */
@@ -76,7 +67,7 @@ extends FilterInputStream {
                     outputBufferPosition = 0;
                 }
 
-                return outputBuffer[outputBufferPosition++];
+                return outputBuffer[outputBufferPosition ++];
             }
             catch (EndOfBase64StreamException eob64se) {
                 return -1;
@@ -92,7 +83,7 @@ extends FilterInputStream {
     @Override
     public int read(byte[] buffer, int offset, int length)
     throws IOException {
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i ++) {
             buffer[i] = (byte) read();
             if (buffer[i] == -1) {
                 return i != 0 ? i : -1;
@@ -104,10 +95,10 @@ extends FilterInputStream {
     /**
      * Reads a block of four base64 characters writing their values into the
      * input buffer.
-     *
+     * 
      * @throws EndOfBase64StreamException
-     *         if the end of the base64 stream was reached before the next block;
-     *         this exception does not signal an error
+     *         if the end of the base64 stream was reached before the next
+     *         block; this exception does not signal an error
      * @throws UnexpectedEndOfBase64StreamException
      *         if the base64 block was not completed at the end of the base64
      *         stream
@@ -120,7 +111,7 @@ extends FilterInputStream {
         int charValue;
         boolean illegalCharRead;
 
-        for (int i = 0; i <= 3; i++) {
+        for (int i = 0; i <= 3; i ++) {
             do {
                 try {
                     readChar = in.read();
@@ -149,7 +140,7 @@ extends FilterInputStream {
 
     /**
      * Decodes the currently read base64 block into the output buffer.
-     *
+     * 
      * @throws IllegalBase64BlockPadException
      *         if the read base64 block contains illegal padding characters
      */
@@ -168,10 +159,10 @@ extends FilterInputStream {
     }
 
     /**
-     * Returns the number of padding characters in the currently read base64 block.
-     *
+     * Returns the number of padding characters in the currently read base64
+     * block.
+     * 
      * @return integer specifying the number of padding characters
-     *
      * @throws IllegalBase64BlockPadException
      *         if the read base64 block contains illegal padding characters
      */
@@ -180,7 +171,7 @@ extends FilterInputStream {
         boolean[] pad = new boolean[4];
         for (int i = 0; i <= 3; i ++)
             pad[i] = (inputBuffer[i] == PAD);
-        
+
         if (!pad[0] && !pad[1] && !pad[2] && !pad[3])
             return 0;
         else if (!pad[0] && !pad[1] && !pad[2] && pad[3] && (inputBuffer[2] & 0x03) == 0)

@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    VerticalMatrixIterator.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -32,11 +29,6 @@ package org.jlib.core.collections.matrix;
  */
 class VerticalMatrixIterator<Element>
 extends MatrixIterator<Element> {
-
-    /** no default constructor */
-    private VerticalMatrixIterator() {
-        super(null);
-    }
 
     /**
      * Creates a new VerticalMatrixIterator for the specified Matrix.

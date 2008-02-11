@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    MatrixRow.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -42,9 +39,6 @@ implements MatrixRow<Element> {
 
     /** integer specifying the maximum column index of the range of the row */
     private int maxColumnIndex;
-
-    /** no default constructor */
-    private DefaultMatrixRow() {}
 
     /**
      * Creates a new MatrixRow representing the specified row of the specified Matrix.

@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    MatrixRowsList.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -28,9 +25,6 @@ import org.jlib.core.collections.list.AbstractIndexList;
  */
 class MatrixColumnsList<Element>
 extends AbstractIndexList<MatrixColumn<Element>> {
-
-    /** no default constructor */
-    private MatrixColumnsList() {}
 
     /** Matrix owning the Columns */
     private Matrix<Element> matrix;

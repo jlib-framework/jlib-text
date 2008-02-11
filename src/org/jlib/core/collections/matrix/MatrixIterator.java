@@ -3,10 +3,7 @@
  *
  *    http://www.jlib.org
  *
- * File:    MatrixIterator.java
- * Project: jlib.core
- *
- * Copyright (c) 2006 Igor Akkerman
+ * Copyright (c) 2006-2008 Igor Akkerman
  *
  * jlib is distributed under the
  *
@@ -50,9 +47,6 @@ implements Iterator<Element> {
 
     /** row index of the next Element */
     protected int nextElementRowIndex;
-
-    /** no default constructor */
-    private MatrixIterator() {};
 
     /**
      * Creates a new MatrixIterator for the specified Matrix.
