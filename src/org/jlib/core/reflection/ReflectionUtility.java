@@ -18,7 +18,7 @@ import org.jlib.core.system.SystemUtility;
  * <p>
  * Additionally, when using the methods of the class {@link Class} for
  * instantiating classes using reflection, a heap of Exceptions have to be
- * catched. Usually, the application that uses these methods makes no difference
+ * caught. Usually, the application that uses these methods makes no difference
  * why the instantiation failed. They simply catch {@code Throwable} to perform
  * the exception handling. This is not a clean way to handle this problem.
  * </p>
@@ -27,7 +27,7 @@ import org.jlib.core.system.SystemUtility;
  * {@link ClassInstantiationException}, so that the application only needs to
  * catch that single one. The {@code ClassInstantiationException} contains the
  * information about the original Throwable that caused it so if the actual
- * reason is of interest, it still can be retreived.
+ * reason is of interest, it still can be retrieved.
  * </p>
  * 
  * @author Igor Akkerman
