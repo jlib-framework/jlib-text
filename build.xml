@@ -19,41 +19,42 @@
     <property name="org.jlib.licensename" value="Common Public License V1.0" />
 
     <property name="api.name" value="jlib.core" />
-    <property name="api.namelong" value="jlib Core API" />
+    <property name="api.namelong" value="jlib Core" />
     <property name="api.version" value="0.4" />
     <property name="api.years" value="2006-2008" />
     <property name="api.author" value="Igor Akkerman" />
     <property name="api.rootpackage" value="org.jlib.core" />
-    <property name="api.sourcepath" value="src" />
+    <property name="api.sourcedir" value="src" />
     <property name="api.libpath" value="" />
-    <property name="api.binpath" value="bin" />
-    <property name="api.jarfilename" value="${api.name}-${api.version}.jar" />
+    <property name="api.bindir" value="bin" />
+    <property name="api.examplesdir" value="examples" />
+    <property name="api.jarfile" value="${api.name}-${api.version}.jar" />
     <property name="api.apidocpath" value="doc" />
     <property name="api.apidocurl" value="http://jlib-api.sourceforge.net/jlib.core/javadoc/" />
 
     <!-- Java SE Source is added to the sourcepath to allow to inherit Java SE documentation -->
-    <!-- property name="javase.source" value="C:\JDK1.6\src" / -->
+    <!-- property name="javase.sourcepath" value="C:\JDK1.6\src" / -->
     <property name="javase.sourcepath" value="${java.home}\..\src" />
     <property name="javase.apidocurl" value="http://java.sun.com/javase/6/docs/api/" />
 
     <target name="clean">
         <delete includeemptydirs="true">
-            <fileset dir="${api.binpath}" includes="**/*" />
+            <fileset dir="${api.bindir}" includes="**/*" />
         </delete>
-        <delete file="${api.jarfilename}" />
+        <delete file="${api.jarfile}" />
         <delete dir="${api.apidocpath}" />
     </target>
     
     <target name="compile">
-        <javac srcdir="${api.sourcepath}"
-               destdir="${api.binpath}"
+        <javac srcdir="${api.sourcedir}"
+               destdir="${api.bindir}"
                classpath="${api.libpath}"
                debug="false"
         />
     </target>
 
     <target name="jar" depends="compile">
-        <jar destfile="${api.jarfilename}" basedir="${api.binpath}" />
+        <jar destfile="${api.jarfile}" basedir="${api.bindir}" />
     </target>
 
     <target name="javadoc">
@@ -78,7 +79,7 @@
                  windowtitle="${api.namelong}"
         >
             <package name="${api.rootpackage}.*" />
-            <sourcepath location="${api.sourcepath}" />
+            <sourcepath location="${api.sourcedir}" />
             <sourcepath location="${javase.sourcepath}" />
             <classpath path="${api.libpath}" />
 
@@ -108,5 +109,13 @@
                 ]]>
             </bottom>
         </javadoc>
+    </target>
+
+    <target name="compile-examples" depends="compile">
+        <javac srcdir="${api.examplesdir}"
+               destdir="${api.examplesdir}"
+               classpath="${api.bindir};${api.libpath}"
+               debug="false"
+        />
     </target>
 </project>
