@@ -27,7 +27,7 @@ import org.jlib.core.collections.list.EditableList;
  * Collection. This Collection is backed by the jlib Collection.
  * </p>
  * <p>
- * Having a Java Collection backing an immutable jlib Collections makes sense
+ * Having a Java Collection backing an immutable jlib Collection makes sense
  * for a Collection like an {@link EditableList}, where the contained Elements
  * may change even though no Element can be added to the List or removed from
  * it.
@@ -41,57 +41,57 @@ public class ImmutableCollection<Element>
 extends java.util.AbstractCollection<Element>
 implements Collection<Element>, java.util.Collection<Element> {
 
-    /** adapted jlib Collection */
-    private final Collection<Element> collection;
+    /** adapted and backed jlib Collection */
+    private final Collection<Element> backedCollection;
 
     /**
-     * Creates a new ImmutableCollection for the specified jlib Collection.
+     * Creates a new ImmutableCollection backing the specified jlib Collection.
      * 
-     * @param collection
+     * @param backedCollection
      *        jlib Collection to adapt
      */
-    public ImmutableCollection(Collection<Element> collection) {
+    public ImmutableCollection(Collection<Element> backedCollection) {
         super();
-        this.collection = collection;
+        this.backedCollection = backedCollection;
     }
 
     // @see java.util.AbstractCollection#iterator()
     @Override
     public Iterator<Element> iterator() {
-        return collection.iterator();
+        return backedCollection.iterator();
     }
 
     // @see java.util.AbstractCollection#size()
     @Override
     public int size() {
-        return collection.size();
+        return backedCollection.size();
     }
 
     // @see java.util.AbstractCollection#contains(java.lang.Object)
     public boolean contains(Object object) {
-        return collection.contains(object);
+        return backedCollection.contains(object);
     }
 
     // @see org.jlib.core.collections.Collection#containsAll(org.jlib.core.collections.Collection)
     @Override
     public boolean containsAll(Collection<?> otherCollection) {
-        return collection.containsAll(otherCollection);
+        return backedCollection.containsAll(otherCollection);
     }
 
     // @see org.jlib.core.collections.Collection#containsAll(java.lang.Object[])
     @Override
     public boolean containsAll(Object... objects) {
-        return collection.containsAll(objects);
+        return backedCollection.containsAll(objects);
     }
 
     // @see java.util.AbstractCollection#containsAll(java.util.Collection)
     public boolean containsAll(java.util.Collection<?> javaCollection) {
-        return collection.containsAll(javaCollection);
+        return backedCollection.containsAll(javaCollection);
     }
 
     // @see java.util.AbstractCollection#isEmpty()
     public boolean isEmpty() {
-        return collection.isEmpty();
+        return backedCollection.isEmpty();
     }
 
     // @see java.util.AbstractCollection#toArray()
@@ -102,12 +102,16 @@ implements Collection<Element>, java.util.Collection<Element> {
 
     // @see java.lang.Object#equals(java.lang.Object)
     public boolean equals(Object otherObject) {
-        return collection.equals(otherObject);
+        if (otherObject instanceof Collection)
+            return backedCollection.equals(otherObject);
+        if (otherObject instanceof java.util.Collection)
+            return super.equals(otherObject);
+        return false;
     }
 
     // @see org.jlib.core.collections.Collection#toJavaCollection()
     @Override
     public java.util.Collection<Element> toJavaCollection() {
-        return collection.toJavaCollection();
+        return backedCollection.toJavaCollection();
     }
 }
