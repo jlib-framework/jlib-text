@@ -108,8 +108,8 @@ implements Collection<Element> {
 
     /**
      * Returns whether this Collection is equal to the specified Object. The
-     * implementation in this class defines this as true if and only if all of
-     * the following conditions are satisfied:
+     * implementation in this class defines the Objects equal if all of the
+     * following conditions are satisfied:
      * <ul>
      * <li>the specified Object is not {@code null}</li>
      * <li>this Object and the specified Object are instances of the same class</li>
