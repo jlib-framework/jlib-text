@@ -27,10 +27,9 @@ import org.jlib.core.collections.list.EditableList;
  * Collection. This Collection is backed by the jlib Collection.
  * </p>
  * <p>
- * Having a Java Collection backing an immutable jlib Collection makes sense
- * for a Collection like an {@link EditableList}, where the contained Elements
- * may change even though no Element can be added to the List or removed from
- * it.
+ * Having a Java Collection backing an immutable jlib Collection makes sense for
+ * a Collection like an {@link EditableList}, where the contained Elements may
+ * change even though no Element can be added to the List or removed from it.
  * </p>
  * 
  * @param <Element>
@@ -100,13 +99,23 @@ implements Collection<Element>, java.util.Collection<Element> {
         return (Element[]) super.toArray();
     }
 
-    // @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * Returns whether the jlib Collection backed by this Collection is equal to
+     * the specified Object by its {@code equals} method.
+     * 
+     * @param otherObject
+     *        Object to which the backed jlib Collection is compared
+     * @return {@code true} if the backed jlib Collection is equal to
+     *         {@code otherObject}; {@code false} otherwise
+     */
     public boolean equals(Object otherObject) {
-        if (otherObject instanceof Collection)
-            return backedCollection.equals(otherObject);
-        if (otherObject instanceof java.util.Collection)
-            return super.equals(otherObject);
-        return false;
+        return backedCollection.equals(otherObject);
+    }
+
+    // @see java.lang.Object#hashCode()
+    @Override
+    public int hashCode() {
+        return backedCollection.hashCode();
     }
 
     // @see org.jlib.core.collections.Collection#toJavaCollection()
