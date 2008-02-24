@@ -36,7 +36,7 @@ import org.jlib.core.collections.list.EditableList;
  *        type of the elements held in the Collection
  * @author Igor Akkerman
  */
-public class ImmutableCollection<Element>
+public class ImmutableJavaCollection<Element>
 extends java.util.AbstractCollection<Element>
 implements Collection<Element>, java.util.Collection<Element> {
 
@@ -44,13 +44,19 @@ implements Collection<Element>, java.util.Collection<Element> {
     private final Collection<Element> backedCollection;
 
     /**
-     * Creates a new ImmutableCollection backing the specified jlib Collection.
+     * Creates a new ImmutableJavaCollection backing the specified jlib
+     * Collection.
      * 
      * @param backedCollection
      *        jlib Collection to adapt
+     * @throws NullPointerException
+     *         if {@code backedCollection == null}
      */
-    public ImmutableCollection(Collection<Element> backedCollection) {
+    public ImmutableJavaCollection(Collection<Element> backedCollection)
+    throws NullPointerException {
         super();
+        if (backedCollection == null)
+            throw new NullPointerException();
         this.backedCollection = backedCollection;
     }
 
@@ -100,8 +106,23 @@ implements Collection<Element>, java.util.Collection<Element> {
     }
 
     /**
-     * Returns whether the jlib Collection backed by this Collection is equal to
-     * the specified Object by its {@code equals} method.
+     * <p>
+     * Returns whether this Collection is equal to the specified Object. The
+     * specification of this method in this class does not extend the general
+     * contract for Object equality defined by the {@link Object#equals} method.
+     * </p>
+     * <p>
+     * However, the implementation in this class defines the Objects equal if
+     * all of the following conditions are satisfied:
+     * </p>
+     * <ul>
+     * <li>the specified Object is itself an ImmutableJavaCollection and the
+     * jlib Collections backed by this Collection and the specified Collection,
+     * respectively, are equal by their {@code equals} methods.</li>
+     * <li>the specified Object is not an ImmutableJavaCollection and the jlib
+     * Collection backed by this Collection is equal to the specified Object by
+     * its {@code equals} method</li>
+     * </ul>
      * 
      * @param otherObject
      *        Object to which the backed jlib Collection is compared
@@ -109,6 +130,9 @@ implements Collection<Element>, java.util.Collection<Element> {
      *         {@code otherObject}; {@code false} otherwise
      */
     public boolean equals(Object otherObject) {
+        if (otherObject instanceof ImmutableJavaCollection)
+            return backedCollection.equals(((ImmutableJavaCollection<?>) otherObject).backedCollection);
+
         return backedCollection.equals(otherObject);
     }
 
