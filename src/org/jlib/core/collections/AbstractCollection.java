@@ -38,7 +38,7 @@ implements Collection<Element> {
     protected AbstractCollection() {
         super();
     }
-    
+
     // @see org.jlib.core.collections.Collection#contains(java.lang.Object)
     @Override
     public boolean contains(Object object) {
@@ -106,16 +106,34 @@ implements Collection<Element> {
         return javaCollection;
     }
 
-    // @see java.lang.Object#equals(java.lang.Object)
+    /**
+     * Returns whether this Collection is equal to the specified Object. The
+     * implementation in this class defines this as true if and only if all of
+     * the following conditions are satisfied:
+     * <ul>
+     * <li>the specified Object is not {@code null}</li>
+     * <li>this Object and the specified Object are instances of the same class</li>
+     * <li>if the Iterators returned by the {@code iterator} methods of this
+     * Collection and the specified Collection (it is a Collection by the
+     * previous condition) return equal Elements in the same order; two Elements
+     * are said to be equal if they are both {@code null} or the comparison
+     * using the {@code equals} method returns {@code true}</li>
+     * </ul>
+     * 
+     * @param otherObject
+     *        Object to which this Collection is compared
+     * @return {@code true} if all of the conditions stated above are satisfied;
+     *         {@code false} otherwise
+     */
     @Override
     public boolean equals(Object otherObject) {
-        if (!getClass().equals(otherObject.getClass()) || otherObject.hashCode() != hashCode())
+        if (otherObject == null || !getClass().equals(otherObject.getClass()))
             return false;
         Collection<?> otherCollection = (Collection<?>) otherObject;
         Iterator<?> thisIterator = otherCollection.iterator();
         Iterator<?> otherIterator = otherCollection.iterator();
         boolean thisHasNext;
-        while (true) {
+        do {
             thisHasNext = thisIterator.hasNext();
             if (thisHasNext != otherIterator.hasNext())
                 return false;
@@ -124,6 +142,7 @@ implements Collection<Element> {
             if (!ObjectUtility.equalOrNull(thisIterator.next(), otherIterator.next()))
                 return false;
         }
+        while (true);
     }
 
     // @see java.lang.Object#hashCode()
