@@ -21,7 +21,7 @@
 
 package org.jlib.text;
 
-import org.jlib.iterator.NoItemToRemoveException;
+import org.jlib.iterable.NoItemToRemoveException;
 
 /**
  * Iterator over the {@link Character}s of a {@link StringBuilder}.
@@ -188,7 +188,7 @@ public class StringBuilderIterator
      */
     @Override
     public void remove() {
-        if (lastReturnedCharacter != null)
+        if (lastReturnedCharacter == null)
             throw new NoItemToRemoveException(stringBuilder);
 
         stringBuilder.deleteCharAt(nextCharacterIndex - 1);

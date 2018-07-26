@@ -21,10 +21,11 @@
 
 package org.jlib.text;
 
+import org.junit.jupiter.api.Test;
+
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.jlib.text.Text.removeOnce;
-import org.junit.Test;
 
 public class TextTest {
 
