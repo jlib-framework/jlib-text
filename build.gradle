@@ -29,5 +29,23 @@ plugins {
     id 'net.researchgate.release' version '2.6.0'
 }
 
+version = '1.0.0-SNAPSHOT'
+
+description = 'jlib text utilities'
+ext.detailedDescription = 'jlib utilities for operations on strings'
+
 apply from: 'jlib.gradle'
+
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.7'
+    implementation 'org.jlib:jlib-message:1.0.0-SNAPSHOT'
+    implementation 'org.jlib:jlib-numeric:1.0.0-SNAPSHOT'
+    implementation 'org.jlib:jlib-iterable:1.0.0-SNAPSHOT'
+    implementation 'org.jlib:jlib-exception:1.0.0-SNAPSHOT'
+}
+
 

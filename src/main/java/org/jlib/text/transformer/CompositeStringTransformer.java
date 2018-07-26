@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Collections.addAll;
-import org.jlib.basefunctions.ApplicationObject;
 
 /**
  * {@link StringTransformer} transforming Strings using a sequence of specified
@@ -34,7 +33,6 @@ import org.jlib.basefunctions.ApplicationObject;
  * @author Igor Akkerman
  */
 public class CompositeStringTransformer
-    extends ApplicationObject
     implements StringTransformer {
 
     /**

@@ -21,13 +21,15 @@
 
 package org.jlib.text.templateengine;
 
-import static lombok.AccessLevel.PRIVATE;
 import lombok.NoArgsConstructor;
+
+import static lombok.AccessLevel.PRIVATE;
 
 /**
  * {@link TemplateEngine} that always returns the plain template text ignoring the arguments.
  *
  * @param <Argument>
+ *        type of the potential argument
  */
 @NoArgsConstructor(access = PRIVATE)
 public final class IgnoreArgumentsTemplateEngine<Argument>

@@ -34,7 +34,6 @@ public class Text {
     public static final String[] NO_STRINGS = {};
     public static final Comparator<?> STRING_LENGTH_COMPARATOR = Comparator.comparingInt(compared -> compared.toString().length());
 
-    /** the system's line separator */
     public static StringBuilder clear(final StringBuilder stringBuilder) {
         stringBuilder.setLength(0);
 

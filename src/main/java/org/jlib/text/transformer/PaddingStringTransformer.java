@@ -21,11 +21,11 @@
 
 package org.jlib.text.transformer;
 
-import static lombok.AccessLevel.PROTECTED;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.jlib.basefunctions.ApplicationObject;
-import static org.jlib.shared.NumericUtility.isOdd;
+
+import static lombok.AccessLevel.PROTECTED;
+import static org.jlib.numeric.Numeric.isOdd;
 
 /**
  * Skeletal implementation of a {@link StringTransformer} padding a String.
@@ -34,7 +34,6 @@ import static org.jlib.shared.NumericUtility.isOdd;
  */
 @RequiredArgsConstructor(access = PROTECTED)
 public abstract class PaddingStringTransformer
-    extends ApplicationObject
     implements StringTransformer {
 
     /** length of the String to return by this PaddingStringTransformer */
