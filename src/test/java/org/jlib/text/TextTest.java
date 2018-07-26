@@ -23,44 +23,44 @@ package org.jlib.text;
 
 import org.junit.jupiter.api.Test;
 
-import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.jlib.text.Text.removeOnce;
+import static org.jlib.text.Text.EMPTY;
+import static org.jlib.text.Text.removeFirst;
 
 public class TextTest {
 
     @Test
     public void testRemoveOnceEmptyFromEmpty() {
-        assertThat(removeOnce(EMPTY, EMPTY)).isEmpty();
+        assertThat(removeFirst(EMPTY, EMPTY)).isEmpty();
     }
 
     @Test
     public void testRemoveOnceEmptyFromFull() {
-        assertThat(removeOnce("Blubber", EMPTY)).isEqualTo("Blubber");
+        assertThat(removeFirst("Blubber", EMPTY)).isEqualTo("Blubber");
     }
 
     @Test
     public void testRemoveOnceAll() {
-        assertThat(removeOnce("Blub", "Blub")).isEmpty();
+        assertThat(removeFirst("Blub", "Blub")).isEmpty();
     }
 
     @Test
     public void testRemoveOnceBeginning() {
-        assertThat(removeOnce("Blubber", "Blub")).isEqualTo("ber");
+        assertThat(removeFirst("Blubber", "Blub")).isEqualTo("ber");
     }
 
     @Test
     public void testRemoveOnceEnd() {
-        assertThat(removeOnce("Blubber", "ber")).isEqualTo("Blub");
+        assertThat(removeFirst("Blubber", "ber")).isEqualTo("Blub");
     }
 
     @Test
     public void testRemoveOnceBeginningFromDouble() {
-        assertThat(removeOnce("BlaBlubBla", "Bla")).isEqualTo("BlubBla");
+        assertThat(removeFirst("BlaBlubBla", "Bla")).isEqualTo("BlubBla");
     }
 
     @Test
     public void testRemoveOnceMiddleFromDouble() {
-        assertThat(removeOnce("BlaBlubBlub", "Blub")).isEqualTo("BlaBlub");
+        assertThat(removeFirst("BlaBlubBlub", "Blub")).isEqualTo("BlaBlub");
     }
 }
