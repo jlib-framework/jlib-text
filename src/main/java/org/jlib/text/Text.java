@@ -25,7 +25,6 @@ import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
-import static org.apache.commons.lang3.StringUtils.replaceOnce;
 import static org.jlib.message.Messages.message;
 
 public class Text {
@@ -40,8 +39,8 @@ public class Text {
         return stringBuilder;
     }
 
-    public static String removeOnce(final String containingString, final String removedString) {
-        return replaceOnce(containingString, removedString, EMPTY);
+    public static String removeFirst(final String containingString, final String removedString) {
+        return containingString.replaceFirst(removedString, EMPTY);
     }
 
     public static Iterable<Character> asIterable(final CharSequence characterSequence) {
