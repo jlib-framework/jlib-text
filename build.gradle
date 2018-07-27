@@ -29,8 +29,6 @@ plugins {
     id 'net.researchgate.release' version '2.6.0'
 }
 
-version = '1.0.0-SNAPSHOT'
-
 description = 'jlib text utilities'
 ext.detailedDescription = 'jlib utilities for operations on strings'
 
@@ -46,5 +44,6 @@ dependencies {
     implementation 'org.jlib:jlib-iterable:1.0.0-SNAPSHOT'
     implementation 'org.jlib:jlib-exception:1.0.0-SNAPSHOT'
 }
+
 
 
