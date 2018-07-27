@@ -9,10 +9,10 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="jlib-text_main" />
-    <orderEntry type="library" name="Gradle: org.jlib:jlib-message:1.0.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Gradle: org.jlib:jlib-numeric:1.0.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Gradle: org.jlib:jlib-iterable:1.0.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Gradle: org.jlib:jlib-exception:1.0.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Gradle: org.jlib:jlib-message:1.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jlib:jlib-numeric:1.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jlib:jlib-iterable:1.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jlib:jlib-exception:1.0.0" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.assertj:assertj-core:3.10.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.1.0" level="project" />
@@ -21,7 +21,7 @@
     <orderEntry type="library" name="Gradle: org.apiguardian:apiguardian-api:1.0.0" level="project" />
     <orderEntry type="library" name="Gradle: org.opentest4j:opentest4j:1.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.projectlombok:lombok:1.18.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jlib:jlib-value:1.0.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jlib:jlib-value:1.0.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.platform:junit-platform-engine:1.1.0" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="jlib-text_main" />
